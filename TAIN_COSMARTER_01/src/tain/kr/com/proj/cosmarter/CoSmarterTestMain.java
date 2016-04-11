@@ -19,6 +19,9 @@
  */
 package tain.kr.com.proj.cosmarter;
 
+import java.lang.reflect.Method;
+import java.util.ResourceBundle;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -42,13 +45,54 @@ public class CoSmarterTestMain {
 	private static final Logger log = Logger.getLogger(CoSmarterTestMain.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_COSMARTER_MAIN_CLASS = "tain.cosmarter.main.class";
+	
+	private String mainClassName = null;
+	
+	private CoSmarterTestMain() throws Exception {
+		
+		if (flag) {
+			String clsName = this.getClass().getName();
+			
+			ResourceBundle rb = ResourceBundle.getBundle(clsName.replace('.', '/'));
+			
+			this.mainClassName = rb.getString(KEY_COSMARTER_MAIN_CLASS);
+		}
+	}
+	
+	public void load() throws Exception {
+
+		if (flag) {
+			Class<?> cls = Class.forName(this.mainClassName);
+			Method method = cls.getDeclaredMethod("main", new Class[] { String[].class });
+			
+			String[] arg = { "One", "Two", "Three" };
+			method.invoke(cls.newInstance(), new Object[] { arg }); 
+			//String ret = (String) method.invoke(cls.newInstance(), new Object[] { arg }); 
+			//String ret = (String) method.invoke(cls.newInstance(), new Object[] { new String[] {"One", "Two", "Three"} });   // CORRECT
+		}
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static CoSmarterTestMain instance = null;
+	
+	public static synchronized CoSmarterTestMain getInstance() throws Exception {
+		
+		if (instance == null) {
+			instance = new CoSmarterTestMain();
+		}
+		
+		return instance;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			
+			CoSmarterTestMain.getInstance().load();
 		}
 	}
 	

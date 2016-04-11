@@ -19,6 +19,8 @@
  */
 package tain.kr.com.proj.cosmarter.v01.main;
 
+import java.util.ResourceBundle;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -42,13 +44,40 @@ public class CoSmarterMain {
 	private static final Logger log = Logger.getLogger(CoSmarterMain.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_COSMARTER_MAIN_DESC = "tain.cosmarter.main.desc";
+	
+	private String mainDesc = null;
+	
+	public CoSmarterMain() throws Exception {
+		
+		if (flag) {
+			String clsName = this.getClass().getName();
+			
+			ResourceBundle rb = ResourceBundle.getBundle(clsName.replace('.', '/'));
+			
+			this.mainDesc = rb.getString(KEY_COSMARTER_MAIN_DESC);
+		}
+	}
+	
+	public String getDesc() throws Exception {
+		
+		return this.mainDesc;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			
+			for (int i=0; i < args.length; i++) {
+				log.debug(String.format("[%d] '%s'", i, args[i]));
+			}
+		}
+		
+		if (flag) {
+			log.debug(">>>>> " + new CoSmarterMain().getDesc());
 		}
 	}
 	
