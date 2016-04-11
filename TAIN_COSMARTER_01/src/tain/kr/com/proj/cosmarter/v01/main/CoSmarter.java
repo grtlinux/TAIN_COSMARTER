@@ -37,11 +37,11 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class CoSmarterMain {
+public class CoSmarter {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(CoSmarterMain.class);
+	private static final Logger log = Logger.getLogger(CoSmarter.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
@@ -49,7 +49,7 @@ public class CoSmarterMain {
 	
 	private String mainDesc = null;
 	
-	public CoSmarterMain() throws Exception {
+	public CoSmarter() throws Exception {
 		
 		if (flag) {
 			String clsName = this.getClass().getName();
@@ -77,7 +77,7 @@ public class CoSmarterMain {
 		}
 		
 		if (flag) {
-			log.debug(">>>>> " + new CoSmarterMain().getDesc());
+			log.debug(">>>>> " + new CoSmarter().getDesc());
 		}
 	}
 	
