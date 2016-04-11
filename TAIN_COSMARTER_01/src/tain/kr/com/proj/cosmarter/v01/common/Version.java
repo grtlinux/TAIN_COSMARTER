@@ -19,6 +19,8 @@
  */
 package tain.kr.com.proj.cosmarter.v01.common;
 
+import java.util.ResourceBundle;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -42,7 +44,69 @@ public class Version {
 	private static final Logger log = Logger.getLogger(Version.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
 
+	private static final String KEY_VERSION_INFO = "tain.cosmarter.version.info";
+	private static final String KEY_VERSION_DESC = "tain.cosmarter.version.desc";
+	
+	private String strVersionInfo = null;
+	private String strVersionDesc = null;
+	
+	private Version() throws Exception {
+		
+		if (flag) {
+			String clsName = this.getClass().getName();
+			
+			ResourceBundle rb = ResourceBundle.getBundle(clsName.replace('.', '/'));
+			
+			this.strVersionInfo = rb.getString(KEY_VERSION_INFO);
+			this.strVersionDesc = rb.getString(KEY_VERSION_DESC);
+		}
+	}
+	
+	public String getInfo() throws Exception {
+		return this.strVersionInfo;
+	}
+	
+	public String getDesc() throws Exception {
+		return this.strVersionDesc;
+	}
+	
+	public void print() throws Exception {
+		System.out.println("INFO > " + this.getInfo());
+		System.out.println("DESC > " + this.getDesc());
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static Version instance = null;
+	
+	public static synchronized Version getInstance() throws Exception {
+		
+		if (instance == null) {
+			instance = new Version();
+		}
+		
+		return instance;
+	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static void test01(String[] args) throws Exception {
+		
+		if (flag) {
+			Version.getInstance().print();
+			
+			log.debug(">>>>> " + Version.getInstance().getInfo());
+			log.debug(">>>>> " + Version.getInstance().getDesc());
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
+		
+		if (flag) test01(args);
+	}
 }
