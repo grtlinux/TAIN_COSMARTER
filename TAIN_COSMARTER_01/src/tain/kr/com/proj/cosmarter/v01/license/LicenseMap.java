@@ -17,7 +17,10 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.proj.cosmarter;
+package tain.kr.com.proj.cosmarter.v01.license;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -25,30 +28,81 @@ import org.apache.log4j.Logger;
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : CoSmarterTestMain.java
- *   -. Package    : tain.kr.com.proj.cosmarter
+ *   -. FileName   : LicenseMap.java
+ *   -. Package    : tain.kr.com.proj.pos51.v02.license
  *   -. Comment    :
  *   -. Author     : taincokr
- *   -. First Date : 2016. 4. 11. {time}
+ *   -. First Date : 2016. 3. 22. {time}
  * </PRE>
  *
  * @author taincokr
  *
  */
-public class CoSmarterTestMain {
+public class LicenseMap {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(CoSmarterTestMain.class);
+	private static final Logger log = Logger.getLogger(LicenseMap.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private Map<String, String> map = null;
+	
+	private LicenseMap() throws Exception {
+		
+		if (flag) {
+			this.map = new HashMap<String, String>();
+			
+			for (LicenseType type : LicenseType.values()) {
+				this.map.put(type.getKey(), type.getVal());
+			}
+		}
+	}
+	
+	public void print() throws Exception {
+		
+		if (flag) {
+			for (Map.Entry<String, String> entry : map.entrySet()) {
+				log.debug(String.format("[%s] => [%s]", entry.getKey(), entry.getValue()));
+			}
+		}
+	}
+	
+	public String get(String key) throws Exception {
+		
+		String val = null;
+		
+		if (flag) {
+			val = this.map.get(key);
+		}
+		
+		return val;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static LicenseMap instance = null;
+	
+	public static synchronized LicenseMap getInstance() throws Exception {
+		
+		if (instance == null) {
+			instance = new LicenseMap();
+			if (!flag) instance.print();
+		}
+		
+		return instance;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			
+			LicenseMap.getInstance().print();
+		}
+		
+		if (flag) {
+			log.debug(">>>>> " + LicenseMap.getInstance().get(("K")));
 		}
 	}
 	

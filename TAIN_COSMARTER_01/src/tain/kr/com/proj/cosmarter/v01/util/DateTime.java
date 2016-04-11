@@ -17,7 +17,11 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.proj.cosmarter;
+package tain.kr.com.proj.cosmarter.v01.util;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import org.apache.log4j.Logger;
 
@@ -25,22 +29,63 @@ import org.apache.log4j.Logger;
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : CoSmarterTestMain.java
- *   -. Package    : tain.kr.com.proj.cosmarter
+ *   -. FileName   : DateTime.java
+ *   -. Package    : tain.kr.com.proj.pos51.v02.util
  *   -. Comment    :
  *   -. Author     : taincokr
- *   -. First Date : 2016. 4. 11. {time}
+ *   -. First Date : 2016. 3. 22. {time}
  * </PRE>
  *
  * @author taincokr
  *
  */
-public class CoSmarterTestMain {
+public class DateTime {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(CoSmarterTestMain.class);
+	private static final Logger log = Logger.getLogger(DateTime.class);
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private DateTime() throws Exception {
+		if (flag) {
+			
+		}
+	}
+	
+	public String getYYYYMMDD() throws Exception {
+		String ret = null;
+		
+		if (flag) {
+			ret = new SimpleDateFormat("yyyyMMdd", Locale.KOREA).format(new Date());
+		}
+		
+		return ret;
+	}
+	
+	public String getYYYYMMDDHHMMSS() throws Exception {
+		String ret = null;
+		
+		if (flag) {
+			ret = new SimpleDateFormat("yyyyMMddHHmmss", Locale.KOREA).format(new Date());
+		}
+		
+		return ret;
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static DateTime instance = null;
+	
+	public static synchronized DateTime getInstance() throws Exception {
+		
+		if (instance == null) {
+			instance = new DateTime();
+		}
+		
+		return instance;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -48,7 +93,8 @@ public class CoSmarterTestMain {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			
+			log.debug("[" + DateTime.getInstance().getYYYYMMDD() + "]");
+			log.debug("[" + DateTime.getInstance().getYYYYMMDDHHMMSS() + "]");
 		}
 	}
 	

@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.proj.cosmarter;
+package tain.kr.com.proj.cosmarter.v01.main;
 
 import org.apache.log4j.Logger;
 
@@ -25,8 +25,8 @@ import org.apache.log4j.Logger;
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : CoSmarterTestMain.java
- *   -. Package    : tain.kr.com.proj.cosmarter
+ *   -. FileName   : CoSmarterMain.java
+ *   -. Package    : tain.kr.com.proj.cosmarter.v01.main
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 11. {time}
@@ -35,27 +35,14 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class CoSmarterTestMain {
+public class CoSmarterMain {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(CoSmarterTestMain.class);
+	private static final Logger log = Logger.getLogger(CoSmarterMain.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	private static void test01(String[] args) throws Exception {
-		
-		if (flag) {
-			
-		}
-	}
-	
-	public static void main(String[] args) throws Exception {
-		
-		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
-		
-		if (flag) test01(args);
-	}
 }
