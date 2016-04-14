@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.proj.cosmarter.v01.common;
+package tain.kr.com.proj.cosmarter.v01.common.version;
 
 import java.util.ResourceBundle;
 

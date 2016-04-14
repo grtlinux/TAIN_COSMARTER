@@ -17,18 +17,16 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.proj.cosmarter.v01.tools;
+package tain.kr.com.proj.cosmarter.v01.common;
 
 import org.apache.log4j.Logger;
-
-import tain.kr.com.proj.cosmarter.v01.common.version.Version;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : VersionMain.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.tools
+ *   -. FileName   : Information.java
+ *   -. Package    : tain.kr.com.proj.cosmarter.v01.common
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 14. {time}
@@ -37,32 +35,15 @@ import tain.kr.com.proj.cosmarter.v01.common.version.Version;
  * @author taincokr
  *
  */
-public class VersionMain {
+@SuppressWarnings("unused")
+public class Information {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(VersionMain.class);
+	private static final Logger log = Logger.getLogger(Information.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	
-	private static void test01(String[] args) throws Exception {
-		
-		if (flag) {
-			Version.getInstance().print();
-			
-			if (!flag) {
-				log.debug(">>>>> " + Version.getInstance().getInfo());
-				log.debug(">>>>> " + Version.getInstance().getDesc());
-			}
-		}
-	}
-	
-	public static void main(String[] args) throws Exception {
-		
-		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
-		
-		if (flag) test01(args);
-	}
+
 }

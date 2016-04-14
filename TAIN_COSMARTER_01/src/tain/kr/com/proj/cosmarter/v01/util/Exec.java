@@ -40,7 +40,6 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-@SuppressWarnings("unused")
 public class Exec {
 
 	private static boolean flag = true;
@@ -61,7 +60,34 @@ public class Exec {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/**
+	 * 
+	 * Code Templates > Comments > Constructors
+	 *
+	 * <PRE>
+	 *   -. ClassName  : Exec
+	 *   -. MethodName : Exec
+	 *   -. Comment    :
+	 *   -. Author     : taincokr
+	 *   -. First Date : 2016. 4. 14. {time}
+	 * </PRE>
+	 *
+	 */
+	private Exec() {
+		// nothing to do
+		if (flag) {
+			
+		}
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	/**
 	 * Run the command given as a String, print its output to "out", close whether osClose
+	 * 
+	 *    Process.getInputStream();
+	 *    Process.getOutputStream();
+	 *    Process.getErrorStream();
 	 * 
 	 * @param cmd
 	 * @param out
@@ -125,6 +151,10 @@ public class Exec {
 	/**
 	 * Run the command given as a String[], print its output to "out", close whether osClose
 	 * 
+	 *    Process.getInputStream();
+	 *    Process.getOutputStream();
+	 *    Process.getErrorStream();
+	 * 
 	 * @param cmd
 	 * @param out
 	 * @param osClose
@@ -180,4 +210,64 @@ public class Exec {
 	public static int run(String[] cmd) throws IOException {
 		return run(cmd, new OutputStreamWriter(System.out), true);
 	}
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/*
+	 * Windows
+	 */
+	private static void test01(String[] args) throws Exception {
+		
+		if (!CheckSystem.getInstance().isWindows()) {
+			log.debug(">>>>> This is not windows system.");
+			return;
+		}
+
+		if (flag) {
+			// String
+			String cmd = "cmd /c dir";
+			
+			log.debug(">>>>> String");
+			
+			log.debug(">>>>> ret = " + Exec.run(cmd, false));
+		}
+
+		if (flag) {
+			// String[]
+			String[] cmd = { "cmd", "/c", "dir" };
+			
+			log.debug(">>>>> String[]");
+			
+			log.debug(">>>>> ret = " + Exec.run(cmd, false));
+		}
+	}
+	
+	/*
+	 * Linux
+	 */
+	private static void test02(String[] args) throws Exception {
+		
+		if (!CheckSystem.getInstance().isLinux()) {
+			log.debug(">>>>> This is not linux system.");
+			return;
+		}
+
+		if (flag) {
+			// String
+			Exec.run("/bin/ksh -x /home/kang/abc.sh");
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
+		
+		if (flag) test01(args);
+		if (flag) test02(args);
+	}
 }
+
+
+

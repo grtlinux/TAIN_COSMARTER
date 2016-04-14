@@ -17,18 +17,19 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.proj.cosmarter.v01.tools;
+package tain.kr.com.proj.cosmarter.v01.test;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.common.version.Version;
+import tain.kr.com.proj.cosmarter.v01.util.CheckSystem;
+import tain.kr.com.proj.cosmarter.v01.util.Exec;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : VersionMain.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.tools
+ *   -. FileName   : ExecTestMain.java
+ *   -. Package    : tain.kr.com.proj.cosmarter.v01.test
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 14. {time}
@@ -37,25 +38,58 @@ import tain.kr.com.proj.cosmarter.v01.common.version.Version;
  * @author taincokr
  *
  */
-public class VersionMain {
+public class ExecTestMain {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(VersionMain.class);
+	private static final Logger log = Logger.getLogger(ExecTestMain.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
+	/*
+	 * Windows
+	 */
 	private static void test01(String[] args) throws Exception {
 		
+		if (!CheckSystem.getInstance().isWindows()) {
+			log.debug(">>>>> This is not windows system.");
+			return;
+		}
+
 		if (flag) {
-			Version.getInstance().print();
+			// String
+			String cmd = "cmd /c dir";
 			
-			if (!flag) {
-				log.debug(">>>>> " + Version.getInstance().getInfo());
-				log.debug(">>>>> " + Version.getInstance().getDesc());
-			}
+			log.debug(">>>>> String");
+			
+			log.debug(">>>>> ret = " + Exec.run(cmd, false));
+		}
+
+		if (flag) {
+			// String[]
+			String[] cmd = { "cmd", "/c", "dir" };
+			
+			log.debug(">>>>> String[]");
+			
+			log.debug(">>>>> ret = " + Exec.run(cmd, false));
+		}
+	}
+	
+	/*
+	 * Linux
+	 */
+	private static void test02(String[] args) throws Exception {
+		
+		if (!CheckSystem.getInstance().isLinux()) {
+			log.debug(">>>>> This is not linux system.");
+			return;
+		}
+
+		if (flag) {
+			// String
+			Exec.run("/bin/ksh -x /home/kang/abc.sh");
 		}
 	}
 	
@@ -64,5 +98,9 @@ public class VersionMain {
 		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
 		
 		if (flag) test01(args);
+		if (flag) test02(args);
 	}
 }
+
+
+

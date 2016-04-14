@@ -21,7 +21,7 @@ package tain.kr.com.proj.cosmarter.v01.test;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.common.Version;
+import tain.kr.com.proj.cosmarter.v01.common.version.Version;
 
 /**
  * Code Templates > Comments > Types

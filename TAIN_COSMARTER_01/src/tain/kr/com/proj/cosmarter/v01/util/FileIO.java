@@ -73,12 +73,12 @@ public class FileIO {
 	/*
 	 * String for encoding UTF-8; copied by inclusion from StringUtil
 	 */
-	public static String ENCODING = null;
+	public static String ENCODING = "UTF-8";
 	
 	/*
 	 *  The size of blocking to use
 	 */
-	protected static int BLKSIZ = -1;
+	protected static int BLKSIZ = 16384;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -141,10 +141,10 @@ public class FileIO {
 	 * 
 	 * @param is
 	 * @param os
-	 * @param close
+	 * @param osClose
 	 * @throws IOException
 	 */
-	public static void copyFile(InputStream is, OutputStream os, boolean close) throws IOException {
+	public static void copyFile(InputStream is, OutputStream os, boolean osClose) throws IOException {
 		byte[] b = new byte[BLKSIZ];
 		int n;
 		while ((n = is.read(b)) != -1) {
@@ -155,7 +155,7 @@ public class FileIO {
 		
 		os.flush();
 		
-		if (close)
+		if (osClose)
 			os.close();
 	}
 	
@@ -164,10 +164,10 @@ public class FileIO {
 	 * 
 	 * @param is
 	 * @param os
-	 * @param close
+	 * @param osClose
 	 * @throws IOException
 	 */
-	public static void copyFile(Reader is, Writer os, boolean close) throws IOException {
+	public static void copyFile(Reader is, Writer os, boolean osClose) throws IOException {
 		int b;    // the byte read from the file
 		
 		while ((b = is.read()) != -1) {
@@ -178,7 +178,7 @@ public class FileIO {
 
 		os.flush();
 		
-		if (close)
+		if (osClose)
 			os.close();
 	}
 	
@@ -187,13 +187,13 @@ public class FileIO {
 	 * 
 	 * @param inName
 	 * @param pw
-	 * @param close
+	 * @param pwClose
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static void copyFile(String inName, PrintWriter pw, boolean close) throws FileNotFoundException, IOException {
+	public static void copyFile(String inName, PrintWriter pw, boolean pwClose) throws FileNotFoundException, IOException {
 		BufferedReader ir = new BufferedReader(new FileReader(inName));
-		copyFile(ir, pw, close);
+		copyFile(ir, pw, pwClose);
 	}
 	
 	/**
@@ -204,6 +204,7 @@ public class FileIO {
 	 * @throws IOException
 	 */
 	public static void copyFile(File file, File target) throws IOException {
+		
 		if (!file.exists() || !file.isFile() || !(file.canRead())) {
 			throw new IOException(file + " is not a readable file..");
 		}
