@@ -58,6 +58,8 @@ public class License {
 	private String expDays = null;
 	private String expDate = null;
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	private License() throws Exception {
 		
 		if (flag) {

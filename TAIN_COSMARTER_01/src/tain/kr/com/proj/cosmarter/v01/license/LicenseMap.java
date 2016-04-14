@@ -48,6 +48,8 @@ public class LicenseMap {
 	
 	private Map<String, String> map = null;
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	private LicenseMap() throws Exception {
 		
 		if (flag) {

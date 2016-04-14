@@ -58,6 +58,8 @@ public enum LicenseType {
 	private String key;
 	private String val;
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	LicenseType(String key, String val) {
 		this.key = key;
 		this.val = val;

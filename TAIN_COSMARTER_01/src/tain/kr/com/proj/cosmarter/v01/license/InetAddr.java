@@ -55,6 +55,8 @@ public class InetAddr {
 	
 	//private String info = null;
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	private InetAddr() {
 		if (!flag) log.debug(">>>>> " + this.getClass().getName());
 		
