@@ -49,6 +49,8 @@ public class CoSmarter {
 	
 	private String mainDesc = null;
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	public CoSmarter() throws Exception {
 		
 		if (flag) {

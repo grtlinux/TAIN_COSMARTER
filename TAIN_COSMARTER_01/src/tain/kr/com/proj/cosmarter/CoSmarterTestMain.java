@@ -50,6 +50,8 @@ public class CoSmarterTestMain {
 	
 	private String mainClassName = null;
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	private CoSmarterTestMain() throws Exception {
 		
 		if (flag) {

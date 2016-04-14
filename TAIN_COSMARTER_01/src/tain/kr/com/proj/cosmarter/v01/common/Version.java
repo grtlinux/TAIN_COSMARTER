@@ -51,6 +51,8 @@ public class Version {
 	private String strVersionInfo = null;
 	private String strVersionDesc = null;
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 	private Version() throws Exception {
 		
 		if (flag) {
