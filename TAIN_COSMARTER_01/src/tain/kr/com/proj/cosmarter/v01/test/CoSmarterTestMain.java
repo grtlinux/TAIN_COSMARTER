@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.com.proj.cosmarter;
+package tain.kr.com.proj.cosmarter.v01.test;
 
 import java.lang.reflect.Method;
 import java.util.ResourceBundle;
@@ -71,6 +71,8 @@ public class CoSmarterTestMain {
 			
 			String[] arg = { "One", "Two", "Three" };
 			method.invoke(cls.newInstance(), new Object[] { arg }); 
+			
+			
 			//String ret = (String) method.invoke(cls.newInstance(), new Object[] { arg }); 
 			//String ret = (String) method.invoke(cls.newInstance(), new Object[] { new String[] {"One", "Two", "Three"} });   // CORRECT
 		}
