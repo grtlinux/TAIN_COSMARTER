@@ -21,11 +21,14 @@ package tain.kr.com.proj.cosmarter.v01.main.server;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
+
+import tain.kr.com.proj.cosmarter.v01.util.Exec;
 
 /**
  * Code Templates > Comments > Types
@@ -86,11 +89,13 @@ public class CoSmarterThread extends Thread {
 			String line = null;
 			
 			try {
-				br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 				
 				line = br.readLine();
 				if (flag) log.debug(">>>>> line is [" + line + "]");
 				
+				log.debug(">>>>> ret = " + Exec.run(line, new OutputStreamWriter(this.socket.getOutputStream()), true));
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -109,12 +114,15 @@ public class CoSmarterThread extends Thread {
 			ServerSocket serverSocket = new ServerSocket(nListenPort);
 			if (flag) log.debug(String.format("SERVER : listening by port %d [%s]", nListenPort, serverSocket.toString()));
 			
-			Socket socket = serverSocket.accept();
-			if (flag) log.debug(String.format("SERVER : accept the connection [%s]", socket));
+			for (int idxThr=0; idxThr < 2; idxThr ++) {
 				
-			Thread thr = new CoSmarterThread(123, socket);
-			thr.start();
-			if (flag) thr.join();  // waiting for finish of thread
+				Socket socket = serverSocket.accept();
+				if (flag) log.debug(String.format("SERVER : accept the connection [%s]", socket));
+					
+				Thread thr = new CoSmarterThread(123, socket);
+				thr.start();
+				if (flag) thr.join();  // waiting for finish of thread
+			}
 			
 			serverSocket.close();
 		}
