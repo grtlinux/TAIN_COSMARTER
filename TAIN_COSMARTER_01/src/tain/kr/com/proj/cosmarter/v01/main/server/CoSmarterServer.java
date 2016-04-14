@@ -19,6 +19,8 @@
  */
 package tain.kr.com.proj.cosmarter.v01.main.server;
 
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
@@ -45,10 +47,11 @@ public class CoSmarterServer {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static final String KEY_SERVER_DESC = "";
+	private static final String KEY_SERVER_DESC = "tain.cosmarter.server.desc";
+	private static final String KEY_SERVER_LISTEN_PORT = "tain.cosmarter.server.listen.port";
 	
 	private String strServerDesc = null;
-	
+	private int nListenPort = -1;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -60,7 +63,37 @@ public class CoSmarterServer {
 			ResourceBundle rb = ResourceBundle.getBundle(clsName.replace('.', '/'));
 			
 			this.strServerDesc = rb.getString(KEY_SERVER_DESC);
+			this.nListenPort = Integer.parseInt(rb.getString(KEY_SERVER_LISTEN_PORT));
+		}
+		
+		if (flag) {
+			log.info(">>>>> DESC : " + this.strServerDesc);
+			log.info(">>>>> LISTEN PORT : " + this.nListenPort);
+		}
+	}
+	
+	public void execute() throws Exception {
+		
+		if (flag) {
+			/*
+			 * 1st socket program
+			 */
+			@SuppressWarnings("resource")
+			ServerSocket serverSocket = new ServerSocket(this.nListenPort);
+			if (flag) log.debug(String.format("SERVER : listening by port %d [%s]", nListenPort, serverSocket.toString()));
 			
+			for (int idxThr = 0; ; idxThr ++) {
+				if (idxThr > 100000000)
+					idxThr = 0;
+				
+				Socket socket = serverSocket.accept();
+				if (flag) log.debug(String.format("SERVER : accept the connection(%d)", idxThr));
+				
+				Thread thr = new CoSmarterThread(idxThr, socket);
+				thr.start();
+				
+				if (flag) thr.join();  // waiting for finish of thread
+			}
 		}
 	}
 	
@@ -83,7 +116,7 @@ public class CoSmarterServer {
 		
 		if (flag) {
 			
-			
+			CoSmarterServer.getInstance().execute();
 		}
 	}
 	

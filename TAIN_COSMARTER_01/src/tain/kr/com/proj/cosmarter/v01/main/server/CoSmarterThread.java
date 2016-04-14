@@ -19,6 +19,12 @@
  */
 package tain.kr.com.proj.cosmarter.v01.main.server;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ResourceBundle;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -35,14 +41,89 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class CoSmarterThread {
+public class CoSmarterThread extends Thread {
 
 	private static boolean flag = true;
 
 	private static final Logger log = Logger.getLogger(CoSmarterThread.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private int idxThr = -1;
+	private Socket socket = null;
+	
+	private static final String KEY_THREAD_DESC = "tain.cosmarter.thread.desc";
+	
+	private String strThreadDesc = null;
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public CoSmarterThread(int idxThr, Socket socket) throws Exception {
+		
+		if (flag) {
+			this.idxThr = idxThr;
+			this.socket = socket;
+		}
+
+		if (flag) {
+			String clsName = this.getClass().getName();
+			
+			ResourceBundle rb = ResourceBundle.getBundle(clsName.replace('.', '/'));
+			
+			this.strThreadDesc = rb.getString(KEY_THREAD_DESC);
+		}
+		
+		if (flag) {
+			log.info(">>>>> idxThr : " + this.idxThr);
+			log.info(">>>>> DESC : " + this.strThreadDesc);
+		}
+	}
+	
+	public void run() {
+		
+		if (flag) {
+			BufferedReader br = null;
+			String line = null;
+			
+			try {
+				br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				
+				line = br.readLine();
+				if (flag) log.debug(">>>>> line is [" + line + "]");
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (br != null) try { br.close(); } catch (Exception e) {}
+				if (socket != null) try { socket.close(); } catch (Exception e) {}
+			}
+		}
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
+	private static void test01(String[] args) throws Exception {
+		
+		if (flag) {
+			int nListenPort = 7412;
+			ServerSocket serverSocket = new ServerSocket(nListenPort);
+			if (flag) log.debug(String.format("SERVER : listening by port %d [%s]", nListenPort, serverSocket.toString()));
+			
+			Socket socket = serverSocket.accept();
+			if (flag) log.debug(String.format("SERVER : accept the connection [%s]", socket));
+				
+			Thread thr = new CoSmarterThread(123, socket);
+			thr.start();
+			if (flag) thr.join();  // waiting for finish of thread
+			
+			serverSocket.close();
+		}
+	}
+	
+	public static void main(String[] args) throws Exception {
+		
+		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
+		
+		if (flag) test01(args);
+	}
 }
