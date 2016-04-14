@@ -54,6 +54,8 @@ public class CoSmarterThread extends Thread {
 	
 	private int idxThr = -1;
 	private Socket socket = null;
+
+	private static final int CNT_LOOP = 10000000;
 	
 	private static final String KEY_THREAD_DESC = "tain.cosmarter.thread.desc";
 	
@@ -96,8 +98,10 @@ public class CoSmarterThread extends Thread {
 				
 				log.debug(">>>>> ret = " + Exec.run(line, new OutputStreamWriter(this.socket.getOutputStream()), true));
 
-			} catch (Exception e) {
-				e.printStackTrace();
+			//} catch (InterruptedException e1) {
+			//	e1.printStackTrace();
+			} catch (Exception e2) {
+				e2.printStackTrace();
 			} finally {
 				if (br != null) try { br.close(); } catch (Exception e) {}
 				if (socket != null) try { socket.close(); } catch (Exception e) {}
@@ -105,6 +109,8 @@ public class CoSmarterThread extends Thread {
 		}
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	private static void test01(String[] args) throws Exception {
@@ -114,12 +120,14 @@ public class CoSmarterThread extends Thread {
 			ServerSocket serverSocket = new ServerSocket(nListenPort);
 			if (flag) log.debug(String.format("SERVER : listening by port %d [%s]", nListenPort, serverSocket.toString()));
 			
-			for (int idxThr=0; idxThr < 2; idxThr ++) {
+			for (int idxThr=0; idxThr <= CNT_LOOP; idxThr ++) {
+				if (idxThr > CNT_LOOP)
+					idxThr = 0;
 				
 				Socket socket = serverSocket.accept();
 				if (flag) log.debug(String.format("SERVER : accept the connection [%s]", socket));
 					
-				Thread thr = new CoSmarterThread(123, socket);
+				Thread thr = new CoSmarterThread(idxThr, socket);
 				thr.start();
 				if (flag) thr.join();  // waiting for finish of thread
 			}
