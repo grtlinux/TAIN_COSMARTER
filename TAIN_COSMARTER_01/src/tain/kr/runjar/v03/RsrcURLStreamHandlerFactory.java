@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.runjar.v02;
+package tain.kr.runjar.v03;
 
 import java.net.URLStreamHandler;
 import java.net.URLStreamHandlerFactory;
@@ -27,11 +27,10 @@ import java.net.URLStreamHandlerFactory;
  *
  * <PRE>
  *   -. FileName   : RsrcURLStreamHandlerFactory.java
- *   -. Package    : tain.kr.com.test.runJar.v01
+ *   -. Package    : tain.kr.com.test.runJar.v02
  *   -. Comment    :
- *                   This class will be compiled into the binary jar-in-jar-loader.zip. This ZIP is used for the "Runnable JAR File Exporter"
  *   -. Author     : taincokr
- *   -. First Date : 2016. 3. 28. {time}
+ *   -. First Date : 2016. 4. 15. {time}
  * </PRE>
  *
  * @author taincokr
@@ -39,31 +38,36 @@ import java.net.URLStreamHandlerFactory;
  */
 public class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactory {
 
-	private ClassLoader classLoader;
-	private URLStreamHandlerFactory chainFac;
-	
-	public RsrcURLStreamHandlerFactory(ClassLoader cl) {
-		this.classLoader = cl;
-	}
+	private static boolean flag = true;
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private ClassLoader classLoader = null;
+	private URLStreamHandlerFactory factory = null;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public RsrcURLStreamHandlerFactory(ClassLoader classLoader) {
+		this.classLoader = classLoader;
+	}
+	
 	public URLStreamHandler createURLStreamHandler(String protocol) {
-		if (JIJConstants.INTERNAL_URL_PROTOCOL.equals(protocol)) 
+		
+		if (!flag) System.out.println("PROTOCOL : " + protocol);
+		
+		if (JIJConstants.INTERNAL_URL_PROTOCOL.equals(protocol))
 			return new RsrcURLStreamHandler(classLoader);
-		if (chainFac != null)
-			return chainFac.createURLStreamHandler(protocol);
+		
+		if (factory != null)
+			return factory.createURLStreamHandler(protocol);
+		
 		return null;
 	}
 	
-	/**
-	 * Allow one other URLStreamHandler to be added.
-	 * URL.setURLStreamHandlerFactory does not allow
-	 * multiple factories to be added.
-	 * The chained factory is called for all other protocols,
-	 * except "rsrc". Use null to clear previously set Handler. 
-	 * @param fac another factory to be chained with ours.
-	 */
-	public void setURLStreamHandlerFactory(URLStreamHandlerFactory fac) {
-		chainFac = fac;
+	public void setURLStreamHandlerFactory(URLStreamHandlerFactory factory) {
+		this.factory = factory;
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 }

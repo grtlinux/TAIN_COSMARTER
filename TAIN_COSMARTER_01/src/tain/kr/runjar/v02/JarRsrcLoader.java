@@ -19,14 +19,15 @@
  */
 package tain.kr.runjar.v02;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
-import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
@@ -36,278 +37,92 @@ import java.util.jar.Manifest;
  *
  * <PRE>
  *   -. FileName   : JarRsrcLoader.java
- *   -. Package    : tain.kr.com.test.runJar.v02
+ *   -. Package    : tain.kr.com.test.runJar.v01
  *   -. Comment    :
+ *                   This class will be compiled into the binary jar-in-jar-loader.zip. This ZIP is used for the "Runnable JAR File Exporter"
  *   -. Author     : taincokr
- *   -. First Date : 2016. 4. 15. {time}
+ *   -. First Date : 2016. 3. 28. {time}
  * </PRE>
  *
  * @author taincokr
  *
  */
 public class JarRsrcLoader {
-
-	private static boolean flag = true;
-
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	
+	 
 	private static class ManifestInfo {
 		String rsrcMainClass;
 		String[] rsrcClassPath;
 	}
 	
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	
-	private static String[] splitSpaces(String line) throws Exception {
-		
-		if (line == null)
-			return null;
-		
-		if (!flag) System.out.println("line = [" + line + "]");
-		
-		if (!flag) {
-			List<String> result = new ArrayList<String>();
-			
-			int firstPos = 0;
-			while (firstPos < line.length()) {
-				int lastPos = line.indexOf(' ', firstPos);
-				if (lastPos == -1) {
-					lastPos = line.length();
-				}
-				
-				if (lastPos > firstPos) {
-					result.add(line.substring(firstPos, lastPos));
-				}
-				
-				firstPos = lastPos + 1;
-			}
-			
-			return (String[]) result.toArray(new String[result.size()]);
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void main(String[] args) throws ClassNotFoundException, IllegalArgumentException, IllegalAccessException, InvocationTargetException, SecurityException, NoSuchMethodException, IOException {
+		ManifestInfo mi = getManifestInfo();
+		ClassLoader cl = Thread.currentThread().getContextClassLoader();
+		URL.setURLStreamHandlerFactory(new RsrcURLStreamHandlerFactory(cl));
+		URL[] rsrcUrls = new URL[mi.rsrcClassPath.length];
+		for (int i = 0; i < mi.rsrcClassPath.length; i++) {
+			String rsrcPath = mi.rsrcClassPath[i];
+			if (rsrcPath.endsWith(JIJConstants.PATH_SEPARATOR)) 
+				rsrcUrls[i] = new URL(JIJConstants.INTERNAL_URL_PROTOCOL_WITH_COLON + rsrcPath); 
+			else
+				rsrcUrls[i] = new URL(JIJConstants.JAR_INTERNAL_URL_PROTOCOL_WITH_COLON + rsrcPath + JIJConstants.JAR_INTERNAL_SEPARATOR);    
 		}
-		
-		if (flag) {
-			
-			List<String> result = new ArrayList<String>();
-			
-			String[] arr = line.split("\\s");
-			
-			for (String str : arr) {
-				if (!"".equals(str))
-					result.add(str);
-			}
-			
-			return (String[]) result.toArray(new String[result.size()]);
-		}
-		
-		return null;
+		ClassLoader jceClassLoader = new URLClassLoader(rsrcUrls, null);
+		Thread.currentThread().setContextClassLoader(jceClassLoader);
+		Class c = Class.forName(mi.rsrcMainClass, true, jceClassLoader);
+		Method main = c.getMethod(JIJConstants.MAIN_METHOD_NAME, new Class[]{args.getClass()}); 
+		main.invoke((Object)null, new Object[]{args});
 	}
-	
-	private static ManifestInfo getManifestInfo() throws Exception {
-		
-		Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
-		while (urls.hasMoreElements()) {
-			URL url = (URL) urls.nextElement();
-			
-			if (!flag) System.out.println(">>>>> " + url.toString());
-			
-			InputStream is = url.openStream();
-			if (is != null) {
-				Manifest manifest = new Manifest(is);
-				Attributes attributes = manifest.getMainAttributes();
-				
-				if (!flag) {
-					for (Map.Entry<Object, Object> entry : attributes.entrySet()) {
-						String key = String.valueOf(entry.getKey());
-						String val = String.valueOf(entry.getValue());
-						
-						if (flag) System.out.println("[" + key + "] = [" + val + "]");
-					}
-				}
 
-				// return value
-				ManifestInfo manifestInfo = new ManifestInfo();
-				
-				manifestInfo.rsrcMainClass = attributes.getValue(JIJConstants.REDIRECTED_MAIN_CLASS_MANIFEST_NAME);
-				
-				String rsrcClassPath = attributes.getValue(JIJConstants.REDIRECTED_CLASS_PATH_MANIFEST_NAME);
-				if (rsrcClassPath == null)
-					rsrcClassPath = JIJConstants.DEFAULT_REDIRECTED_CLASSPATH;
-				manifestInfo.rsrcClassPath = splitSpaces(rsrcClassPath);
-				
-				if ((manifestInfo.rsrcMainClass != null) && !manifestInfo.rsrcMainClass.trim().equals(""))
-					return manifestInfo;
-			}
-			
-			break;
-		}
-		
-		System.err.println("Missing attributes for JarRsrcLoader in Manifest (" + JIJConstants.REDIRECTED_MAIN_CLASS_MANIFEST_NAME + ", " + JIJConstants.REDIRECTED_CLASS_PATH_MANIFEST_NAME + ")");
-		
-		return null;
-	}
-	
-	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	private static void test01(String[] args) throws Exception {
-		
-		if (flag) {
-			Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
-			while (urls.hasMoreElements()) {
-				URL url = (URL) urls.nextElement();
-
-				if (flag) System.out.println(">>>>> ");
-				if (flag) System.out.println(">>>>> " + url.toString());
-				
+	private static ManifestInfo getManifestInfo() throws IOException {
+		Enumeration<URL> resEnum;
+		resEnum = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME); 
+		while (resEnum.hasMoreElements()) {
+			try {
+				URL url = (URL)resEnum.nextElement();
 				InputStream is = url.openStream();
 				if (is != null) {
+					ManifestInfo result = new ManifestInfo();
 					Manifest manifest = new Manifest(is);
-					Attributes attributes = manifest.getMainAttributes();
-					
-					if (flag) {
-						for (Map.Entry<Object, Object> entry : attributes.entrySet()) {
-							String key = String.valueOf(entry.getKey());
-							String val = String.valueOf(entry.getValue());
-							
-							if (flag) System.out.println("[" + key + "] = [" + val + "]");
-						}
-					}
+					Attributes mainAttribs = manifest.getMainAttributes();
+					result.rsrcMainClass = mainAttribs.getValue(JIJConstants.REDIRECTED_MAIN_CLASS_MANIFEST_NAME); 
+					String rsrcCP = mainAttribs.getValue(JIJConstants.REDIRECTED_CLASS_PATH_MANIFEST_NAME); 
+					if (rsrcCP == null)
+						rsrcCP = JIJConstants.DEFAULT_REDIRECTED_CLASSPATH; 
+					result.rsrcClassPath = splitSpaces(rsrcCP);
+					if ((result.rsrcMainClass != null) && !result.rsrcMainClass.trim().equals(""))    //$NON-NLS-1$
+							return result;
 				}
 			}
-			
-			if (flag) System.out.println(">>>>> ");
+			catch (Exception e) {
+				// Silently ignore wrong manifests on classpath?
+			}
 		}
+		System.err.println("Missing attributes for JarRsrcLoader in Manifest ("+JIJConstants.REDIRECTED_MAIN_CLASS_MANIFEST_NAME+", "+JIJConstants.REDIRECTED_CLASS_PATH_MANIFEST_NAME+")"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		return null;
 	}
-	
-	private static void test02(String[] args) throws Exception {
-		
-		if (!flag) args = new String[]{ "one", "two", "three", "four" };
-		
-		if (!flag) {
-			ManifestInfo manifestInfo = getManifestInfo();
-			if (manifestInfo != null) {
-				if (flag) System.out.println("rsrcMainClass >>> " + manifestInfo.rsrcMainClass);
-				
-				for (String classPath : manifestInfo.rsrcClassPath) {
-					if (flag) System.out.println("rsrcClassPath >>> " + classPath);
-				}
+
+	/**
+	 * JDK 1.3.1 does not support String.split(), so we have to do it manually. Skip all spaces
+	 * (tabs are not handled)
+	 * 
+	 * @param line the line to split
+	 * @return array of strings
+	 */
+	private static String[] splitSpaces(String line) {
+		if (line == null) 
+			return null;
+		List<String> result = new ArrayList<String>();
+		int firstPos = 0;
+		while (firstPos < line.length()) {
+			int lastPos = line.indexOf(' ', firstPos);
+			if (lastPos == -1)
+				lastPos = line.length();
+			if (lastPos > firstPos) {
+				result.add(line.substring(firstPos, lastPos));
 			}
+			firstPos = lastPos+1; 
 		}
-		
-		if (flag) {
-			
-			ManifestInfo manifestInfo = getManifestInfo();
-			
-			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-			URL.setURLStreamHandlerFactory(new RsrcURLStreamHandlerFactory(classLoader));
-			
-			URL[] rsrcUrls = new URL[manifestInfo.rsrcClassPath.length];
-			
-			for (int i=0; i < manifestInfo.rsrcClassPath.length; i++) {
-				
-				String rsrcPath = manifestInfo.rsrcClassPath[i];
-				
-				if (rsrcPath.endsWith(JIJConstants.PATH_SEPARATOR))
-					rsrcUrls[i] = new URL(JIJConstants.INTERNAL_URL_PROTOCOL_WITH_COLON + rsrcPath);
-				else
-					rsrcUrls[i] = new URL(JIJConstants.JAR_INTERNAL_URL_PROTOCOL_WITH_COLON + rsrcPath + JIJConstants.JAR_INTERNAL_SEPARATOR);
-			}
-			
-			ClassLoader jceClassLoader = new URLClassLoader(rsrcUrls, null);
-			Thread.currentThread().setContextClassLoader(jceClassLoader);
-			
-			Class<?> cls = Class.forName(manifestInfo.rsrcMainClass, true, jceClassLoader);
-			Method main = cls.getMethod(JIJConstants.MAIN_METHOD_NAME, new Class[] {args.getClass()});
-			main.invoke((Object) null, new Object[]{args});
-		}
-	}
-	
-	private static void test03(String[] args) throws Exception {
-		
-		if (flag) {
-			/*
-			 * not match
-			 */
-			String line = "";
-			
-			String[] ret = line.split(" ");
-			for (String str : ret) {
-				if (flag) System.out.println("1 [" + str + "]");
-			}
-			
-			if (flag) System.out.println("length = " + ret.length);
-		}
-		
-		if (!flag) {
-			/*
-			 * ERROR
-			 */
-//			String line = null;
-//			
-//			String[] ret = line.split(" ");   // ERROR
-//			for (String str : ret) {
-//				if (flag) System.out.println("2 [" + str + "]");
-//			}
-//			
-//			if (flag) System.out.println("length = " + ret.length);
-		}
-		
-		if (flag) {
-			/*
-			 * not match
-			 */
-			String line = "   Hello     world  ..";
-			
-			String[] ret = line.split(" ");
-			for (String str : ret) {
-				if (flag) System.out.println("3 [" + str + "]");
-			}
-			
-			if (flag) System.out.println("length = " + ret.length);
-		}
-		
-		if (flag) {
-			/*
-			 * not match
-			 */
-			String line = "\t  \t Hello  \t   world \t ..   \t";
-			
-			String[] ret = line.split("\\s");
-			for (String str : ret) {
-				if (flag) System.out.println("4 [" + str + "]");
-			}
-			
-			if (flag) System.out.println("length = " + ret.length);
-		}
-		
-		if (flag) {
-			/*
-			 * OK!! match
-			 */
-			String line = "\t  \t Hello  \t   world \t ..   \t";
-			
-			List<String> list = new ArrayList<String>();
-			
-			String[] ret = line.split("\\s");
-			for (String str : ret) {
-				if (!flag) System.out.println("5 [" + str + "]");
-				if (!"".equals(str))
-					list.add(str);
-			}
-			
-			for (String str : list) {
-				if (flag) System.out.println("6 [" + str + "]");
-			}
-			
-			if (flag) System.out.println("length = " + list.size());
-		}
-	}
-	
-	public static void main(String[] args) throws Exception {
-		
-		if (flag) System.out.println(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
-		
-		if (!flag) test01(args);
-		if (flag) test02(args);
-		if (!flag) test03(args);
+		return (String[]) result.toArray(new String[result.size()]);
 	}
 }

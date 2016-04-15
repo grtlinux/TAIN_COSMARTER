@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.runjar.v02;
+package tain.kr.runjar.v01;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,24 +43,31 @@ import java.net.URLDecoder;
  */
 public class RsrcURLConnection extends URLConnection {
 
-	private ClassLoader classLoader;
+	//private static boolean flag = true;
 
+	//private static final Logger log = Logger.getLogger(RsrcURLConnection.class);
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private ClassLoader classLoader;
+	
 	public RsrcURLConnection(URL url, ClassLoader classLoader) {
 		super(url);
-		this.classLoader= classLoader;
+		this.classLoader = classLoader;
 	}
-
-	public void connect() throws IOException {
-	}
-
+	
+	public void connect() throws IOException {}
+	
 	public InputStream getInputStream() throws IOException {
-		String file= URLDecoder.decode(url.getFile(), JIJConstants.UTF8_ENCODING);
-		InputStream result= classLoader.getResourceAsStream(file);
+		String file = URLDecoder.decode(url.getFile(), JIJConstants.UTF8_ENCODING);
+		InputStream result = classLoader.getResourceAsStream(file);
 		if (result == null) {
-			throw new MalformedURLException("Could not open InputStream for URL '" + url + "'"); //$NON-NLS-1$ //$NON-NLS-2$
+			throw new MalformedURLException("Could not open InputStream for URL '" + url + "'");
 		}
+		
 		return result;
 	}
-
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 
 }

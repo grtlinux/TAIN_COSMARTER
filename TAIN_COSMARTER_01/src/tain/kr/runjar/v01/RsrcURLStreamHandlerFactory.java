@@ -17,7 +17,7 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.runjar.v02;
+package tain.kr.runjar.v01;
 
 import java.net.URLStreamHandler;
 import java.net.URLStreamHandlerFactory;
@@ -39,31 +39,57 @@ import java.net.URLStreamHandlerFactory;
  */
 public class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactory {
 
+	//private static boolean flag = true;
+
+	//private static final Logger log = Logger.getLogger(RsrcURLStreamHandlerFactory.class);
+
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
 	private ClassLoader classLoader;
 	private URLStreamHandlerFactory chainFac;
 	
 	public RsrcURLStreamHandlerFactory(ClassLoader cl) {
+		
 		this.classLoader = cl;
 	}
-
+	
 	public URLStreamHandler createURLStreamHandler(String protocol) {
-		if (JIJConstants.INTERNAL_URL_PROTOCOL.equals(protocol)) 
-			return new RsrcURLStreamHandler(classLoader);
-		if (chainFac != null)
-			return chainFac.createURLStreamHandler(protocol);
+		
+		if (JIJConstants.INTERNAL_URL_PROTOCOL.equals(protocol)) {
+			return new RsrcURLStreamHandler(this.classLoader);
+		}
+		
+		if (this.chainFac != null) {
+			return this.chainFac.createURLStreamHandler(protocol);
+		}
+		
 		return null;
 	}
 	
 	/**
-	 * Allow one other URLStreamHandler to be added.
-	 * URL.setURLStreamHandlerFactory does not allow
-	 * multiple factories to be added.
-	 * The chained factory is called for all other protocols,
-	 * except "rsrc". Use null to clear previously set Handler. 
-	 * @param fac another factory to be chained with ours.
+	 * 
+	 * Code Templates > Comments > Methods
+	 *
+	 * <PRE>
+	 *   -. ClassName  : RsrcURLStreamHandlerFactory
+	 *   -. MethodName : setURLStreamHandlerFactory
+	 *   -. Comment    :
+	 *                   Allow on other URLStreamHandler to be added.
+	 *                   URL.setURLStreamHandlerFactory does not allow
+	 *                   multiple factories to be added.
+	 *                   The Chained factory is called for all other protocols,
+	 *                   except "rsrc". Use null to clear previously set Handler.
+	 *                   @param fac another factory to be chained with ours.
+	 *   -. Author     : taincokr
+	 *   -. First Date : 2016. 3. 28. {time}
+	 * </PRE>
+	 *
+	 * @param fac
 	 */
 	public void setURLStreamHandlerFactory(URLStreamHandlerFactory fac) {
-		chainFac = fac;
+		this.chainFac = fac;
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 }

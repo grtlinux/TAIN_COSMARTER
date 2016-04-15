@@ -17,14 +17,20 @@
  * Copyright 2014, 2015, 2016 TAIN, Inc.
  *
  */
-package tain.kr.runjar.v02;
+package tain.kr.runjar.v03;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLDecoder;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : RunJarTestMain.java
+ *   -. FileName   : RsrcURLConnection.java
  *   -. Package    : tain.kr.com.test.runJar.v02
  *   -. Comment    :
  *   -. Author     : taincokr
@@ -34,27 +40,36 @@ package tain.kr.runjar.v02;
  * @author taincokr
  *
  */
-public class RunJarTestMain {
+public class RsrcURLConnection extends URLConnection {
 
 	private static boolean flag = true;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private ClassLoader classLoader = null;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	///////////////////////////////////////////////////////////////////////////////////////////////
-
-	private static void test01(String[] args) throws Exception {
-		
-		if (flag) {
-			for (int i=0; i < args.length; i++) {
-				if (flag) System.out.println(String.format("(%d) [%s]", i, args[i]));
-			}
-		}
+	
+	public RsrcURLConnection(URL url, ClassLoader classLoader) {
+		super(url);
+		this.classLoader = classLoader;
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public void connect() throws IOException {
 		
-		if (flag) System.out.println(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
-		
-		if (flag) test01(args);
 	}
+	
+	public InputStream getInputStream() throws IOException {
+		String file = URLDecoder.decode(url.getFile(), JIJConstants.UTF8_ENCODING);
+		if (!flag) System.out.println("URL : " + file);
+		
+		InputStream is = classLoader.getResourceAsStream(file);
+		if (is == null) {
+			throw new MalformedURLException("Could not open InputStreasm for URL '" + url + "'");
+		}
+		
+		return is;
+	}
+	///////////////////////////////////////////////////////////////////////////////////////////////
+
 }
