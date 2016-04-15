@@ -19,7 +19,6 @@
  */
 package tain.kr.runjar.v02;
 
-import org.apache.log4j.Logger;
 
 /**
  * Code Templates > Comments > Types
@@ -39,8 +38,6 @@ public class RunJarTestMain {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(RunJarTestMain.class);
-
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,14 +46,14 @@ public class RunJarTestMain {
 		
 		if (flag) {
 			for (int i=0; i < args.length; i++) {
-				if (flag) log.debug(String.format("(%d) [%s]", i, args[i]));
+				if (flag) System.out.println(String.format("(%d) [%s]", i, args[i]));
 			}
 		}
 	}
 	
 	public static void main(String[] args) throws Exception {
 		
-		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
+		if (flag) System.out.println(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
 		
 		if (flag) test01(args);
 	}

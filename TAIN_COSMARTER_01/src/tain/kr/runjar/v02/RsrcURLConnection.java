@@ -26,8 +26,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLDecoder;
 
-import org.apache.log4j.Logger;
-
 /**
  * Code Templates > Comments > Types
  *
@@ -46,8 +44,6 @@ public class RsrcURLConnection extends URLConnection {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(RsrcURLConnection.class);
-
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private ClassLoader classLoader = null;
@@ -65,7 +61,7 @@ public class RsrcURLConnection extends URLConnection {
 	
 	public InputStream getInputStream() throws IOException {
 		String file = URLDecoder.decode(url.getFile(), JIJConstants.UTF8_ENCODING);
-		if (!flag) log.debug("URL : " + file);
+		if (!flag) System.out.println("URL : " + file);
 		
 		InputStream is = classLoader.getResourceAsStream(file);
 		if (is == null) {

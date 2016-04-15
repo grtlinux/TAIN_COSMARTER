@@ -31,8 +31,6 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-import org.apache.log4j.Logger;
-
 /**
  * Code Templates > Comments > Types
  *
@@ -51,8 +49,6 @@ public class JarRsrcLoader {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(JarRsrcLoader.class);
-
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private static class ManifestInfo {
@@ -67,7 +63,7 @@ public class JarRsrcLoader {
 		if (line == null)
 			return null;
 		
-		if (flag) log.debug("line = [" + line + "]");
+		if (flag) System.out.println("line = [" + line + "]");
 		
 		if (!flag) {
 			List<String> result = new ArrayList<String>();
@@ -112,7 +108,7 @@ public class JarRsrcLoader {
 		while (urls.hasMoreElements()) {
 			URL url = (URL) urls.nextElement();
 			
-			if (!flag) log.debug(">>>>> " + url.toString());
+			if (!flag) System.out.println(">>>>> " + url.toString());
 			
 			InputStream is = url.openStream();
 			if (is != null) {
@@ -124,7 +120,7 @@ public class JarRsrcLoader {
 						String key = String.valueOf(entry.getKey());
 						String val = String.valueOf(entry.getValue());
 						
-						if (flag) log.debug("[" + key + "] = [" + val + "]");
+						if (flag) System.out.println("[" + key + "] = [" + val + "]");
 					}
 				}
 
@@ -159,8 +155,8 @@ public class JarRsrcLoader {
 			while (urls.hasMoreElements()) {
 				URL url = (URL) urls.nextElement();
 
-				if (flag) log.debug(">>>>> ");
-				if (flag) log.debug(">>>>> " + url.toString());
+				if (flag) System.out.println(">>>>> ");
+				if (flag) System.out.println(">>>>> " + url.toString());
 				
 				InputStream is = url.openStream();
 				if (is != null) {
@@ -172,32 +168,32 @@ public class JarRsrcLoader {
 							String key = String.valueOf(entry.getKey());
 							String val = String.valueOf(entry.getValue());
 							
-							if (flag) log.debug("[" + key + "] = [" + val + "]");
+							if (flag) System.out.println("[" + key + "] = [" + val + "]");
 						}
 					}
 				}
 			}
 			
-			if (flag) log.debug(">>>>> ");
+			if (flag) System.out.println(">>>>> ");
 		}
 	}
 	
 	private static void test02(String[] args) throws Exception {
 		
+		if (!flag) args = new String[]{ "one", "two", "three", "four" };
+		
 		if (flag) {
 			ManifestInfo manifestInfo = getManifestInfo();
 			if (manifestInfo != null) {
-				if (flag) log.debug("rsrcMainClass >>> " + manifestInfo.rsrcMainClass);
+				if (flag) System.out.println("rsrcMainClass >>> " + manifestInfo.rsrcMainClass);
 				
 				for (String classPath : manifestInfo.rsrcClassPath) {
-					if (flag) log.debug("rsrcClassPath >>> " + classPath);
+					if (flag) System.out.println("rsrcClassPath >>> " + classPath);
 				}
 			}
 		}
 		
 		if (flag) {
-			
-			if (!flag) args = new String[]{ "one", "two", "three", "four" };
 			
 			ManifestInfo manifestInfo = getManifestInfo();
 			
@@ -235,10 +231,10 @@ public class JarRsrcLoader {
 			
 			String[] ret = line.split(" ");
 			for (String str : ret) {
-				if (flag) log.debug("1 [" + str + "]");
+				if (flag) System.out.println("1 [" + str + "]");
 			}
 			
-			if (flag) log.debug("length = " + ret.length);
+			if (flag) System.out.println("length = " + ret.length);
 		}
 		
 		if (!flag) {
@@ -249,10 +245,10 @@ public class JarRsrcLoader {
 //			
 //			String[] ret = line.split(" ");   // ERROR
 //			for (String str : ret) {
-//				if (flag) log.debug("2 [" + str + "]");
+//				if (flag) System.out.println("2 [" + str + "]");
 //			}
 //			
-//			if (flag) log.debug("length = " + ret.length);
+//			if (flag) System.out.println("length = " + ret.length);
 		}
 		
 		if (flag) {
@@ -263,10 +259,10 @@ public class JarRsrcLoader {
 			
 			String[] ret = line.split(" ");
 			for (String str : ret) {
-				if (flag) log.debug("3 [" + str + "]");
+				if (flag) System.out.println("3 [" + str + "]");
 			}
 			
-			if (flag) log.debug("length = " + ret.length);
+			if (flag) System.out.println("length = " + ret.length);
 		}
 		
 		if (flag) {
@@ -277,10 +273,10 @@ public class JarRsrcLoader {
 			
 			String[] ret = line.split("\\s");
 			for (String str : ret) {
-				if (flag) log.debug("4 [" + str + "]");
+				if (flag) System.out.println("4 [" + str + "]");
 			}
 			
-			if (flag) log.debug("length = " + ret.length);
+			if (flag) System.out.println("length = " + ret.length);
 		}
 		
 		if (flag) {
@@ -293,22 +289,22 @@ public class JarRsrcLoader {
 			
 			String[] ret = line.split("\\s");
 			for (String str : ret) {
-				if (!flag) log.debug("5 [" + str + "]");
+				if (!flag) System.out.println("5 [" + str + "]");
 				if (!"".equals(str))
 					list.add(str);
 			}
 			
 			for (String str : list) {
-				if (flag) log.debug("6 [" + str + "]");
+				if (flag) System.out.println("6 [" + str + "]");
 			}
 			
-			if (flag) log.debug("length = " + list.size());
+			if (flag) System.out.println("length = " + list.size());
 		}
 	}
 	
 	public static void main(String[] args) throws Exception {
 		
-		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
+		if (flag) System.out.println(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
 		
 		if (!flag) test01(args);
 		if (flag) test02(args);

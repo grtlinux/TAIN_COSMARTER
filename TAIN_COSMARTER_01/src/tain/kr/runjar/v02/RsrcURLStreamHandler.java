@@ -24,8 +24,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
 
-import org.apache.log4j.Logger;
-
 /**
  * Code Templates > Comments > Types
  *
@@ -44,8 +42,6 @@ public class RsrcURLStreamHandler extends URLStreamHandler {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(RsrcURLStreamHandler.class);
-
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private ClassLoader classLoader = null;
@@ -62,7 +58,7 @@ public class RsrcURLStreamHandler extends URLStreamHandler {
 	
 	protected void parseURL(URL url, String spec, int start, int limit) {
 	
-		if (!flag) log.debug("[" + url + ", " + spec + ", " + start + ", " + limit + "]");
+		if (!flag) System.out.println("[" + url + ", " + spec + ", " + start + ", " + limit + "]");
 		
 		String file;
 		
@@ -75,7 +71,7 @@ public class RsrcURLStreamHandler extends URLStreamHandler {
 		else
 			file = spec;
 		
-		if (!flag) log.debug("file = [" + file + "]");
+		if (!flag) System.out.println("file = [" + file + "]");
 		
 		setURL(url, JIJConstants.INTERNAL_URL_PROTOCOL, "", -1, null, null, file, null, null);
 	}

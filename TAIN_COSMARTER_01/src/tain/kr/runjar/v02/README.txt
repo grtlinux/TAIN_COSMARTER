@@ -1,4 +1,19 @@
 
+Manifest-Version: 1.0
+Package: tain.kr.com.proj.cosmarter
+Created-By: 1.0 (TAIN Inc.)
+Title: CoSmarter of TAIN
+Provider: Kiea Seok Kang    kiea@tain.co.kr
+Class-Path: .
+Main-Class: tain.kr.runjar.v02.JarRsrcLoader
+Rsrc-Class-Path: ./
+     libs/commons-net-3.3.jar
+     libs/log4j-1.2.17.jar
+Rsrc-Main-Class: tain.kr.com.proj.cosmarter.v01.main.server.CoSmarterServer
+
+
+
+
 jar cvfM ../tain-cosmarter-1.0.jar *
 
 java -jar ../tain-cosmarter-1.0.jar

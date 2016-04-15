@@ -22,8 +22,6 @@ package tain.kr.runjar.v02;
 import java.net.URLStreamHandler;
 import java.net.URLStreamHandlerFactory;
 
-import org.apache.log4j.Logger;
-
 /**
  * Code Templates > Comments > Types
  *
@@ -42,8 +40,6 @@ public class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactory {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(RsrcURLStreamHandlerFactory.class);
-
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private ClassLoader classLoader = null;
@@ -57,7 +53,7 @@ public class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactory {
 	
 	public URLStreamHandler createURLStreamHandler(String protocol) {
 		
-		if (!flag) log.debug("PROTOCOL : " + protocol);
+		if (!flag) System.out.println("PROTOCOL : " + protocol);
 		
 		if (JIJConstants.INTERNAL_URL_PROTOCOL.equals(protocol))
 			return new RsrcURLStreamHandler(classLoader);
