@@ -23,8 +23,6 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.common.company.Company;
-
 /**
  * Code Templates > Comments > Types
  *
