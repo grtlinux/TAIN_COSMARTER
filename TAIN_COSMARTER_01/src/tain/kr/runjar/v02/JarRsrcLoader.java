@@ -63,7 +63,7 @@ public class JarRsrcLoader {
 		if (line == null)
 			return null;
 		
-		if (flag) System.out.println("line = [" + line + "]");
+		if (!flag) System.out.println("line = [" + line + "]");
 		
 		if (!flag) {
 			List<String> result = new ArrayList<String>();
@@ -182,7 +182,7 @@ public class JarRsrcLoader {
 		
 		if (!flag) args = new String[]{ "one", "two", "three", "four" };
 		
-		if (flag) {
+		if (!flag) {
 			ManifestInfo manifestInfo = getManifestInfo();
 			if (manifestInfo != null) {
 				if (flag) System.out.println("rsrcMainClass >>> " + manifestInfo.rsrcMainClass);
