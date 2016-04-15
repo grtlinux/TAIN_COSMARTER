@@ -92,9 +92,9 @@ public class Usage {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			Company.getInstance().print();
+			Usage.getInstance().print();
 			
-			log.debug(">>>>> " + Company.getInstance().getDesc());
+			log.debug(">>>>> " + Usage.getInstance().getDesc());
 		}
 	}
 	

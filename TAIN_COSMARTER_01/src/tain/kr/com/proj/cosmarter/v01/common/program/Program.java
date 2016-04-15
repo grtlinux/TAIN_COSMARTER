@@ -23,8 +23,6 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.common.company.Company;
-
 /**
  * Code Templates > Comments > Types
  *
@@ -92,9 +90,9 @@ public class Program {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			Company.getInstance().print();
+			Program.getInstance().print();
 			
-			log.debug(">>>>> " + Company.getInstance().getDesc());
+			log.debug(">>>>> " + Program.getInstance().getDesc());
 		}
 	}
 	
