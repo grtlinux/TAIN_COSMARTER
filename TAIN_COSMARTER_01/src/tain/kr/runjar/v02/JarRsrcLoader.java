@@ -67,25 +67,43 @@ public class JarRsrcLoader {
 		if (line == null)
 			return null;
 		
-		if (!flag) log.debug("line = [" + line + "]");
+		if (flag) log.debug("line = [" + line + "]");
 		
-		List<String> result = new ArrayList<String>();
-		
-		int firstPos = 0;
-		while (firstPos < line.length()) {
-			int lastPos = line.indexOf(' ', firstPos);
-			if (lastPos == -1) {
-				lastPos = line.length();
+		if (!flag) {
+			List<String> result = new ArrayList<String>();
+			
+			int firstPos = 0;
+			while (firstPos < line.length()) {
+				int lastPos = line.indexOf(' ', firstPos);
+				if (lastPos == -1) {
+					lastPos = line.length();
+				}
+				
+				if (lastPos > firstPos) {
+					result.add(line.substring(firstPos, lastPos));
+				}
+				
+				firstPos = lastPos + 1;
 			}
 			
-			if (lastPos > firstPos) {
-				result.add(line.substring(firstPos, lastPos));
-			}
-			
-			firstPos = lastPos + 1;
+			return (String[]) result.toArray(new String[result.size()]);
 		}
 		
-		return (String[]) result.toArray(new String[result.size()]);
+		if (flag) {
+			
+			List<String> result = new ArrayList<String>();
+			
+			String[] arr = line.split("\\s");
+			
+			for (String str : arr) {
+				if (!"".equals(str))
+					result.add(str);
+			}
+			
+			return (String[]) result.toArray(new String[result.size()]);
+		}
+		
+		return null;
 	}
 	
 	private static ManifestInfo getManifestInfo() throws Exception {
@@ -166,7 +184,7 @@ public class JarRsrcLoader {
 	
 	private static void test02(String[] args) throws Exception {
 		
-		if (!flag) {
+		if (flag) {
 			ManifestInfo manifestInfo = getManifestInfo();
 			if (manifestInfo != null) {
 				if (flag) log.debug("rsrcMainClass >>> " + manifestInfo.rsrcMainClass);
@@ -207,11 +225,93 @@ public class JarRsrcLoader {
 		}
 	}
 	
+	private static void test03(String[] args) throws Exception {
+		
+		if (flag) {
+			/*
+			 * not match
+			 */
+			String line = "";
+			
+			String[] ret = line.split(" ");
+			for (String str : ret) {
+				if (flag) log.debug("1 [" + str + "]");
+			}
+			
+			if (flag) log.debug("length = " + ret.length);
+		}
+		
+		if (!flag) {
+			/*
+			 * ERROR
+			 */
+//			String line = null;
+//			
+//			String[] ret = line.split(" ");   // ERROR
+//			for (String str : ret) {
+//				if (flag) log.debug("2 [" + str + "]");
+//			}
+//			
+//			if (flag) log.debug("length = " + ret.length);
+		}
+		
+		if (flag) {
+			/*
+			 * not match
+			 */
+			String line = "   Hello     world  ..";
+			
+			String[] ret = line.split(" ");
+			for (String str : ret) {
+				if (flag) log.debug("3 [" + str + "]");
+			}
+			
+			if (flag) log.debug("length = " + ret.length);
+		}
+		
+		if (flag) {
+			/*
+			 * not match
+			 */
+			String line = "\t  \t Hello  \t   world \t ..   \t";
+			
+			String[] ret = line.split("\\s");
+			for (String str : ret) {
+				if (flag) log.debug("4 [" + str + "]");
+			}
+			
+			if (flag) log.debug("length = " + ret.length);
+		}
+		
+		if (flag) {
+			/*
+			 * OK!! match
+			 */
+			String line = "\t  \t Hello  \t   world \t ..   \t";
+			
+			List<String> list = new ArrayList<String>();
+			
+			String[] ret = line.split("\\s");
+			for (String str : ret) {
+				if (!flag) log.debug("5 [" + str + "]");
+				if (!"".equals(str))
+					list.add(str);
+			}
+			
+			for (String str : list) {
+				if (flag) log.debug("6 [" + str + "]");
+			}
+			
+			if (flag) log.debug("length = " + list.size());
+		}
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
 		
 		if (!flag) test01(args);
 		if (flag) test02(args);
+		if (!flag) test03(args);
 	}
 }
