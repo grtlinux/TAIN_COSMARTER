@@ -87,6 +87,7 @@ public class CoSmarterServer {
 					idxThr = 0;
 				
 				Socket socket = serverSocket.accept();
+				if (!flag) socket.setSoLinger(true, 1);
 				if (flag) log.debug(String.format("SERVER : accept the connection(%d)", idxThr));
 				
 				Thread thr = new CoSmarterThread(idxThr, socket);

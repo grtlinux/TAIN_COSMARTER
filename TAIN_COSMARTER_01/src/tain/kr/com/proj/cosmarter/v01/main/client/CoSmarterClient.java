@@ -81,12 +81,83 @@ public class CoSmarterClient {
 	public void execute() throws Exception {
 		
 		if (flag) {
-			
+			/*
+			 * Single command
+			 */
 			PrintWriter pw = null;
 			BufferedReader br = null;
 			String line = null;
 			
-			for (int idx=0; idx < 10000; idx++) {
+			Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
+			
+			pw = new PrintWriter(socket.getOutputStream());
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			
+			pw.println("cmd /c dir");
+			pw.flush();
+			
+			while ((line = br.readLine()) != null) {
+				if (flag) log.debug(">>>>> [" + line + "]");
+			}
+			
+			socket.close();
+		}
+		
+		if (flag) {
+			/*
+			 * Single other command
+			 */
+			PrintWriter pw = null;
+			BufferedReader br = null;
+			String line = null;
+			
+			Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
+			
+			pw = new PrintWriter(socket.getOutputStream());
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			
+			pw.println("cmd /c dir /w");
+			pw.flush();
+			
+			while ((line = br.readLine()) != null) {
+				if (flag) log.debug(">>>>> [" + line + "]");
+			}
+			
+			socket.close();
+		}
+		
+		if (flag) {
+			/*
+			 * Single error command
+			 */
+			PrintWriter pw = null;
+			BufferedReader br = null;
+			String line = null;
+			
+			Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
+			
+			pw = new PrintWriter(socket.getOutputStream());
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			
+			pw.println("cmd /c ls");
+			pw.flush();
+			
+			while ((line = br.readLine()) != null) {
+				if (flag) log.debug(">>>>> [" + line + "]");
+			}
+			
+			socket.close();
+		}
+		
+		if (!flag) {
+			/*
+			 * Rush Test
+			 */
+			PrintWriter pw = null;
+			BufferedReader br = null;
+			String line = null;
+			
+			for (int idx=0; idx < 1000; idx++) {
 				Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
 				
 				pw = new PrintWriter(socket.getOutputStream());
