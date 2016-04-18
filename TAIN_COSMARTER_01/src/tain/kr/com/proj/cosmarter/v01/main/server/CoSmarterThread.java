@@ -80,8 +80,8 @@ public class CoSmarterThread extends Thread {
 		}
 		
 		if (flag) {
-			log.info(">>>>> idxThr : " + this.idxThr);
-			log.info(">>>>> DESC : " + this.strThreadDesc);
+			if (flag) log.info(">>>>> idxThr : " + this.idxThr);
+			if (!flag) log.info(">>>>> DESC : " + this.strThreadDesc);
 		}
 	}
 	
@@ -95,7 +95,7 @@ public class CoSmarterThread extends Thread {
 				br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 				
 				line = br.readLine();
-				if (flag) log.debug(">>>>> line is [" + line + "]");
+				if (flag) log.debug("COMMAND IS [" + line + "]");
 				
 				String[] cmd = null;
 				
@@ -111,7 +111,7 @@ public class CoSmarterThread extends Thread {
 					cmd = new String[] { "/bin/sh", "-c", line };
 				}
 				
-				log.debug(">>>>> ret = " + Exec.run(cmd, new OutputStreamWriter(this.socket.getOutputStream()), true));
+				log.debug("RET_VAL = " + Exec.run(cmd, new OutputStreamWriter(this.socket.getOutputStream()), true));
 
 			//} catch (InterruptedException e1) {
 			//	e1.printStackTrace();
