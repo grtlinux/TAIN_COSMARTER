@@ -23,9 +23,13 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
+
+import tain.kr.com.proj.cosmarter.v01.util.StrUtil;
 
 /**
  * Code Templates > Comments > Types
@@ -86,6 +90,8 @@ public class ClientModuleN00001 {
 	
 	public void execute01() throws Exception {
 		
+		List<String> lstPids = new ArrayList<String>();
+		
 		if (flag) {
 			/*
 			 * Single command
@@ -105,6 +111,17 @@ public class ClientModuleN00001 {
 			
 			while ((line = br.readLine()) != null) {
 				if (flag) log.debug(">>>>> [" + line + "]");
+				
+				if (flag) {
+					String[] words = line.split("\\s+");
+					for (String word : words) {
+						int idx = word.indexOf("java");
+						if (idx > 0) {
+							lstPids.add(word.substring(0, idx-1));
+							break;
+						}
+					}
+				}
 			}
 			
 			br.close();
@@ -125,7 +142,9 @@ public class ClientModuleN00001 {
 			pw = new PrintWriter(socket.getOutputStream());
 			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			
-			this.strCommand02 = this.strCommand02.replaceAll("\\[PID\\]", "1376");
+			String strPids = StrUtil.list2str(lstPids);
+
+			this.strCommand02 = this.strCommand02.replaceAll("\\[PID\\]", strPids);
 			log.info(">>>>> COMMAND_02   : " + this.strCommand02);
 			pw.println(this.strCommand02);
 			pw.flush();
@@ -162,10 +181,37 @@ public class ClientModuleN00001 {
 		}
 	}
 	
+	private static void test02(String[] args) throws Exception {
+		
+		if (flag) {
+			String line = "tcp6       0      0 :::7412                 :::*                    LISTEN      1476/java       ";
+			String[] words = line.split(" ");
+			if (!flag) words = line.split("\\s+");
+			
+			for (String word : words) {
+				log.debug("[" + word + "]");
+			}
+			
+			log.debug("---------------------------------------------------");
+		}
+		
+		if (flag) {
+			String line = "tcp6       0      0 :::7412                 :::*                    LISTEN      1476/java       ";
+			String[] words = line.split("\\s+");
+			
+			for (String word : words) {
+				log.debug("[" + word + "]");
+			}
+			
+			log.debug("---------------------------------------------------");
+		}
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
 		
-		if (flag) test01(args);
+		if (!flag) test01(args);
+		if (flag) test02(args);
 	}
 }
