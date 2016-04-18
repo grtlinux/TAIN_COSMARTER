@@ -181,37 +181,10 @@ public class ClientModuleN00001 {
 		}
 	}
 	
-	private static void test02(String[] args) throws Exception {
-		
-		if (flag) {
-			String line = "tcp6       0      0 :::7412                 :::*                    LISTEN      1476/java       ";
-			String[] words = line.split(" ");
-			if (!flag) words = line.split("\\s+");
-			
-			for (String word : words) {
-				log.debug("[" + word + "]");
-			}
-			
-			log.debug("---------------------------------------------------");
-		}
-		
-		if (flag) {
-			String line = "tcp6       0      0 :::7412                 :::*                    LISTEN      1476/java       ";
-			String[] words = line.split("\\s+");
-			
-			for (String word : words) {
-				log.debug("[" + word + "]");
-			}
-			
-			log.debug("---------------------------------------------------");
-		}
-	}
-	
 	public static void main(String[] args) throws Exception {
 		
 		if (flag) log.debug(">>>>> " + new Object(){}.getClass().getEnclosingClass().getName());
 		
-		if (!flag) test01(args);
-		if (flag) test02(args);
+		if (flag) test01(args);
 	}
 }
