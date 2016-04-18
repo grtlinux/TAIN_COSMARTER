@@ -123,7 +123,7 @@ public class CoSmarterServer {
 		}
 		
 		if (flag) {
-			String name = System.getProperty("tain.name", "no name");
+			String name = System.getProperty("tain.name", "NO NAME");
 			if (flag) log.debug(String.format("[tain.name=%s]", name));
 		}
 		
