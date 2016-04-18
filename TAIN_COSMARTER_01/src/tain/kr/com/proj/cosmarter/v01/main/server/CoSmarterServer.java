@@ -118,7 +118,7 @@ public class CoSmarterServer {
 		if (flag) {
 			int i = 0;
 			for (String arg : args) {
-				if (flag) log.debug(String.format("(%d) [%s]", i, arg));
+				if (flag) log.debug(String.format("(%d) [%s]", i++, arg));
 			}
 		}
 		
