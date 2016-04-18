@@ -100,8 +100,14 @@ public class CoSmarterThread extends Thread {
 				String[] cmd = null;
 				
 				if (CheckSystem.getInstance().isWindows()) {
+					/*
+					 * Windows
+					 */
 					cmd = new String[] { "cmd", "/c", line };
 				} else {
+					/*
+					 * Unix or Linux
+					 */
 					cmd = new String[] { "/bin/sh", "-c", line };
 				}
 				

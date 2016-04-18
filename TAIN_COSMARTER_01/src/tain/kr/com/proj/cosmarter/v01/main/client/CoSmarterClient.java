@@ -52,10 +52,12 @@ public class CoSmarterClient {
 	private static final String KEY_CLIENT_DESC = "tain.cosmarter.client.desc";
 	private static final String KEY_CLIENT_CONNECT_HOST = "tain.cosmarter.client.connect.host";
 	private static final String KEY_CLIENT_CONNECT_PORT = "tain.cosmarter.client.connect.port";
+	private static final String KEY_CLIENT_COMMAND = "tain.cosmarter.client.command";
 	
 	private String strClientDesc = null;
 	private String strConnectHost = null;
 	private int nConnectPort = -1;
+	private String strCommand = null;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -69,16 +71,43 @@ public class CoSmarterClient {
 			this.strClientDesc = rb.getString(KEY_CLIENT_DESC);
 			this.strConnectHost = rb.getString(KEY_CLIENT_CONNECT_HOST);
 			this.nConnectPort = Integer.parseInt(rb.getString(KEY_CLIENT_CONNECT_PORT));
+			this.strCommand = rb.getString(KEY_CLIENT_COMMAND);
 		}
 		
 		if (flag) {
 			log.info(">>>>> DESC : " + this.strClientDesc);
 			log.info(">>>>> CONNECT HOST : " + this.strConnectHost);
 			log.info(">>>>> CONNECT PORT : " + this.nConnectPort);
+			log.info(">>>>> COMMAND      : " + this.strCommand);
 		}
 	}
 	
-	public void execute() throws Exception {
+	public void execute02() throws Exception {
+		
+		if (flag) {
+			PrintWriter pw = null;
+			BufferedReader br = null;
+			String line = null;
+			
+			Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
+			
+			pw = new PrintWriter(socket.getOutputStream());
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			
+			pw.println("cmd /c dir");
+			pw.flush();
+			
+			while ((line = br.readLine()) != null) {
+				if (flag) log.debug(">>>>> [" + line + "]");
+			}
+			
+			br.close();
+			pw.close();
+			socket.close();
+		}
+	}
+	
+	public void execute01() throws Exception {
 		
 		if (flag) {
 			/*
@@ -197,7 +226,7 @@ public class CoSmarterClient {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			CoSmarterClient.getInstance().execute();
+			CoSmarterClient.getInstance().execute02();
 		}
 	}
 	
