@@ -116,7 +116,18 @@ public class CoSmarterServer {
 	private static void test01(String[] args) throws Exception {
 		
 		if (flag) {
-			
+			int i = 0;
+			for (String arg : args) {
+				if (flag) log.debug(String.format("(%d) [%s]", i, arg));
+			}
+		}
+		
+		if (flag) {
+			String name = System.getProperty("tain.name", "no name");
+			if (flag) log.debug(String.format("[tain.name=%s]", name));
+		}
+		
+		if (flag) {
 			CoSmarterServer.getInstance().execute();
 		}
 	}
