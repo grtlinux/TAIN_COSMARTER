@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
+import tain.kr.com.proj.cosmarter.v01.util.CheckSystem;
 import tain.kr.com.proj.cosmarter.v01.util.Exec;
 
 /**
@@ -96,7 +97,15 @@ public class CoSmarterThread extends Thread {
 				line = br.readLine();
 				if (flag) log.debug(">>>>> line is [" + line + "]");
 				
-				log.debug(">>>>> ret = " + Exec.run(line, new OutputStreamWriter(this.socket.getOutputStream()), true));
+				String[] cmd = null;
+				
+				if (CheckSystem.getInstance().isWindows()) {
+					cmd = new String[] { "cmd", "/c", line };
+				} else {
+					cmd = new String[] { "/bin/sh", "-c", line };
+				}
+				
+				log.debug(">>>>> ret = " + Exec.run(cmd, new OutputStreamWriter(this.socket.getOutputStream()), true));
 
 			//} catch (InterruptedException e1) {
 			//	e1.printStackTrace();
