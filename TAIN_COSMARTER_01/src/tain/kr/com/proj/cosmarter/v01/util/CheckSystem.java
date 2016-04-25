@@ -47,10 +47,14 @@ public class CheckSystem {
 	
 	private Properties prop = null;
 	
+	private String strLineSeparator = null;
+	
 	private CheckSystem() throws Exception {
 		
 		if (flag) {
 			this.prop = System.getProperties();
+			
+			this.strLineSeparator = System.getProperty("line.separator", "\n");
 		}
 	}
 	
@@ -112,6 +116,10 @@ public class CheckSystem {
 		 * TODO 2016.03.22 : change someday
 		 */
 		return isWindows() ? false : true;
+	}
+	
+	public String getLineSeparator() throws Exception {
+		return this.strLineSeparator;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
