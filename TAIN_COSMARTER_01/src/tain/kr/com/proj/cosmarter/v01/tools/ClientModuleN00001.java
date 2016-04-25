@@ -151,6 +151,16 @@ public class ClientModuleN00001 {
 			
 			while ((line = br.readLine()) != null) {
 				if (flag) log.debug(">>>>> [" + line + "]");
+				
+				if (flag) {
+					StringBuffer sb = new StringBuffer();
+					String[] words = line.split("\\s+", 8);
+					for (String word : words) {
+						sb.append("[").append(word).append("]");
+					}
+					
+					log.debug("==> " + sb.toString());
+				}
 			}
 			
 			br.close();
