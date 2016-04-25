@@ -178,6 +178,7 @@ public class CoBeanClient {
 		SimpleBean bean = new SimpleBean();
 
 		if (flag) {
+			bean.setIpAddr("cosmarter02");
 			bean.setSkip("0");
 			CoBeanClient.getInstance().process(bean);
 			
@@ -185,7 +186,7 @@ public class CoBeanClient {
 		}
 		
 		if (flag) {
-			bean.setName("lstPs2");
+			bean.setName("lstps2");
 			bean.setCmd("ps -ef | grep kang | grep -v grep");
 			CoBeanClient.getInstance().process(bean);
 			
