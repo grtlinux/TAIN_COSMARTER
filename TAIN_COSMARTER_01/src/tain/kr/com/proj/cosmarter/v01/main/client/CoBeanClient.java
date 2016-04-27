@@ -186,6 +186,7 @@ public class CoBeanClient {
 		}
 		
 		if (flag) {
+			bean.setIpAddr("cosmarter01");
 			bean.setName("lstps2");
 			bean.setCmd("ps -ef | grep kang | grep -v grep");
 			bean.setRetInfo("uid:1, pid:1, ppid:0, cpu:0, stime:0, tty:0, time:0, cmd:1");
