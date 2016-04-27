@@ -94,7 +94,14 @@ public class SimpleBean {
 		}
 		
 		if (flag) {
-			lstInfo = new ArrayList<SimpleInfo>();
+			setLstInfo();
+		}
+	}
+	
+	private boolean setLstInfo() throws Exception {
+		
+		if (flag) {
+			this.lstInfo = new ArrayList<SimpleInfo>();
 			
 			String[] infos = this.retInfo.split(",");
 			
@@ -107,9 +114,11 @@ public class SimpleBean {
 				simpleInfo.name = items[0].trim();
 				simpleInfo.usable = "1".equals(items[1].trim()) ? true : false;
 				
-				lstInfo.add(simpleInfo);
+				this.lstInfo.add(simpleInfo);
 			}
 		}
+		
+		return true;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -182,6 +191,12 @@ public class SimpleBean {
 	 */
 	public void setRetInfo(String retInfo) {
 		this.retInfo = retInfo;
+		
+		try {
+			setLstInfo();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

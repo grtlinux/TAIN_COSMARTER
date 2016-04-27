@@ -188,6 +188,8 @@ public class CoBeanClient {
 		if (flag) {
 			bean.setName("lstps2");
 			bean.setCmd("ps -ef | grep kang | grep -v grep");
+			bean.setRetInfo("uid:1, pid:1, ppid:0, cpu:0, stime:0, tty:0, time:0, cmd:1");
+			bean.setSkip("0");
 			CoBeanClient.getInstance().process(bean);
 			
 			if (flag) log.debug(">>>>> result = " + bean.getResult());
