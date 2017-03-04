@@ -74,7 +74,7 @@ public final class RsrcURLStreamHandler extends URLStreamHandler {
 		else
 			file = spec;
 		
-		if (flag) System.out.printf("%s >>>>> file = [%s]\n", file);
+		if (flag) System.out.printf("%s >>>>> file = [%s]\n", this.getClass().getName(), file);
 		
 		setURL(url, "rsrc", "", -1, null, null, file, null, null);
 	}
