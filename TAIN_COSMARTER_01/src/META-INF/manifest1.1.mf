@@ -2,9 +2,12 @@ Manifest-Version: 1.1
  
 Package: tain.kr.com.proj.cosmarter
  
-Created-By: 1.1 (TAIN Inc.)
+Created-By: TAIN, Inc. ver1.1
  
 Title: CoSmarter 1.1 of TAIN
+ 
+Etc-Content: 
+  libs/gson-2.6.2.jar
  
 Provider: Kiea Seok Kang    kiea@tain.co.kr  at 17.03.03
  
@@ -15,7 +18,6 @@ Main-Class: tain.kr.runjar.v04.JarRsrcLoader
 Rsrc-Class-Path: ./
   libs/commons-net-3.3.jar
   libs/log4j-1.2.17.jar
-  libs/gson-2.6.2.jar
  
 Rsrc-Main-Class: tain.kr.runjar.v04.MainTestRunjar
  

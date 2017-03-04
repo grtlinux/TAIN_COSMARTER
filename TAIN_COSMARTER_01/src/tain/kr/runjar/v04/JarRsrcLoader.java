@@ -19,9 +19,16 @@
  */
 package tain.kr.runjar.v04;
 
+import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.List;
+import java.util.Map;
+import java.util.jar.Attributes;
 import java.util.jar.JarFile;
+import java.util.jar.Manifest;
 
 
 /**
@@ -58,6 +65,24 @@ public final class JarRsrcLoader {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static String[] splitSpaces(String line) throws Exception {
+	
+		if (line != null) {
+			List<String> list = new ArrayList<String>();
+			
+			String[] arr = line.split("\\s");
+			for (String str : arr) {
+				if (!"".equals(str = str.trim()))
+					list.add(str);
+			}
+			
+			return (String[]) list.toArray(new String[list.size()]);
+		}
+		
+		return null;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private static ManifestInfo getManifestInfo() throws Exception {
@@ -68,7 +93,37 @@ public final class JarRsrcLoader {
 		while (urls.hasMoreElements()) {
 			URL url = (URL) urls.nextElement();
 			if (flag) System.out.printf("\t\t 2) url = [%s]\n", url);
+			
+			InputStream is = url.openStream();
+			if (is != null) {
+				Manifest manifest = new Manifest(is);
+				Attributes attributes = manifest.getMainAttributes();
+				
+				if (flag) {
+					/*
+					 * information of attributes
+					 */
+					for (Map.Entry<Object, Object> entry : attributes.entrySet()) {
+						String key = String.valueOf(entry.getKey());
+						String val = String.valueOf(entry.getValue());
+						if (flag) System.out.printf("\t\t\t 3) [%s] = [%s]\n", key, val);
+					}
+					if (flag) System.out.println();
+				}
+				
+				ManifestInfo manifestInfo = new ManifestInfo();
+				
+				manifestInfo.rsrcMainClass = attributes.getValue("Rsrc-Main-Class").trim();
+				manifestInfo.rsrcClassPath = splitSpaces(attributes.getValue("Rsrc-Class-Path"));
+				
+				if (flag && (manifestInfo.rsrcMainClass != null))
+					return manifestInfo;
+			}
+			
+			if (flag) break;
 		}
+		
+		if (flag) System.err.printf("Missing attributes for JarRsrcLoader in Manifest (%s, %s)\n", "Rsrc-Main-Class", "Rsrc-Class-Path");
 		
 		return null;
 	}
@@ -93,6 +148,7 @@ public final class JarRsrcLoader {
 			 * begin
 			 */
 			ManifestInfo manifestInfo = getManifestInfo();
+			if (flag) System.out.printf("\t\t\t 4) [%s] = [%s]\n", manifestInfo.rsrcMainClass, new ArrayList<String>(Arrays.asList(manifestInfo.rsrcClassPath)));
 		}
 	}
 
