@@ -19,6 +19,7 @@
  */
 package tain.kr.runjar.v04;
 
+import java.lang.reflect.Method;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -47,6 +48,10 @@ public class MainTestRunjar {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
+	private static final String KEY_SYSTEM_DESC = "tain.kr.desc";
+	private static final String KEY_RUNJAR_DESC = "tain.kr.runjar.desc";
+	private static final String KEY_MAIN_CLASS = "tain.kr.runjar.main.class";
+
 	private final Properties prop;
 	private final ResourceBundle resourceBundle;
 	
@@ -60,13 +65,20 @@ public class MainTestRunjar {
 		this.prop = System.getProperties();
 		this.resourceBundle = ResourceBundle.getBundle(this.getClass().getName().replace('.', '/'));
 		
-		if (flag) log.debug(String.format("System.getProperties -> [%s]", this.prop.getProperty("tain.kr.desc")));
-		if (flag) log.debug(String.format("ResourceBundle.getBundle -> [%s]", this.resourceBundle.getString("tain.kr.runjar.desc")));
+		if (flag) System.out.println(String.format("System.getProperties -> [%s] = [%s]", KEY_SYSTEM_DESC, this.prop.getProperty(KEY_SYSTEM_DESC)));
+		if (flag) System.out.println(String.format("ResourceBundle.getBundle -> [%s] = [%s]", KEY_RUNJAR_DESC, this.resourceBundle.getString(KEY_RUNJAR_DESC)));
+		if (flag) System.out.println(String.format("ResourceBundle.getBundle -> [%s] = [%s]", KEY_MAIN_CLASS, this.resourceBundle.getString(KEY_MAIN_CLASS)));
 		
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public String getMainClass() throws Exception {
+		return this.resourceBundle.getString(KEY_MAIN_CLASS);
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -85,11 +97,15 @@ public class MainTestRunjar {
 	 */
 	private static void test01(String[] args) throws Exception {
 
-		if (flag)
-			new MainTestRunjar();
-
 		if (flag) {
-
+			/*
+			 * start classLoader
+			 */
+			String mainClass = new MainTestRunjar().getMainClass();
+			
+			Class<?> cls = Class.forName(mainClass);
+			Method main = cls.getMethod("main", new Class[] { args.getClass() });
+			main.invoke((Object) null, new Object[] { args });
 		}
 	}
 
