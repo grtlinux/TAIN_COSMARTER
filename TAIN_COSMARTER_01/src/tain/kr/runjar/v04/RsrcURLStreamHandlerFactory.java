@@ -59,6 +59,7 @@ public final class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactor
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public void setURLStreamHandlerFactory(URLStreamHandlerFactory factory) {
+		
 		this.factory = factory;
 	}
 	
@@ -69,7 +70,15 @@ public final class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactor
 	 */
 	@Override
 	public URLStreamHandler createURLStreamHandler(String protocol) {
-		// TODO Auto-generated method stub
+		
+		if (flag) System.out.printf("%s >>>>> %s\n", this.getClass().getName(), protocol);
+		
+		if ("rsrc".equals(protocol))
+			return new RsrcURLStreamHandler(classLoader);
+		
+		if (factory != null)
+			return factory.createURLStreamHandler(protocol);
+		
 		return null;
 	}
 
