@@ -60,8 +60,8 @@ public class MainTestRunjar {
 		this.prop = System.getProperties();
 		this.resourceBundle = ResourceBundle.getBundle(this.getClass().getName().replace('.', '/'));
 		
-		if (flag) log.debug(String.format("[%s]", this.prop.getProperty("tain.kr.desc")));
-		if (flag) log.debug(String.format("[%s]", this.resourceBundle.getString("tain.kr.runjar.desc")));
+		if (flag) log.debug(String.format("System.getProperties -> [%s]", this.prop.getProperty("tain.kr.desc")));
+		if (flag) log.debug(String.format("ResourceBundle.getBundle -> [%s]", this.resourceBundle.getString("tain.kr.runjar.desc")));
 		
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
