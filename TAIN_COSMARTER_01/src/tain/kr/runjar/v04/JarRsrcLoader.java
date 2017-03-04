@@ -20,7 +20,9 @@
 package tain.kr.runjar.v04;
 
 import java.io.InputStream;
+import java.lang.reflect.Method;
 import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -167,6 +169,13 @@ public final class JarRsrcLoader {
 				
 				if (flag) System.out.printf("\t 5) URL = [%s]\n\n", rsrcUrls[i]);
 			}
+			
+			ClassLoader jceClassLoader = new URLClassLoader(rsrcUrls, null);
+			Thread.currentThread().setContextClassLoader(jceClassLoader);
+			
+			Class<?> cls = Class.forName(manifestInfo.rsrcMainClass, true, jceClassLoader);
+			Method main = cls.getMethod("main", new Class[] { args.getClass() });
+			main.invoke((Object) null, new Object[] { args });
 		}
 	}
 
