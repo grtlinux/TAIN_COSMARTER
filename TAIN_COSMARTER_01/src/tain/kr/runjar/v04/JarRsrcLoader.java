@@ -161,6 +161,7 @@ public final class JarRsrcLoader {
 			URL[] rsrcUrls = new URL[manifestInfo.rsrcClassPath.length];
 			for (int i=0; i < manifestInfo.rsrcClassPath.length; i++) {
 				String rsrcPath = manifestInfo.rsrcClassPath[i];
+				if (flag) System.out.printf("\t 5) rsrcPath = [%s]\n", rsrcPath);
 				
 				if (rsrcPath.endsWith("/"))
 					rsrcUrls[i] = new URL("rsrc:" + rsrcPath);
@@ -170,12 +171,25 @@ public final class JarRsrcLoader {
 				if (flag) System.out.printf("\t 5) URL = [%s]\n\n", rsrcUrls[i]);
 			}
 			
-			ClassLoader jceClassLoader = new URLClassLoader(rsrcUrls, null);
-			Thread.currentThread().setContextClassLoader(jceClassLoader);
+			if (flag) {
+				System.out.println();
+				
+				for (URL url : rsrcUrls) {
+					System.out.printf("6) URL = [%s]\n", url);
+				}
+			}
 			
-			Class<?> cls = Class.forName(manifestInfo.rsrcMainClass, true, jceClassLoader);
-			Method main = cls.getMethod("main", new Class[] { args.getClass() });
-			main.invoke((Object) null, new Object[] { args });
+			if (!flag) {
+				/*
+				 * start classLoader
+				 */
+				ClassLoader jceClassLoader = new URLClassLoader(rsrcUrls, null);
+				Thread.currentThread().setContextClassLoader(jceClassLoader);
+				
+				Class<?> cls = Class.forName(manifestInfo.rsrcMainClass, true, jceClassLoader);
+				Method main = cls.getMethod("main", new Class[] { args.getClass() });
+				main.invoke((Object) null, new Object[] { args });
+			}
 		}
 	}
 
