@@ -19,6 +19,11 @@
  */
 package tain.kr.runjar.v04;
 
+import java.util.Properties;
+import java.util.ResourceBundle;
+
+import org.apache.log4j.Logger;
+
 
 /**
  * Code Templates > Comments > Types
@@ -38,15 +43,28 @@ public class MainTestRunjar {
 
 	private static boolean flag = true;
 
+	private static final Logger log = Logger.getLogger(MainTestRunjar.class);
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private final Properties prop;
+	private final ResourceBundle resourceBundle;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
 	public MainTestRunjar() {
+		
+		this.prop = System.getProperties();
+		this.resourceBundle = ResourceBundle.getBundle(this.getClass().getName().replace('.', '/'));
+		
+		if (flag) log.debug(String.format("[%s]", this.prop.getProperty("tain.kr.desc")));
+		if (flag) log.debug(String.format("[%s]", this.resourceBundle.getString("tain.kr.runjar.desc")));
+		
 		if (flag)
-			System.out.printf("\t>>>>> in class %s\n", this.getClass().getSimpleName());
+			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,7 +99,7 @@ public class MainTestRunjar {
 	public static void main(String[] args) throws Exception {
 
 		if (flag)
-			System.out.printf("\t>>>>> %s\n", new Object() {}.getClass().getEnclosingClass().getName());
+			log.debug(">>>>> " + new Object() {}.getClass().getEnclosingClass().getName());
 
 		if (flag)
 			test01(args);
