@@ -61,7 +61,8 @@ public final class RsrcURLStreamHandler extends URLStreamHandler {
 	
 	protected void parseURL(URL url, String spec, int start, int limit) {
 
-		if (flag) System.out.printf("%s >>>>> (URL=%s, spec=%s, start=%d, limit=%d)\n", this.getClass().getName(), url, spec, start, limit);
+		if (flag) System.out.printf("%s >>>>> (URL=%s, url.getFile()=%s, spec=%s, start=%d, limit=%d)\n"
+				, this.getClass().getName(), url, url.getFile(), spec, start, limit);
 		
 		String file;
 		
