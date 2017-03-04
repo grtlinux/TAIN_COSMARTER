@@ -15,12 +15,10 @@ Provider: Kiea Seok Kang    kiea@tain.co.kr  at 17.03.03
  
 Class-Path: .
  
-Main-Class: tain.kr.runjar.v04.JarRsrcLoader
+Main-Class: tain.kr.runjar.v04.RunJarLoader
  
 Rsrc-Class-Path: ./
-  libs/commons-net-3.3.jar
   libs/log4j-1.2.17.jar
-  libs/gson-2.6.2.jar
  
 Rsrc-Main-Class: tain.kr.runjar.v04.MainTestRunjar
  
