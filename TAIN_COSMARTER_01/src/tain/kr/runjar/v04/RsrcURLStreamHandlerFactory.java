@@ -71,7 +71,7 @@ public final class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactor
 	@Override
 	public URLStreamHandler createURLStreamHandler(String protocol) {
 		
-		if (flag) System.out.printf("%s >>>>> %s\n", this.getClass().getName(), protocol);
+		if (flag) System.out.printf("%s >>>>> protocol=%s\n", this.getClass().getName(), protocol);
 		
 		if ("rsrc".equals(protocol))
 			return new RsrcURLStreamHandler(classLoader);
