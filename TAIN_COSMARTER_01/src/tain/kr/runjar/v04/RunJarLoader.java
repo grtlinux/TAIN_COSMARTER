@@ -167,7 +167,7 @@ public final class RunJarLoader {
 				else
 					rsrcUrls[i] = new URL("jar:rsrc:" + rsrcPath + "!/");
 				
-				if (!flag) System.out.printf("\t 5) URL = [%s]\n\n", rsrcUrls[i]);
+				if (!flag) System.out.printf("\t 5) URL = [%s]\n", rsrcUrls[i]);
 			}
 			
 			if (flag) {
