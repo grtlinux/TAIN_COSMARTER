@@ -92,7 +92,7 @@ public final class JarRsrcLoader {
 		Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(JarFile.MANIFEST_NAME);
 		while (urls.hasMoreElements()) {
 			URL url = (URL) urls.nextElement();
-			if (flag) System.out.printf("\t\t 2) url = [%s]\n", url);
+			if (flag) System.out.printf("\t\t 2) url = [%s]\n\n", url);
 			
 			InputStream is = url.openStream();
 			if (is != null) {
@@ -110,6 +110,7 @@ public final class JarRsrcLoader {
 					}
 					if (flag) System.out.println();
 				}
+				// if (flag) continue;
 				
 				ManifestInfo manifestInfo = new ManifestInfo();
 				
@@ -123,7 +124,8 @@ public final class JarRsrcLoader {
 			if (flag) break;
 		}
 		
-		if (flag) System.err.printf("Missing attributes for JarRsrcLoader in Manifest (%s, %s)\n", "Rsrc-Main-Class", "Rsrc-Class-Path");
+		if (flag) System.err.printf("Missing attributes for JarRsrcLoader in Manifest (%s, %s)\n"
+				, "Rsrc-Main-Class", "Rsrc-Class-Path");
 		
 		return null;
 	}
@@ -148,7 +150,23 @@ public final class JarRsrcLoader {
 			 * begin
 			 */
 			ManifestInfo manifestInfo = getManifestInfo();
-			if (flag) System.out.printf("\t\t\t 4) [%s] = [%s]\n", manifestInfo.rsrcMainClass, new ArrayList<String>(Arrays.asList(manifestInfo.rsrcClassPath)));
+			if (flag) System.out.printf("\t 4) [%s] = %s\n\n"
+					, manifestInfo.rsrcMainClass, new ArrayList<String>(Arrays.asList(manifestInfo.rsrcClassPath)));
+			
+			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+			URL.setURLStreamHandlerFactory(new RsrcURLStreamHandlerFactory(classLoader));
+			
+			URL[] rsrcUrls = new URL[manifestInfo.rsrcClassPath.length];
+			for (int i=0; i < manifestInfo.rsrcClassPath.length; i++) {
+				String rsrcPath = manifestInfo.rsrcClassPath[i];
+				
+				if (rsrcPath.endsWith("/"))
+					rsrcUrls[i] = new URL("rsrc:" + rsrcPath);
+				else
+					rsrcUrls[i] = new URL("jar:rsrc:" + rsrcPath + "!/");
+				
+				if (flag) System.out.printf("\t 5) URL = [%s]\n", rsrcUrls[i]);
+			}
 		}
 	}
 
