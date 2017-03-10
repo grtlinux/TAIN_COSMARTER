@@ -26,7 +26,7 @@ import org.apache.log4j.Logger;
  *
  * <PRE>
  *   -. FileName   : SimpleCoBean.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.cobean
+ *   -. Package    : tain.kr.com.proj.cosmarter.v02.cobean
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 25. {time}

@@ -29,7 +29,7 @@ import org.apache.log4j.Logger;
  *
  * <PRE>
  *   -. FileName   : ParamHash.java
- *   -. Package    : tain.kr.com.test.deploy.v01.common
+ *   -. Package    : tain.kr.com.test.deploy.v02.common
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 2. 29. {time}

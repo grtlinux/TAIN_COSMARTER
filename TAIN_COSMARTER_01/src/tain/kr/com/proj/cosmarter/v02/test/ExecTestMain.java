@@ -21,15 +21,15 @@ package tain.kr.com.proj.cosmarter.v02.test;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.util.CheckSystem;
-import tain.kr.com.proj.cosmarter.v01.util.Exec;
+import tain.kr.com.proj.cosmarter.v02.util.CheckSystem;
+import tain.kr.com.proj.cosmarter.v02.util.Exec;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
  *   -. FileName   : ExecTestMain.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.test
+ *   -. Package    : tain.kr.com.proj.cosmarter.v02.test
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 14. {time}

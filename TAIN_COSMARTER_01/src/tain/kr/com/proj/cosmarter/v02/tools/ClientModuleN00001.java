@@ -29,14 +29,14 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.util.StrUtil;
+import tain.kr.com.proj.cosmarter.v02.util.StrUtil;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
  *   -. FileName   : ClientModuleN00001.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.tools
+ *   -. Package    : tain.kr.com.proj.cosmarter.v02.tools
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 18. {time}

@@ -28,7 +28,7 @@ import org.apache.log4j.Logger;
  *
  * <PRE>
  *   -. FileName   : Version.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.common
+ *   -. Package    : tain.kr.com.proj.cosmarter.v02.common
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 11. {time}

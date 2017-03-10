@@ -21,14 +21,14 @@ package tain.kr.com.proj.cosmarter.v02.tools;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.common.version.Version;
+import tain.kr.com.proj.cosmarter.v02.common.version.Version;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
  *   -. FileName   : VersionMain.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.tools
+ *   -. Package    : tain.kr.com.proj.cosmarter.v02.tools
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 14. {time}

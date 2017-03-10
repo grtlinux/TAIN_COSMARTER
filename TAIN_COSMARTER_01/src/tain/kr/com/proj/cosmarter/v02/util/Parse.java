@@ -28,7 +28,7 @@ import org.apache.log4j.Logger;
  *
  * <PRE>
  *   -. FileName   : Parse.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.util
+ *   -. Package    : tain.kr.com.proj.cosmarter.v02.util
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 25. {time}
