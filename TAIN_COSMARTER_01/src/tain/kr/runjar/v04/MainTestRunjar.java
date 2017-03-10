@@ -65,11 +65,11 @@ public class MainTestRunjar {
 		this.prop = System.getProperties();
 		this.resourceBundle = ResourceBundle.getBundle(this.getClass().getName().replace('.', '/'));
 		
-		if (!flag) System.out.println(String.format("System.getProperties -> [%s] = [%s]", KEY_SYSTEM_DESC, this.prop.getProperty(KEY_SYSTEM_DESC)));
-		if (!flag) System.out.println(String.format("ResourceBundle.getBundle -> [%s] = [%s]", KEY_RUNJAR_DESC, this.resourceBundle.getString(KEY_RUNJAR_DESC)));
-		if (!flag) System.out.println(String.format("ResourceBundle.getBundle -> [%s] = [%s]", KEY_MAIN_CLASS, this.resourceBundle.getString(KEY_MAIN_CLASS)));
+		if (flag) System.out.println(String.format("System.getProperties -> [%s] = [%s]", KEY_SYSTEM_DESC, this.prop.getProperty(KEY_SYSTEM_DESC)));
+		if (flag) System.out.println(String.format("ResourceBundle.getBundle -> [%s] = [%s]", KEY_RUNJAR_DESC, this.resourceBundle.getString(KEY_RUNJAR_DESC)));
+		if (flag) System.out.println(String.format("ResourceBundle.getBundle -> [%s] = [%s]", KEY_MAIN_CLASS, this.resourceBundle.getString(KEY_MAIN_CLASS)));
 		
-		if (!flag)
+		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
@@ -102,6 +102,7 @@ public class MainTestRunjar {
 			 * start classLoader
 			 */
 			String mainClass = new MainTestRunjar().getMainClass();
+			if (flag) System.out.println();
 			
 			Class<?> cls = Class.forName(mainClass);
 			Method main = cls.getMethod("main", new Class[] { args.getClass() });
@@ -114,7 +115,7 @@ public class MainTestRunjar {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		if (!flag)
+		if (flag)
 			log.debug(">>>>> " + new Object() {}.getClass().getEnclosingClass().getName());
 
 		if (flag)
