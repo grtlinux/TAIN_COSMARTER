@@ -40,6 +40,7 @@ import java.net.URLStreamHandler;
  */
 public final class RsrcURLStreamHandler extends URLStreamHandler {
 
+	@SuppressWarnings("unused")
 	private static boolean flag = true;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,11 +60,9 @@ public final class RsrcURLStreamHandler extends URLStreamHandler {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
+	@Override
 	protected void parseURL(URL url, String spec, int start, int limit) {
 
-		if (!flag) System.out.printf("%s >>>>> (URL=%s, spec=%s, start=%d, limit=%d)\n"
-				, this.getClass().getName(), url, spec, start, limit);
-		
 		String file;
 		
 		if (spec.startsWith("rsrc:"))
@@ -75,10 +74,35 @@ public final class RsrcURLStreamHandler extends URLStreamHandler {
 		else
 			file = spec;
 		
+		/*
+		 * 
+		 *  * protected void setURL(URL u,
+		 *                        String protocol,
+		 *                        String host,
+		 *                        int port,
+		 *                        String authority,
+		 *                        String userInfo,
+		 *                        String path,
+		 *                        String query,
+		 *                        String ref);
+		 *
+		 *  * Parameters:
+		 *      u - the URL to modify.
+		 *      protocol - the protocol name.
+		 *      host - the remote host value for the URL.
+		 *      port - the port on the remote machine.
+		 *      authority - the authority part for the URL.
+		 *      userInfo - the userInfo part of the URL.
+		 *      path - the path component of the URL.
+		 *      query - the query part for the URL.
+		 *      ref - the reference.
+		 *
+		 *  * Sets the fields of the URL argument to the indicated values.
+		 *  Only classes derived from URLStreamHandler are supposed
+		 *  to be able to call the set method on a URL.
+		 *
+		 */
 		setURL(url, "rsrc", "", -1, null, null, file, null, null);
-
-		if (!flag) System.out.printf("%s >>>>> file=[%s], url.getFile()=[%s]\n"
-				, this.getClass().getName(), file, url.getFile());
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
