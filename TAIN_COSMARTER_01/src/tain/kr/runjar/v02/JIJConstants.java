@@ -25,7 +25,7 @@ package tain.kr.runjar.v02;
  *
  * <PRE>
  *   -. FileName   : JIJConstants.java
- *   -. Package    : tain.kr.com.test.runJar.v01
+ *   -. Package    : tain.kr.com.test.runJar.v02
  *   -. Comment    :
  *                   Constants used in the Jar-in-Jar loader.
  *                   Some of these are duplicated in JIJConstants in the source for the Runnable Jar File export Wizard:

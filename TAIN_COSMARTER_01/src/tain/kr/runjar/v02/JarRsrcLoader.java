@@ -37,7 +37,7 @@ import java.util.jar.Manifest;
  *
  * <PRE>
  *   -. FileName   : JarRsrcLoader.java
- *   -. Package    : tain.kr.com.test.runJar.v01
+ *   -. Package    : tain.kr.com.test.runJar.v02
  *   -. Comment    :
  *                   This class will be compiled into the binary jar-in-jar-loader.zip. This ZIP is used for the "Runnable JAR File Exporter"
  *   -. Author     : taincokr
