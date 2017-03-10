@@ -42,6 +42,7 @@ import java.net.URLDecoder;
  */
 public final class RsrcURLConnection extends URLConnection {
 
+	@SuppressWarnings("unused")
 	private static boolean flag = true;
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,14 +64,14 @@ public final class RsrcURLConnection extends URLConnection {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
+	@Override
 	public InputStream getInputStream() throws IOException {
 		
 		String file = URLDecoder.decode(url.getFile(), "UTF-8");
-		if (!flag) System.out.printf("%s >>>>> file=%s\n\n", this.getClass().getName(), file);
 		
 		InputStream is = classLoader.getResourceAsStream(file);
 		if (is == null)
-			throw new MalformedURLException("Could not open InputStream for URL '" + url + "'");
+			throw new MalformedURLException(String.format("Could not open InputStream for URL '%s'.", url));
 		
 		return is;
 	}
