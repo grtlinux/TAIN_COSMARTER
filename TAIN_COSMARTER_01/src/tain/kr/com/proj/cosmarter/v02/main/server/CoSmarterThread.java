@@ -24,6 +24,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
@@ -92,7 +93,10 @@ public class CoSmarterThread extends Thread {
 			String line = null;
 			
 			try {
-				br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+				/*
+				 * TODO 2017.03.10 : add Charset in InputStreamReader
+				 */
+				br = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), Charset.forName("EUC-KR")));
 				
 				line = br.readLine();
 				if (flag) log.debug("COMMAND IS [" + line + "]");
@@ -110,8 +114,10 @@ public class CoSmarterThread extends Thread {
 					 */
 					cmd = new String[] { "/bin/sh", "-c", line };
 				}
-				
-				log.debug("RET_VAL = " + Exec.run(cmd, new OutputStreamWriter(this.socket.getOutputStream()), true));
+				/*
+				 * TODO 2017.03.10 : add Charset in OutputStreamWriter
+				 */
+				log.debug("RET_VAL = " + Exec.run(cmd, new OutputStreamWriter(this.socket.getOutputStream(), Charset.forName("EUC-KR")), true));
 
 			//} catch (InterruptedException e1) {
 			//	e1.printStackTrace();
