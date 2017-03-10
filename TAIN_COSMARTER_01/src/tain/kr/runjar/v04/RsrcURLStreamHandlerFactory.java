@@ -43,7 +43,6 @@ public final class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactor
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private ClassLoader classLoader = null;
-	private URLStreamHandlerFactory factory = null;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -57,13 +56,6 @@ public final class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactor
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	
-	public void setURLStreamHandlerFactory(URLStreamHandlerFactory factory) {
-		
-		this.factory = factory;
-	}
-	
-	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/* (non-Javadoc)
 	 * @see java.net.URLStreamHandlerFactory#createURLStreamHandler(java.lang.String)
@@ -75,9 +67,6 @@ public final class RsrcURLStreamHandlerFactory implements URLStreamHandlerFactor
 		
 		if ("rsrc".equals(protocol))
 			return new RsrcURLStreamHandler(classLoader);
-		
-		if (factory != null)
-			return factory.createURLStreamHandler(protocol);
 		
 		return null;
 	}
