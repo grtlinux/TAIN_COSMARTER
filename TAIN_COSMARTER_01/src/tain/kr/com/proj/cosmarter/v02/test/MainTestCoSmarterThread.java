@@ -24,7 +24,7 @@ import java.net.Socket;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.main.server.CoSmarterThread;
+import tain.kr.com.proj.cosmarter.v02.main.server.CoSmarterThread;
 
 /**
  * Code Templates > Comments > Types
