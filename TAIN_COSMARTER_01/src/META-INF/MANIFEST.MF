@@ -2,7 +2,7 @@ Manifest-Version: 1.0
  
 Title: CoSmarter 1.1 of TAIN
  
-Version: ver1.1
+Version: ver1.02
  
 Package: tain.kr.com.proj.cosmarter
  
@@ -19,7 +19,12 @@ Provider: Kiea Seok Kang    kiea@tain.co.kr  at 17.03.03
  
 Class-Path: .
  
+ 
+ 
+ 
 Main-Class: tain.kr.runjar.v04.RunJarLoader
+ 
+Rsrc-version: RunJarLoader ver1.04
  
 Rsrc-Class-Path: ./
   libs/commons-net-3.3.jar
