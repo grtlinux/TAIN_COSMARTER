@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
  
-Title: CoSmarter 1.1 of TAIN
+Title: CoSmarter 1.02 in TAIN, Inc.
  
-Version: ver1.02
+Version: CoSmarter ver1.02
  
 Package: tain.kr.com.proj.cosmarter
  
