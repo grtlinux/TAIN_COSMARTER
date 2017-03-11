@@ -39,7 +39,7 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class Test01Param {
+public final class Test01Param {
 
 	private static boolean flag = true;
 
