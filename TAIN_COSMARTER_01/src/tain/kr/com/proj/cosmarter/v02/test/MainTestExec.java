@@ -22,7 +22,7 @@ package tain.kr.com.proj.cosmarter.v02.test;
 import org.apache.log4j.Logger;
 
 import tain.kr.com.proj.cosmarter.v02.util.CheckSystem;
-import tain.kr.com.proj.cosmarter.v02.util.Exec;
+import tain.kr.com.proj.cosmarter.v02.util.Old01Exec;
 
 /**
  * Code Templates > Comments > Types
@@ -91,7 +91,7 @@ public class MainTestExec {
 				
 				log.debug(">>>>> String");
 				
-				log.debug(">>>>> ret = " + Exec.run(cmd, false));
+				log.debug(">>>>> ret = " + Old01Exec.run(cmd, false));
 			}
 
 			if (flag) {
@@ -100,7 +100,7 @@ public class MainTestExec {
 				
 				log.debug(">>>>> String[]");
 				
-				log.debug(">>>>> ret = " + Exec.run(cmd, false));
+				log.debug(">>>>> ret = " + Old01Exec.run(cmd, false));
 			}
 		}
 		
@@ -115,7 +115,7 @@ public class MainTestExec {
 
 			if (flag) {
 				// String
-				Exec.run("/bin/ksh -x /home/kang/abc.sh");
+				Old01Exec.run("/bin/ksh -x /home/kang/abc.sh");
 			}
 		}
 	}
