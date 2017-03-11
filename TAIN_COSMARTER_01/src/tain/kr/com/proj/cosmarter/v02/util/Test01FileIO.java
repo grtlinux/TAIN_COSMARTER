@@ -56,7 +56,7 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class Test01FileIO {
+public final class Test01FileIO {
 
 	private static boolean flag = true;
 
