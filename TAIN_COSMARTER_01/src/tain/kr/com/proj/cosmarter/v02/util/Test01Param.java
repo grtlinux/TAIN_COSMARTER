@@ -19,6 +19,10 @@
  */
 package tain.kr.com.proj.cosmarter.v02.util;
 
+import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -42,18 +46,67 @@ public class Test01Param {
 	private static final Logger log = Logger.getLogger(Test01Param.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	protected static final String FILE_NAME_RESOURCES = "resources/resources";
+
+	protected final Properties prop;
+	protected final ResourceBundle resourceBundle;
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
 	private Test01Param() {
+		
+		this.prop = System.getProperties();
+		this.resourceBundle = ResourceBundle.getBundle(FILE_NAME_RESOURCES);
+
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private String getStringFromSystem(String key) {
+		return this.prop.getProperty(key);
+	}
+	
+	private String getStringFromResourceBundle(String key) {
+		
+		String strValue = null;
+		
+		try {
+			strValue = this.resourceBundle.getString(key);
+		} catch (MissingResourceException e) {}
+		
+		return strValue;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public String getString(String key) {
+		
+		String value;
+		
+		value = getStringFromSystem(key);
+		if (value != null)
+			return value;
+		
+		value = getStringFromResourceBundle(key);
+		
+		return value;
+	}
+	
+	public String getString(String key, String defaultValue) {
+		
+		String value = getString(key);
+		if (value == null)
+			return defaultValue;
+		
+		return value;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -81,11 +134,14 @@ public class Test01Param {
 	 */
 	private static void test01(String[] args) throws Exception {
 
-		if (flag)
-			new Test01Param();
-
 		if (flag) {
-
+			/*
+			 * System.getProperties
+			 * resources/resources.properties
+			 */
+			String strKey = "tain.project";
+			
+			if (flag) System.out.printf("Param : [%s] = [%s]\n", strKey, Test01Param.getInstance().getString(strKey));
 		}
 	}
 
