@@ -57,11 +57,11 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class FileIO {
+public class Old01FileIO {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(FileIO.class);
+	private static final Logger log = Logger.getLogger(Old01FileIO.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,7 +95,7 @@ public class FileIO {
 	 * </PRE>
 	 *
 	 */
-	private FileIO() {
+	private Old01FileIO() {
 		// nothing to do
 		if (flag) {
 			String clsName = this.getClass().getName();

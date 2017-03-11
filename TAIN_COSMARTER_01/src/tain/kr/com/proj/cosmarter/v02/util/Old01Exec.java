@@ -40,11 +40,11 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class Exec {
+public class Old01Exec {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(Exec.class);
+	private static final Logger log = Logger.getLogger(Old01Exec.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -72,7 +72,7 @@ public class Exec {
 	 * </PRE>
 	 *
 	 */
-	private Exec() {
+	private Old01Exec() {
 		// nothing to do
 		if (flag) {
 			
@@ -99,7 +99,7 @@ public class Exec {
 		
 		Process p = r.exec(cmd);
 		
-		FileIO.copyFile(new InputStreamReader(p.getInputStream()), out, osClose);
+		Old01FileIO.copyFile(new InputStreamReader(p.getInputStream()), out, osClose);
 		
 		try {
 			p.waitFor();     // wait for process to complete
@@ -165,7 +165,7 @@ public class Exec {
 		
 		Process p = r.exec(cmd);
 		
-		FileIO.copyFile(new InputStreamReader(p.getInputStream()), out, osClose);
+		Old01FileIO.copyFile(new InputStreamReader(p.getInputStream()), out, osClose);
 		
 		try {
 			p.waitFor();     // wait for process to complete
@@ -231,7 +231,7 @@ public class Exec {
 			
 			log.debug(">>>>> String");
 			
-			log.debug(">>>>> ret = " + Exec.run(cmd, false));
+			log.debug(">>>>> ret = " + Old01Exec.run(cmd, false));
 		}
 
 		if (flag) {
@@ -240,7 +240,7 @@ public class Exec {
 			
 			log.debug(">>>>> String[]");
 			
-			log.debug(">>>>> ret = " + Exec.run(cmd, false));
+			log.debug(">>>>> ret = " + Old01Exec.run(cmd, false));
 		}
 	}
 	
@@ -256,7 +256,7 @@ public class Exec {
 
 		if (flag) {
 			// String
-			Exec.run("/bin/ksh -x /home/kang/abc.sh");
+			Old01Exec.run("/bin/ksh -x /home/kang/abc.sh");
 		}
 	}
 	
