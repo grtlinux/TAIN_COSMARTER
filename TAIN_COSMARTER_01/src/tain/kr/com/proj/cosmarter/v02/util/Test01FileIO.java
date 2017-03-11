@@ -22,17 +22,23 @@ package tain.kr.com.proj.cosmarter.v02.util;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Enumeration;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import org.apache.log4j.Logger;
 
@@ -229,7 +235,7 @@ public class Test01FileIO {
 			} else if (src.isFile()) {
 				copyFile(src, toDir);
 			} else {
-				System.out.printf("Warning: %s is neither file nor directory.", src);
+				System.out.printf("Warning: %s is neither file nor directory.\n", src);
 			}
 		}
 	}
@@ -237,9 +243,138 @@ public class Test01FileIO {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public static void copyRecursively(File fromDir, File toDir) throws IOException {
+		
 		copyRecursively(fromDir, toDir, false);
 	}
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static void deleteRecursively(File startDir) throws IOException {
+		
+		String startDirPath = startDir.getCanonicalPath();
+		
+		for (File file : startDir.listFiles()) {
+			if (!file.getCanonicalPath().startsWith(startDirPath)) {
+				throw new IOException(String.format("Attempted to go out of '%s'.", startDir));
+			}
+			
+			if (file.isDirectory()) {
+				deleteRecursively(file);
+			}
+		}
+		
+		for (File file : startDir.listFiles()) {
+			file.delete();
+			if (file.exists()) {
+				System.err.printf("'%s' did not get deleted.!!", file);
+			}
+		}
+		
+		startDir.delete();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static void copyRecursively(JarFile base, JarEntry startingDir, File toDir) throws IOException {
+		
+		if (!startingDir.isDirectory()) {
+			throw new IOException(String.format("Starting point '%s' is not a directory.", startingDir));
+		}
+		
+		if (!toDir.exists()) {
+			throw new IOException(String.format("Destination dir '%s' must exist.", toDir));
+		}
+		
+		Enumeration<JarEntry> all = base.entries();
+		while (all.hasMoreElements()) {
+			JarEntry file = all.nextElement();
+			
+			if (file.isDirectory()) {
+				copyRecursively(base, file, new File(toDir, file.getName()));
+			} else {
+				InputStream is = null;
+				OutputStream os = null;
+				
+				try {
+					is = base.getInputStream(file);
+					os = new FileOutputStream(new File(toDir, file.getName()));
+					
+					copyFile(is, os, false);
+					
+					os.flush();
+				} finally {
+					if (is != null) try { is.close(); } catch (IOException e) {}
+					if (os != null) try { os.close(); } catch (IOException e) {}
+				}
+			}
+		}
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static String readLine(String inName) throws FileNotFoundException, IOException {
+		
+		BufferedReader br = null;
+		
+		try {
+			br = new BufferedReader(new FileReader(inName));
+			String line = null;
+			line = br.readLine();
+			return line;
+		} finally {
+			if (br != null) try { br.close(); } catch (IOException e) {}
+		}
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static String readerToString(Reader reader) throws IOException {
+		
+		StringBuffer sb = new StringBuffer();
+		
+		char[] chRead = new char[Test01FileIO.BLKSIZ];
+		int nRead;
+		
+		while ((nRead = reader.read(chRead)) != -1) {
+			sb.append(chRead, 0, nRead);
+		}
+		
+		return sb.toString();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static String inputStreamToString(InputStream is) throws IOException {
+		
+		return readerToString(new InputStreamReader(is));
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static String readAsString(String fileName) throws IOException {
+		
+		return readerToString(new FileReader(fileName));
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static void stringToFile(String text, String fileName) throws IOException {
+		
+		BufferedWriter bw = new BufferedWriter(new FileWriter(fileName));
+		bw.write(text);
+		bw.flush();
+		bw.close();
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static BufferedReader openFile(String fileName) throws IOException {
+		
+		return new BufferedReader(new FileReader(fileName));
+	}
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -256,11 +391,8 @@ public class Test01FileIO {
 	 */
 	private static void test01(String[] args) throws Exception {
 
-		if (flag)
-			new Test01FileIO();
-
 		if (flag) {
-
+			System.out.printf("[%s]\n", Test01FileIO.readLine("./project/doc/doc.log"));
 		}
 	}
 
