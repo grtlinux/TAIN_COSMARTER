@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
  * Code Templates > Comments > Types
  *
  * <PRE>
- *   -. FileName   : TestFileIO.java
+ *   -. FileName   : Test01FileIO.java
  *   -. Package    : tain.kr.com.proj.cosmarter.v02.util
  *   -. Comment    :
  *   -. Author     : taincokr
@@ -35,11 +35,11 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class TestFileIO {
+public class Test01FileIO {
 
 	private static boolean flag = true;
 
-	private static final Logger log = Logger.getLogger(TestFileIO.class);
+	private static final Logger log = Logger.getLogger(Test01FileIO.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ public class TestFileIO {
 	/*
 	 * constructor
 	 */
-	public TestFileIO() {
+	public Test01FileIO() {
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
@@ -71,7 +71,7 @@ public class TestFileIO {
 	private static void test01(String[] args) throws Exception {
 
 		if (flag)
-			new TestFileIO();
+			new Test01FileIO();
 
 		if (flag) {
 
