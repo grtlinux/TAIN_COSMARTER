@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class Test01Exec {
+public final class Test01Exec {
 
 	private static boolean flag = true;
 
