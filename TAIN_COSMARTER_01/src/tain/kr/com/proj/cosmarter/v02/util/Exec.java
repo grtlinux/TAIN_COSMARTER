@@ -187,8 +187,8 @@ public final class Exec {
 				 */
 				String cmd = "cmd /c dir";
 				log.debug(">>>>> String");
-				// log.debug(">>>>> ret = " + Exec.run(cmd, true));
-				log.debug(">>>>> ret = " + Exec.run(cmd));
+				log.debug(">>>>> ret = " + Exec.run(cmd, false));  // System.out not be closed
+				// log.debug(">>>>> ret = " + Exec.run(cmd));  // System.out be closed
 			}
 			
 			if (flag) {
@@ -197,8 +197,8 @@ public final class Exec {
 				 */
 				String[] cmd = { "cmd", "/c", "dir" };
 				log.debug(">>>>> String[]");
-				// log.debug(">>>>> ret = " + Exec.run(cmd, false));
-				log.debug(">>>>> ret = " + Exec.run(cmd));
+				log.debug(">>>>> ret = " + Exec.run(cmd, false));
+				// log.debug(">>>>> ret = " + Exec.run(cmd));
 			}
 		}
 	}
