@@ -44,7 +44,7 @@ import tain.kr.com.proj.cosmarter.v01.util.CheckSystem;
  * @author taincokr
  *
  */
-public class CoBeanClient {
+public final class CoBeanClient {
 
 	private static boolean flag = true;
 
