@@ -19,6 +19,7 @@
  */
 package tain.kr.com.proj.cosmarter.v02.util;
 
+import java.util.Enumeration;
 import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -108,6 +109,34 @@ public final class Param {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public void printAll() {
+		
+		if (flag) {
+			/*
+			 * System properties
+			 */
+			if (flag) System.out.println("########### System properties ##########");
+			
+			this.prop.list(System.out);
+		}
+		
+		if (flag) {
+			/*
+			 * Resource properties
+			 */
+			if (flag) System.out.println("########### resources/resources.properties ##########");
+
+			Enumeration<String> enumKeys = this.resourceBundle.getKeys();
+			while (enumKeys.hasMoreElements()) {
+				String strKey = (String) enumKeys.nextElement();
+				String strVal = (String) this.resourceBundle.getString(strKey);
+				
+				System.out.printf("resources [%s] = [%s]\n", strKey, strVal);
+			}
+		}
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +173,13 @@ public final class Param {
 			String strKey = "tain.project";
 			
 			if (flag) System.out.printf("Param : [%s] = [%s]\n", strKey, Param.getInstance().getString(strKey));
+		}
+		
+		if (flag) {
+			/*
+			 * printAll
+			 */
+			Param.getInstance().printAll();
 		}
 	}
 
