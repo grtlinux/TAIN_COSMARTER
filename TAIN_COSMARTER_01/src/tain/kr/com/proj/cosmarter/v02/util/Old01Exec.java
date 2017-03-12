@@ -99,7 +99,7 @@ public class Old01Exec {
 		
 		Process p = r.exec(cmd);
 		
-		Old01FileIO.copyFile(new InputStreamReader(p.getInputStream()), out, osClose);
+		FileIO.copyFile(new InputStreamReader(p.getInputStream()), out, osClose);
 		
 		try {
 			p.waitFor();     // wait for process to complete
@@ -165,7 +165,7 @@ public class Old01Exec {
 		
 		Process p = r.exec(cmd);
 		
-		Old01FileIO.copyFile(new InputStreamReader(p.getInputStream()), out, osClose);
+		FileIO.copyFile(new InputStreamReader(p.getInputStream()), out, osClose);
 		
 		try {
 			p.waitFor();     // wait for process to complete
