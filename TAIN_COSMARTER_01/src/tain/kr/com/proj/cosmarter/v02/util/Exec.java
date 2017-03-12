@@ -173,7 +173,33 @@ public final class Exec {
 			new Exec();
 
 		if (flag) {
-
+			/*
+			 * begin
+			 */
+			if (!CheckSystem.getInstance().isWindows()) {
+				log.debug(">>>>> This system is not windows system.");
+				return;
+			}
+			
+			if (flag) {
+				/*
+				 * cmd = String object
+				 */
+				String cmd = "cmd /c dir";
+				log.debug(">>>>> String");
+				// log.debug(">>>>> ret = " + Exec.run(cmd, true));
+				log.debug(">>>>> ret = " + Exec.run(cmd));
+			}
+			
+			if (flag) {
+				/*
+				 * cmd = String[] object
+				 */
+				String[] cmd = { "cmd", "/c", "dir" };
+				log.debug(">>>>> String[]");
+				// log.debug(">>>>> ret = " + Exec.run(cmd, false));
+				log.debug(">>>>> ret = " + Exec.run(cmd));
+			}
 		}
 	}
 
