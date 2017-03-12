@@ -46,7 +46,7 @@ import tain.kr.com.proj.cosmarter.v01.util.Exec;
  * @author taincokr
  *
  */
-public class CoSmarterThread extends Thread {
+public final class CoSmarterThread extends Thread {
 
 	private static boolean flag = true;
 
