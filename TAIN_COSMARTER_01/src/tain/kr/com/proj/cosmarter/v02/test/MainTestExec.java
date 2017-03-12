@@ -22,7 +22,7 @@ package tain.kr.com.proj.cosmarter.v02.test;
 import org.apache.log4j.Logger;
 
 import tain.kr.com.proj.cosmarter.v02.util.CheckSystem;
-import tain.kr.com.proj.cosmarter.v02.util.Old01Exec;
+import tain.kr.com.proj.cosmarter.v02.util.Exec;
 
 /**
  * Code Templates > Comments > Types
