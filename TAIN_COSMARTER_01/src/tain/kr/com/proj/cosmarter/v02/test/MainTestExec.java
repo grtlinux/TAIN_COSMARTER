@@ -91,7 +91,7 @@ public class MainTestExec {
 				
 				log.debug(">>>>> String");
 				
-				log.debug(">>>>> ret = " + Old01Exec.run(cmd, false));
+				log.debug(">>>>> ret = " + Exec.run(cmd, false));
 			}
 
 			if (flag) {
@@ -100,7 +100,7 @@ public class MainTestExec {
 				
 				log.debug(">>>>> String[]");
 				
-				log.debug(">>>>> ret = " + Old01Exec.run(cmd, false));
+				log.debug(">>>>> ret = " + Exec.run(cmd, false));
 			}
 		}
 		
@@ -115,7 +115,7 @@ public class MainTestExec {
 
 			if (flag) {
 				// String
-				Old01Exec.run("/bin/ksh -x /home/kang/abc.sh");
+				Exec.run("/bin/ksh -x /home/kang/abc.sh");
 			}
 		}
 	}
