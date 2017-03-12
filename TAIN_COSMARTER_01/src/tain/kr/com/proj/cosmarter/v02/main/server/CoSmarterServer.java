@@ -39,7 +39,7 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class CoSmarterServer {
+public final class CoSmarterServer {
 
 	private static boolean flag = true;
 
