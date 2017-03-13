@@ -31,6 +31,7 @@ import org.apache.log4j.Logger;
 
 import tain.kr.com.proj.cosmarter.v01.util.CheckSystem;
 import tain.kr.com.proj.cosmarter.v01.util.Exec;
+import tain.kr.com.proj.cosmarter.v02.util.Param;
 
 /**
  * Code Templates > Comments > Types
@@ -54,23 +55,25 @@ public final class CoSmarterThread extends Thread {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private int idxThr = -1;
-	private Socket socket = null;
+	private final int idxThr;
+	private final Socket socket;
 
-	private static final int CNT_LOOP = 10000000;
-	
 	private static final String KEY_THREAD_DESC = "tain.cosmarter.thread.desc";
 	
 	private String strThreadDesc = null;
 
+	private String strReaderCharset = null;
+	private String strWriterCharset = null;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public CoSmarterThread(int idxThr, Socket socket) throws Exception {
 		
-		if (flag) {
-			this.idxThr = idxThr;
-			this.socket = socket;
-		}
+		/*
+		 * initialize
+		 */
+		this.idxThr = idxThr;
+		this.socket = socket;
 
 		if (flag) {
 			String clsName = this.getClass().getName();
@@ -81,8 +84,19 @@ public final class CoSmarterThread extends Thread {
 		}
 		
 		if (flag) {
+			/*
+			 * TODO 2017.03.13 : add charsets of reader and writer
+			 */
+			this.strReaderCharset = Param.getInstance().getString("tain.reader.charset", "EUC-KR");
+			this.strWriterCharset = Param.getInstance().getString("tain.writer.charset", "EUC-KR");
+		}
+		
+		if (flag) {
 			if (flag) log.info(">>>>> idxThr : " + this.idxThr);
-			if (!flag) log.info(">>>>> DESC : " + this.strThreadDesc);
+			if (flag) log.info(">>>>> DESC : " + this.strThreadDesc);
+			
+			if (flag) log.info(String.format(">>>>> [%s] = [%s]", "tain.reader.charset", this.strReaderCharset));
+			if (flag) log.info(String.format(">>>>> [%s] = [%s]", "tain.writer.charset", this.strWriterCharset));
 		}
 	}
 	
@@ -96,7 +110,7 @@ public final class CoSmarterThread extends Thread {
 				/*
 				 * TODO 2017.03.10 : add Charset in InputStreamReader
 				 */
-				br = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), Charset.forName("EUC-KR")));
+				br = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), Charset.forName(this.strReaderCharset)));
 				
 				line = br.readLine();
 				if (flag) log.debug("COMMAND IS [" + line + "]");
@@ -117,12 +131,12 @@ public final class CoSmarterThread extends Thread {
 				/*
 				 * TODO 2017.03.10 : add Charset in OutputStreamWriter
 				 */
-				log.debug("RET_VAL = " + Exec.run(cmd, new OutputStreamWriter(this.socket.getOutputStream(), Charset.forName("EUC-KR")), true));
+				log.debug("RET_VAL = " + Exec.run(cmd, new OutputStreamWriter(this.socket.getOutputStream(), Charset.forName(this.strWriterCharset)), true));
 
-			//} catch (InterruptedException e1) {
-			//	e1.printStackTrace();
-			} catch (Exception e2) {
-				e2.printStackTrace();
+			//} catch (InterruptedException e) {
+			//	e.printStackTrace();
+			} catch (Exception e) {
+				e.printStackTrace();
 			} finally {
 				if (br != null) try { br.close(); } catch (Exception e) {}
 				if (socket != null) try { socket.close(); } catch (Exception e) {}
@@ -141,9 +155,7 @@ public final class CoSmarterThread extends Thread {
 			ServerSocket serverSocket = new ServerSocket(nListenPort);
 			if (flag) log.debug(String.format("SERVER : listening by port %d [%s]", nListenPort, serverSocket.toString()));
 			
-			for (int idxThr=0; idxThr <= CNT_LOOP; idxThr ++) {
-				if (idxThr > CNT_LOOP)
-					idxThr = 0;
+			for (int idxThr=0; flag; idxThr = ++idxThr % 10000) {
 				
 				Socket socket = serverSocket.accept();
 				if (flag) log.debug(String.format("SERVER : accept the connection [%s]", socket));
