@@ -49,11 +49,12 @@ public final class Exec {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private final static String KEY_PROCESS_CHARSET = "tain.process.charset";
+	private final static String KEY_PROCESS_CHARSET = "tain.exec.charset";
 	private static String charSet;
 	static {
 		try {
 			Exec.charSet = Param.getInstance().getString(KEY_PROCESS_CHARSET, "NO_TYPE");
+			if (flag) System.out.printf(">>>>> [%s] = [%s]\n", KEY_PROCESS_CHARSET, Exec.charSet);
 		} catch (Exception e) {}
 	}
 	
