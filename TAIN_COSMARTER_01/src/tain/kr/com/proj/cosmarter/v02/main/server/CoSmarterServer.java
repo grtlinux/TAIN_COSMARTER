@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
+import tain.kr.com.proj.cosmarter.v02.util.Param;
+
 /**
  * Code Templates > Comments > Types
  *
@@ -53,6 +55,12 @@ public final class CoSmarterServer {
 	private String strServerDesc = null;
 	private int nListenPort = -1;
 	
+
+	private static final String KEY_READER_CHARSET = "tain.server.reader.charset";
+	private static final String KEY_WRITER_CHARSET = "tain.server.writer.charset";
+	private String strReaderCharset = null;
+	private String strWriterCharset = null;
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	private CoSmarterServer() throws Exception {
@@ -69,6 +77,17 @@ public final class CoSmarterServer {
 		if (flag) {
 			log.info(">>>>> DESC : " + this.strServerDesc);
 			log.info(">>>>> LISTEN PORT : " + this.nListenPort);
+		}
+		
+		if (flag) {
+			/*
+			 * TODO 2017.03.13 : add charsets of reader and writer
+			 */
+			this.strReaderCharset = Param.getInstance().getString(KEY_READER_CHARSET, "NO_TYPE");
+			this.strWriterCharset = Param.getInstance().getString(KEY_WRITER_CHARSET, "NO_TYPE");
+			
+			log.info(String.format(">>>>> [%s] = [%s]", KEY_READER_CHARSET, this.strReaderCharset));
+			log.info(String.format(">>>>> [%s] = [%s]", KEY_WRITER_CHARSET, this.strWriterCharset));
 		}
 	}
 	
