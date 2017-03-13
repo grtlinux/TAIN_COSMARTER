@@ -32,7 +32,7 @@ import org.apache.log4j.Logger;
  *
  * <PRE>
  *   -. FileName   : CoSmarterClient.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.main.client
+ *   -. Package    : tain.kr.com.proj.cosmarter.v02.main.client
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 14. {time}
