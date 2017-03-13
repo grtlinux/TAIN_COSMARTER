@@ -27,15 +27,15 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.bean.SimpleBean;
-import tain.kr.com.proj.cosmarter.v01.util.CheckSystem;
+import tain.kr.com.proj.cosmarter.v02.bean.SimpleBean;
+import tain.kr.com.proj.cosmarter.v02.util.CheckSystem;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
  *   -. FileName   : CoBeanClient.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.main.client
+ *   -. Package    : tain.kr.com.proj.cosmarter.v02.main.client
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 25. {time}
