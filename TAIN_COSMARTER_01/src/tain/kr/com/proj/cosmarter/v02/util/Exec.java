@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.nio.charset.Charset;
 
 import org.apache.log4j.Logger;
 
@@ -47,6 +48,14 @@ public final class Exec {
 	private static final Logger log = Logger.getLogger(Exec.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private final static String KEY_PROCESS_CHARSET = "tain.process.charset";
+	private static String charSet;
+	static {
+		try {
+			Exec.charSet = Param.getInstance().getString(KEY_PROCESS_CHARSET, "NO_TYPE");
+		} catch (Exception e) {}
+	}
 	
 	/*
 	 * need a Runtime object for any of these methods in this class
@@ -75,7 +84,7 @@ public final class Exec {
 		
 		Process process = rt.exec(cmd);
 		
-		FileIO.copyFile(new InputStreamReader(process.getInputStream()), writer, flgOsClose);
+		FileIO.copyFile(new InputStreamReader(process.getInputStream(), Charset.forName(Exec.charSet)), writer, flgOsClose);
 		
 		try {
 			process.waitFor();
@@ -90,7 +99,7 @@ public final class Exec {
 	
 	public static int run(String cmd, boolean flgOsClose) throws IOException {
 		
-		return run(cmd, new OutputStreamWriter(System.out), flgOsClose);
+		return run(cmd, new OutputStreamWriter(System.out, Charset.forName(Exec.charSet)), flgOsClose);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -104,7 +113,7 @@ public final class Exec {
 	
 	public static int run(String cmd) throws IOException {
 		
-		return run(cmd, new OutputStreamWriter(System.out), true);
+		return run(cmd, new OutputStreamWriter(System.out, Charset.forName(Exec.charSet)), true);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -115,7 +124,7 @@ public final class Exec {
 		
 		Process process = rt.exec(cmd);
 		
-		FileIO.copyFile(new InputStreamReader(process.getInputStream()), writer, flgOsClose);
+		FileIO.copyFile(new InputStreamReader(process.getInputStream(), Charset.forName(Exec.charSet)), writer, flgOsClose);
 		
 		try {
 			process.waitFor();
@@ -130,7 +139,7 @@ public final class Exec {
 	
 	public static int run(String[] cmd, boolean flgOsClose) throws IOException {
 		
-		return run(cmd, new OutputStreamWriter(System.out), flgOsClose);
+		return run(cmd, new OutputStreamWriter(System.out, Charset.forName(Exec.charSet)), flgOsClose);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,7 +153,7 @@ public final class Exec {
 	
 	public static int run(String[] cmd) throws IOException {
 		
-		return run(cmd, new OutputStreamWriter(System.out), true);
+		return run(cmd, new OutputStreamWriter(System.out, Charset.forName(Exec.charSet)), true);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
