@@ -21,11 +21,15 @@ package tain.kr.com.proj.cosmarter.v02.main.client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.Charset;
 import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
+
+import tain.kr.com.proj.cosmarter.v02.util.Param;
 
 /**
  * Code Templates > Comments > Types
@@ -54,11 +58,17 @@ public final class CoSmarterClient {
 	private static final String KEY_CLIENT_CONNECT_PORT = "tain.cosmarter.client.connect.port";
 	private static final String KEY_CLIENT_COMMAND = "tain.cosmarter.client.command";
 	
+	private static final String KEY_READER_CHARSET = "tain.client.reader.charset";
+	private static final String KEY_WRITER_CHARSET = "tain.client.writer.charset";
+
 	private String strClientDesc = null;
 	private String strConnectHost = null;
 	private int nConnectPort = -1;
 	private String strCommand = null;
 	
+	private String strReaderCharset = null;
+	private String strWriterCharset = null;
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	private CoSmarterClient() throws Exception {
@@ -75,7 +85,18 @@ public final class CoSmarterClient {
 		}
 		
 		if (flag) {
-			log.info(">>>>> DESC : " + this.strClientDesc);
+			/*
+			 * TODO 2017.03.13 : add charsets of reader and writer
+			 */
+			this.strReaderCharset = Param.getInstance().getString(KEY_READER_CHARSET, "NO_TYPE");
+			this.strWriterCharset = Param.getInstance().getString(KEY_WRITER_CHARSET, "NO_TYPE");
+			
+			log.info(String.format(">>>>> [%s] = [%s]", KEY_READER_CHARSET, this.strReaderCharset));
+			log.info(String.format(">>>>> [%s] = [%s]", KEY_WRITER_CHARSET, this.strWriterCharset));
+		}
+
+		if (flag) {
+			log.info(">>>>> DESC         : " + this.strClientDesc);
 			log.info(">>>>> CONNECT HOST : " + this.strConnectHost);
 			log.info(">>>>> CONNECT PORT : " + this.nConnectPort);
 			log.info(">>>>> COMMAND      : " + this.strCommand);
@@ -190,8 +211,8 @@ public final class CoSmarterClient {
 			
 			Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
 			
-			pw = new PrintWriter(socket.getOutputStream());
-			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), Charset.forName(this.strWriterCharset)));
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName(this.strReaderCharset)));
 			
 			pw.println(this.strCommand);
 			pw.flush();
@@ -212,11 +233,11 @@ public final class CoSmarterClient {
 	
 	public static synchronized CoSmarterClient getInstance() throws Exception {
 		
-		if (instance == null) {
-			instance = new CoSmarterClient();
+		if (CoSmarterClient.instance == null) {
+			CoSmarterClient.instance = new CoSmarterClient();
 		}
 		
-		return instance;
+		return CoSmarterClient.instance;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -224,7 +245,7 @@ public final class CoSmarterClient {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	private static void test01(String[] args) throws Exception {
-		
+
 		if (flag) {
 			CoSmarterClient.getInstance().execute02();
 		}
