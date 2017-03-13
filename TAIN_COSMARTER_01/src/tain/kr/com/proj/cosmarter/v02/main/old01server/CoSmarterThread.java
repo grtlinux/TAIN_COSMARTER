@@ -29,15 +29,15 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v01.util.CheckSystem;
-import tain.kr.com.proj.cosmarter.v01.util.Exec;
+import tain.kr.com.proj.cosmarter.v02.util.CheckSystem;
+import tain.kr.com.proj.cosmarter.v02.util.Exec;
 
 /**
  * Code Templates > Comments > Types
  *
  * <PRE>
  *   -. FileName   : CoSmarterThread.java
- *   -. Package    : tain.kr.com.proj.cosmarter.v01.main.server
+ *   -. Package    : tain.kr.com.proj.cosmarter.v02.main.server
  *   -. Comment    :
  *   -. Author     : taincokr
  *   -. First Date : 2016. 4. 14. {time}
