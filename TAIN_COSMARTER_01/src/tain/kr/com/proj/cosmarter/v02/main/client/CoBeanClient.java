@@ -155,11 +155,11 @@ public final class CoBeanClient {
 	
 	public static synchronized CoBeanClient getInstance() throws Exception {
 		
-		if (instance == null) {
-			instance = new CoBeanClient();
+		if (CoBeanClient.instance == null) {
+			CoBeanClient.instance = new CoBeanClient();
 		}
 		
-		return instance;
+		return CoBeanClient.instance;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
