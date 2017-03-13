@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
+import tain.kr.com.proj.cosmarter.v02.util.Param;
+
 /**
  * Code Templates > Comments > Types
  *
@@ -82,9 +84,7 @@ public final class CoSmarterServer {
 			ServerSocket serverSocket = new ServerSocket(this.nListenPort);
 			if (flag) log.debug(String.format("SERVER : listening by port %d [%s]", nListenPort, serverSocket.toString()));
 			
-			for (int idxThr = 0; ; idxThr ++) {
-				if (idxThr > 100000000)
-					idxThr = 0;
+			for (int idxThr = 0; ; idxThr = ++idxThr % 10000) {
 				
 				Socket socket = serverSocket.accept();
 				if (!flag) socket.setSoLinger(true, 1);
@@ -99,16 +99,22 @@ public final class CoSmarterServer {
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private static CoSmarterServer instance = null;
 	
 	public static synchronized CoSmarterServer getInstance() throws Exception {
 		
-		if (instance == null) {
-			instance = new CoSmarterServer();
+		if (CoSmarterServer.instance == null) {
+			CoSmarterServer.instance = new CoSmarterServer();
 		}
 		
-		return instance;
+		return CoSmarterServer.instance;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,10 +130,13 @@ public final class CoSmarterServer {
 		
 		if (flag) {
 			String name = System.getProperty("tain.name", "NO NAME");
-			if (flag) log.debug(String.format("[tain.name=%s]", name));
+			if (flag) log.debug(String.format("[tain.name] = [%s]", name));
+			
+			if (flag) log.debug(String.format(">>>>> [%s] = [%s]", "tain.reader.charset", Param.getInstance().getString("tain.reader.charset")));
+			if (flag) log.debug(String.format(">>>>> [%s] = [%s]", "tain.writer.charset", Param.getInstance().getString("tain.writer.charset")));
 		}
 		
-		if (flag) {
+		if (!flag) {
 			CoSmarterServer.getInstance().execute();
 		}
 	}
