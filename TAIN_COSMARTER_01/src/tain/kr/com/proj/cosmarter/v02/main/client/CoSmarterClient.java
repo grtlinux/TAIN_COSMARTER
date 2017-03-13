@@ -115,10 +115,10 @@ public final class CoSmarterClient {
 			
 			Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
 			
-			pw = new PrintWriter(socket.getOutputStream());
-			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), Charset.forName(this.strWriterCharset)));
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName(this.strReaderCharset)));
 			
-			pw.println("cmd /c dir");
+			pw.println("dir");
 			pw.flush();
 			
 			while ((line = br.readLine()) != null) {
@@ -128,7 +128,7 @@ public final class CoSmarterClient {
 			socket.close();
 		}
 		
-		if (flag) {
+		if (!flag) {
 			/*
 			 * Single other command
 			 */
@@ -138,8 +138,8 @@ public final class CoSmarterClient {
 			
 			Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
 			
-			pw = new PrintWriter(socket.getOutputStream());
-			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), Charset.forName(this.strWriterCharset)));
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName(this.strReaderCharset)));
 			
 			pw.println("cmd /c dir /w");
 			pw.flush();
@@ -151,7 +151,7 @@ public final class CoSmarterClient {
 			socket.close();
 		}
 		
-		if (flag) {
+		if (!flag) {
 			/*
 			 * Single error command
 			 */
@@ -161,8 +161,8 @@ public final class CoSmarterClient {
 			
 			Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
 			
-			pw = new PrintWriter(socket.getOutputStream());
-			br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), Charset.forName(this.strWriterCharset)));
+			br = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName(this.strReaderCharset)));
 			
 			pw.println("cmd /c ls");
 			pw.flush();
@@ -185,8 +185,8 @@ public final class CoSmarterClient {
 			for (int idx=0; idx < 1000; idx++) {
 				Socket socket = new Socket(this.strConnectHost, this.nConnectPort);
 				
-				pw = new PrintWriter(socket.getOutputStream());
-				br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				pw = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), Charset.forName(this.strWriterCharset)));
+				br = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName(this.strReaderCharset)));
 				
 				pw.println("cmd /c dir");
 				pw.flush();
@@ -247,6 +247,16 @@ public final class CoSmarterClient {
 	private static void test01(String[] args) throws Exception {
 
 		if (flag) {
+			/*
+			 * test
+			 */
+			CoSmarterClient.getInstance().execute01();
+		}
+		
+		if (!flag) {
+			/*
+			 * real
+			 */
 			CoSmarterClient.getInstance().execute02();
 		}
 	}
