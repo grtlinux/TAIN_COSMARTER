@@ -25,8 +25,6 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v02.util.Param;
-
 /**
  * Code Templates > Comments > Types
  *
@@ -131,12 +129,9 @@ public final class CoSmarterServer {
 		if (flag) {
 			String name = System.getProperty("tain.name", "NO NAME");
 			if (flag) log.debug(String.format("[tain.name] = [%s]", name));
-			
-			if (flag) log.debug(String.format(">>>>> [%s] = [%s]", "tain.reader.charset", Param.getInstance().getString("tain.reader.charset")));
-			if (flag) log.debug(String.format(">>>>> [%s] = [%s]", "tain.writer.charset", Param.getInstance().getString("tain.writer.charset")));
 		}
 		
-		if (!flag) {
+		if (flag) {
 			CoSmarterServer.getInstance().execute();
 		}
 	}
