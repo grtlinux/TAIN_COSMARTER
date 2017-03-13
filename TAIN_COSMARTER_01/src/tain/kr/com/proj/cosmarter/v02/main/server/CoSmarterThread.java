@@ -60,6 +60,9 @@ public final class CoSmarterThread extends Thread {
 
 	private static final String KEY_THREAD_DESC = "tain.cosmarter.thread.desc";
 	
+	private static final String KEY_READER_CHARSET = "tain.server.reader.charset";
+	private static final String KEY_WRITER_CHARSET = "tain.server.writer.charset";
+	
 	private String strThreadDesc = null;
 
 	private String strReaderCharset = null;
@@ -87,16 +90,16 @@ public final class CoSmarterThread extends Thread {
 			/*
 			 * TODO 2017.03.13 : add charsets of reader and writer
 			 */
-			this.strReaderCharset = Param.getInstance().getString("tain.reader.charset", "EUC-KR");
-			this.strWriterCharset = Param.getInstance().getString("tain.writer.charset", "EUC-KR");
+			this.strReaderCharset = Param.getInstance().getString(KEY_READER_CHARSET, "NO_TYPE");
+			this.strWriterCharset = Param.getInstance().getString(KEY_WRITER_CHARSET, "NO_TYPE");
+			
+			log.info(String.format(">>>>> [%s] = [%s]", KEY_READER_CHARSET, this.strReaderCharset));
+			log.info(String.format(">>>>> [%s] = [%s]", KEY_WRITER_CHARSET, this.strWriterCharset));
 		}
 		
 		if (flag) {
 			if (flag) log.info(">>>>> idxThr : " + this.idxThr);
 			if (flag) log.info(">>>>> DESC : " + this.strThreadDesc);
-			
-			if (flag) log.info(String.format(">>>>> [%s] = [%s]", "tain.reader.charset", this.strReaderCharset));
-			if (flag) log.info(String.format(">>>>> [%s] = [%s]", "tain.writer.charset", this.strWriterCharset));
 		}
 	}
 	
