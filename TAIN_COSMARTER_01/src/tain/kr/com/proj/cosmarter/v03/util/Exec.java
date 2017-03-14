@@ -172,9 +172,36 @@ public final class Exec {
 		}
 		
 		if (flag) {
-			String cmd = "netstat -n | cmd /c findstr EST";
+			String cmd = "netstat -n";
 			
 			int ret = Exec.run(cmd, System.out, false);
+			if (flag) log.debug(String.format(">>>>> ret = (%d)", ret));
+		}
+		
+		if (flag) {
+			/*
+			 * working dir
+			 */
+			File dir = new File("N:/TEMP");
+			String cmd = "cmd /c dir";
+			
+			int ret = Exec.run(cmd, null, dir, System.out, false);
+			if (flag) log.debug(String.format(">>>>> ret = (%d)", ret));
+		}
+		
+		if (flag) {
+			/*
+			 * type command
+			 */
+			File dir = new File("N:/TEMP");
+			String cmd = "cmd /c type TEXT_ECU-KR.txt";
+			
+			int ret = Exec.run(cmd, null, dir, System.out, false);
+			if (flag) log.debug(String.format(">>>>> ret = (%d)", ret));
+			
+			cmd = "cmd /c type TEXT_UTF-8.txt";
+			
+			ret = Exec.run(cmd, null, dir, System.out, false);
 			if (flag) log.debug(String.format(">>>>> ret = (%d)", ret));
 		}
 	}
