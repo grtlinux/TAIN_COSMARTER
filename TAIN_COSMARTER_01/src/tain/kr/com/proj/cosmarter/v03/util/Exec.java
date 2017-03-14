@@ -25,6 +25,8 @@ import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
 
+import tain.kr.com.proj.cosmarter.v02.util.FileIO;
+
 /**
  * Code Templates > Comments > Types
  *
@@ -89,6 +91,8 @@ public final class Exec {
 		
 		Process process = run.exec(cmd, envp, dir);
 		
+		FileIO.copyFile(process.getInputStream(), os, flgOsClose);
+		
 		try {
 			process.waitFor();
 		} catch (InterruptedException e) {
@@ -110,6 +114,8 @@ public final class Exec {
 	public static int run(String[] cmd, String[] envp, File dir, OutputStream os, boolean flgOsClose) throws IOException {
 		
 		Process process = run.exec(cmd, envp, dir);
+		
+		FileIO.copyFile(process.getInputStream(), os, flgOsClose);
 		
 		try {
 			process.waitFor();
