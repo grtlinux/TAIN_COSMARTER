@@ -19,7 +19,12 @@
  */
 package tain.kr.com.proj.cosmarter.v03.main.server;
 
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import org.apache.log4j.Logger;
+
+import tain.kr.com.proj.cosmarter.v02.util.Param;
 
 /**
  * Code Templates > Comments > Types
@@ -35,7 +40,7 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class MainCoSmarterServer {
+public final class MainCoSmarterServer {
 
 	private static boolean flag = true;
 
@@ -43,17 +48,49 @@ public class MainCoSmarterServer {
 			.getLogger(MainCoSmarterServer.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_SERVER_PORT = "tain.cosmarter.v03.server.port";
+	
+	private final String port;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
-	public MainCoSmarterServer() {
+	private MainCoSmarterServer() throws Exception {
+		
+		this.port = Param.getInstance().getString(KEY_SERVER_PORT, "NO_SERVER_PORT");
+		
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public void execute() throws Exception {
+		
+		if (flag) {
+			/*
+			 * listening server port
+			 */
+			@SuppressWarnings("resource")
+			ServerSocket serverSocket = new ServerSocket(Integer.parseInt(this.port));
+			if (flag) log.debug(String.format(">>>>> SERVER: listening by server port '%s' [%s]", this.port, serverSocket.toString()));
+			
+			for (int idxThr = 0; ; idxThr = ++idxThr % 10000) {
+				
+				Socket socket = serverSocket.accept();
+				if (flag) log.debug(String.format(">>>>> SERVER: accept the connection (%d) from client", idxThr));
+				
+				Thread thread = new ThrCoSmarter(idxThr, socket);
+				thread.start();
+				
+				if (flag) thread.join();   // waiting for the finish of the thread
+			}
+		}
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,6 +100,18 @@ public class MainCoSmarterServer {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static MainCoSmarterServer instance = null;
+	
+	public static synchronized MainCoSmarterServer getInstance() throws Exception {
+		
+		if (MainCoSmarterServer.instance == null) {
+			MainCoSmarterServer.instance = new MainCoSmarterServer();
+		}
+		
+		return MainCoSmarterServer.instance;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -75,7 +124,10 @@ public class MainCoSmarterServer {
 			new MainCoSmarterServer();
 
 		if (flag) {
-
+			/*
+			 * begin
+			 */
+			MainCoSmarterServer.getInstance().execute();
 		}
 	}
 
