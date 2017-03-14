@@ -25,8 +25,6 @@ import java.io.OutputStream;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v02.util.FileIO;
-
 /**
  * Code Templates > Comments > Types
  *
