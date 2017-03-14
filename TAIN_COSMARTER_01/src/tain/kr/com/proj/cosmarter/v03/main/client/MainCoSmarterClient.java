@@ -159,6 +159,7 @@ public final class MainCoSmarterClient {
 		if (flag) new MainCoSmarterClient().execute01("dir");
 		if (flag) new MainCoSmarterClient().execute01("type N:\\TEMP\\TEXT_ECU-KR.txt");
 		if (flag) new MainCoSmarterClient().execute01("type N:\\TEMP\\TEXT_UTF-8.txt");
+		if (flag) new MainCoSmarterClient().execute01("echo °­¼®");
 	}
 
 	/*
