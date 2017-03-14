@@ -96,7 +96,7 @@ public final class MainCoSmarterClient {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	public void execute01() throws Exception {
+	public void execute01(String cmd) throws Exception {
 		
 		if (flag) {
 			/*
@@ -119,7 +119,7 @@ public final class MainCoSmarterClient {
 					/*
 					 * send command
 					 */
-					writer.println("dir");
+					writer.println(cmd);
 					writer.flush();
 				}
 				
@@ -156,7 +156,9 @@ public final class MainCoSmarterClient {
 	 */
 	private static void test01(String[] args) throws Exception {
 
-		if (flag) new MainCoSmarterClient().execute01();
+		if (flag) new MainCoSmarterClient().execute01("dir");
+		if (flag) new MainCoSmarterClient().execute01("type N:\\TEMP\\TEXT_ECU-KR.txt");
+		if (flag) new MainCoSmarterClient().execute01("type N:\\TEMP\\TEXT_UTF-8.txt");
 	}
 
 	/*
