@@ -132,6 +132,8 @@ public final class MainCoSmarterClient {
 					}
 				}
 			} finally {
+				if (writer != null) writer.close();
+				if (reader != null) try { reader.close(); } catch (IOException e) {}
 				if (this.socket != null) try { this.socket.close(); } catch (IOException e) {}
 			}
 		}
