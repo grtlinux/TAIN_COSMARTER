@@ -24,7 +24,7 @@ import java.net.Socket;
 
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v02.util.Param;
+import tain.kr.com.proj.cosmarter.v03.util.Param;
 
 /**
  * Code Templates > Comments > Types
