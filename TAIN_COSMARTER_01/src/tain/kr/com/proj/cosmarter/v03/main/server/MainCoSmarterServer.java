@@ -120,9 +120,6 @@ public final class MainCoSmarterServer {
 	 */
 	private static void test01(String[] args) throws Exception {
 
-		if (flag)
-			new MainCoSmarterServer();
-
 		if (flag) {
 			/*
 			 * begin
