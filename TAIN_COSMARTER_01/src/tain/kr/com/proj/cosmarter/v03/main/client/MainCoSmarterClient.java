@@ -19,7 +19,17 @@
  */
 package tain.kr.com.proj.cosmarter.v03.main.client;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.nio.charset.Charset;
+
 import org.apache.log4j.Logger;
+
+import tain.kr.com.proj.cosmarter.v03.util.Param;
 
 /**
  * Code Templates > Comments > Types
@@ -35,7 +45,7 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class MainCoSmarterClient {
+public final class MainCoSmarterClient {
 
 	private static boolean flag = true;
 
@@ -43,17 +53,90 @@ public class MainCoSmarterClient {
 			.getLogger(MainCoSmarterClient.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_CLIENT_HOST = "tain.cosmarter.v03.client.host";
+	private static final String KEY_CLIENT_PORT = "tain.cosmarter.v03.client.port";
+	
+	private final String host;
+	private final String port;
+	
+	private final Socket socket;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v03.client.charset";
+	private final String charSet;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
-	public MainCoSmarterClient() {
+	public MainCoSmarterClient() throws Exception {
+		
+		/*
+		 * connection using the host and the port
+		 */
+		this.host = Param.getInstance().getString(KEY_CLIENT_HOST, "NO_HOST");
+		this.port = Param.getInstance().getString(KEY_CLIENT_PORT, "NO_PORT");
+		
+		this.socket = new Socket(this.host, Integer.parseInt(this.port));
+		if (flag) log.debug(String.format(">>>>> [%s:%s] -> connection [%s].", this.host, this.port, this.socket.toString()));
+		
+		/*
+		 * get the charset of client
+		 */
+		this.charSet = Param.getInstance().getString(KEY_CLIENT_CHARSET, "NO_CHARSET");
+		if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_CLIENT_CHARSET, this.charSet));
+		
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public void execute01() throws Exception {
+		
+		if (flag) {
+			/*
+			 * begin - 1
+			 */
+			PrintWriter writer = null;
+			BufferedReader reader = null;
+			String line = null;
+			
+			try {
+				if (flag) {
+					/*
+					 * create IO objects
+					 */
+					writer = new PrintWriter(new OutputStreamWriter(this.socket.getOutputStream(), Charset.forName(this.charSet)));
+					reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), Charset.forName(this.charSet)));
+				}
+				
+				if (flag) {
+					/*
+					 * send command
+					 */
+					writer.println("dir");
+					writer.flush();
+				}
+				
+				if (flag) {
+					/*
+					 * recv result
+					 */
+					while ((line = reader.readLine()) != null) {
+						if (flag) System.out.printf("SERVER: %s\n", line);
+					}
+				}
+			} finally {
+				if (this.socket != null) try { this.socket.close(); } catch (IOException e) {}
+			}
+		}
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,9 +157,7 @@ public class MainCoSmarterClient {
 		if (flag)
 			new MainCoSmarterClient();
 
-		if (flag) {
-
-		}
+		if (flag) new MainCoSmarterClient().execute01();
 	}
 
 	/*
