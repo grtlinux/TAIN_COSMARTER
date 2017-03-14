@@ -108,6 +108,11 @@ public final class Exec {
 		return run(cmd, null, null, os, flaOsClose);
 	}
 	
+	public static int run(String cmd, OutputStream os) throws IOException {
+		
+		return run(cmd, null, null, os, true);
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,6 +138,11 @@ public final class Exec {
 	public static int run(String[] cmd, OutputStream os, boolean flaOsClose) throws IOException {
 		
 		return run(cmd, null, null, os, flaOsClose);
+	}
+	
+	public static int run(String[] cmd, OutputStream os) throws IOException {
+		
+		return run(cmd, null, null, os, true);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
