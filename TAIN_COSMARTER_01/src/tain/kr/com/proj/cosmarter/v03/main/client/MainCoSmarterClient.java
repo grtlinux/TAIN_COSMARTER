@@ -154,9 +154,6 @@ public final class MainCoSmarterClient {
 	 */
 	private static void test01(String[] args) throws Exception {
 
-		if (flag)
-			new MainCoSmarterClient();
-
 		if (flag) new MainCoSmarterClient().execute01();
 	}
 
