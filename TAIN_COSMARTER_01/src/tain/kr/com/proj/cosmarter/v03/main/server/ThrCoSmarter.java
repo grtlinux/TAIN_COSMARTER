@@ -19,7 +19,17 @@
  */
 package tain.kr.com.proj.cosmarter.v03.main.server;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.nio.charset.Charset;
+
 import org.apache.log4j.Logger;
+
+import tain.kr.com.proj.cosmarter.v03.util.CheckSystem;
+import tain.kr.com.proj.cosmarter.v03.util.Exec;
+import tain.kr.com.proj.cosmarter.v03.util.Param;
 
 /**
  * Code Templates > Comments > Types
@@ -35,24 +45,86 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class ThrCoSmarter {
+public final class ThrCoSmarter extends Thread {
 
 	private static boolean flag = true;
 
 	private static final Logger log = Logger.getLogger(ThrCoSmarter.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String THR_NAME_FORMAT = "THREAD_COSMARTER_%d";
+	
+	private final int idxThr;
+	private final Socket socket;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_SERVER_CHARSET = "tain.cosmarter.v03.server.charset";
+	private final String charSet;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
-	public ThrCoSmarter() {
-		if (flag)
-			log.debug(">>>>> in class " + this.getClass().getSimpleName());
+	public ThrCoSmarter(int idxThr, Socket socket) throws Exception {
+		
+		super(String.format(THR_NAME_FORMAT, idxThr));
+		
+		this.idxThr = idxThr;
+		this.socket = socket;
+		
+		if (flag) log.debug(String.format(">>>>> in class %s (idxThr=%d) [%s]"
+				, this.getClass().getSimpleName(), this.idxThr, this.socket.toString()));
+		
+		this.charSet = Param.getInstance().getString(KEY_SERVER_CHARSET, "NO_CHARSET");
+		if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_SERVER_CHARSET, this.charSet));
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	@Override
+	public void run() {
+		
+		if (flag) {
+			/*
+			 * thread begin
+			 */
+			BufferedReader reader = null;
+			String line = null;
+			
+			try {
+				reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), Charset.forName(this.charSet)));
+				
+				line = reader.readLine();
+				if (flag) log.debug(String.format(">>>>> cmd = [%s].", line));
+				
+				String[] cmd;
+				if (CheckSystem.getInstance().isWindows()) {
+					/*
+					 * windows
+					 */
+					cmd = new String[] { "cmd", "/c", line };
+				} else {
+					/*
+					 * linux
+					 */
+					cmd = new String[] { "/bin/sh", "-c", line };
+				}
+				
+				int ret = Exec.run(cmd, this.socket.getOutputStream());
+				if (flag) log.debug(String.format(">>>>> ret = (%d)", ret));
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (reader != null) try { reader.close(); } catch (IOException e) {}
+				if (this.socket != null) try { this.socket.close(); } catch (IOException e) {}
+			}
+		}
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,9 +141,6 @@ public class ThrCoSmarter {
 	 * static test method
 	 */
 	private static void test01(String[] args) throws Exception {
-
-		if (flag)
-			new ThrCoSmarter();
 
 		if (flag) {
 
