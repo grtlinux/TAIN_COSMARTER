@@ -119,8 +119,8 @@ public final class ThrCoSmarter extends Thread {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				if (reader != null) try { reader.close(); } catch (IOException e) {}
 				if (this.socket != null) try { this.socket.close(); } catch (IOException e) {}
+				if (reader != null) try { reader.close(); } catch (IOException e) {}
 			}
 		}
 	}
