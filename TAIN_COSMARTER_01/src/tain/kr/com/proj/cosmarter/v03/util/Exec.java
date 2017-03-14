@@ -94,6 +94,9 @@ public final class Exec {
 		try {
 			process.waitFor();
 		} catch (InterruptedException e) {
+			
+			FileIO.copyFile(process.getErrorStream(), os, flgOsClose);
+			
 			return -1;
 		}
 		
@@ -118,6 +121,9 @@ public final class Exec {
 		try {
 			process.waitFor();
 		} catch (InterruptedException e) {
+			
+			FileIO.copyFile(process.getErrorStream(), os, flgOsClose);
+			
 			return -1;
 		}
 		
@@ -156,7 +162,20 @@ public final class Exec {
 			new Exec();
 
 		if (flag) {
-
+			/*
+			 * begin
+			 */
+			String cmd = "cmd /c dir";
+			
+			int ret = Exec.run(cmd, System.out, false);
+			if (flag) log.debug(String.format(">>>>> ret = (%d)", ret));
+		}
+		
+		if (flag) {
+			String cmd = "netstat -n | cmd /c findstr EST";
+			
+			int ret = Exec.run(cmd, System.out, false);
+			if (flag) log.debug(String.format(">>>>> ret = (%d)", ret));
 		}
 	}
 
