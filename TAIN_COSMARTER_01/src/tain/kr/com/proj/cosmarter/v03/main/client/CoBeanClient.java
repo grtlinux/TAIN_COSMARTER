@@ -268,7 +268,7 @@ public final class CoBeanClient {
 			bean.setCmd("dir");
 			bean.setCmd("netstat -n");
 			bean.setCmd("netstat -n | findstr EST");
-			bean.setCmd("type N:\\TEMP\\TEXT_ECU-KR.txt");
+			bean.setCmd("type N:\\TEMP\\TEXT_EUC-KR.txt");
 			//bean.setCmd("type N:\\TEMP\\TEXT_UTF-8.txt");
 			
 			bean.setRetInfo("content:1");
