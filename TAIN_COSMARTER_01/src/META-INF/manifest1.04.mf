@@ -31,7 +31,7 @@ Rsrc-Class-Path: ./
   libs/log4j-1.2.17.jar
   libs/gson-2.6.2.jar
  
-Rsrc-Main-Class: tain.kr.com.proj.cosmarter.v02.main.server.CoSmarterServer
+Rsrc-Main-Class: tain.kr.com.proj.cosmarter.v03.main.server.MainCoSmarterServer
  
 
 
