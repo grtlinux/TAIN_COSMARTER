@@ -50,6 +50,7 @@ public final class MainCoSmarterServer {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private static final String KEY_SERVER_PORT = "tain.cosmarter.v03.server.port";
+	private static final String DEF_SERVER_PORT = "7412";
 	
 	private final String port;
 	
@@ -60,7 +61,7 @@ public final class MainCoSmarterServer {
 	 */
 	private MainCoSmarterServer() throws Exception {
 		
-		this.port = Param.getInstance().getString(KEY_SERVER_PORT, "NO_SERVER_PORT");
+		this.port = Param.getInstance().getString(KEY_SERVER_PORT, DEF_SERVER_PORT);
 		
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
