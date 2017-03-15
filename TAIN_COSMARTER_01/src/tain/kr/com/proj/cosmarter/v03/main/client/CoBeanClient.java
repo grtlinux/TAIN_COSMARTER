@@ -65,7 +65,10 @@ public final class CoBeanClient {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v03.client.charset";
+	private static final String KEY_CLIENT_LOGFLAG = "tain.cosmarter.v03.client.log.flag";
+
 	private final String charSet;
+	private final boolean flgLog;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -80,8 +83,22 @@ public final class CoBeanClient {
 		
 		this.charSet = Param.getInstance().getString(KEY_CLIENT_CHARSET, "NO_CHARSET");
 		
+		/*
+		 * TODO 2017.03.15 : information of methods of Boolean
+		 * 
+		 * Boolean.getBoolean("true") -> false
+		 * 
+		 * tain.flag = true
+		 * Boolean.getBoolean("tain.flag") -> true
+		 * 
+		 * Boolean.valueOf("true").booleanValue() -> true
+		 * 
+		 */
+		String strFlgLog = Param.getInstance().getString(KEY_CLIENT_LOGFLAG, "false");
+		this.flgLog = Boolean.valueOf(strFlgLog).booleanValue();
+		
 		if (flag)
-			log.debug(">>>>> in class " + this.getClass().getSimpleName());
+			log.debug(">>>>> in class " + this.getClass().getSimpleName() + " " + this.flgLog);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -95,6 +112,7 @@ public final class CoBeanClient {
 			if (flag) bean.print();
 			
 			if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_CLIENT_CHARSET, this.charSet));
+			if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_CLIENT_LOGFLAG, this.flgLog));
 		}
 		
 		if (flag) {
@@ -143,7 +161,7 @@ public final class CoBeanClient {
 						if (lineNum <= skip)
 							continue;
 						
-						if (flag) System.out.printf("%04d) [%s]\n", lineNum, line);
+						if (flag && this.flgLog) System.out.printf("%04d) [%s]\n", lineNum, line);
 						
 						/*
 						 * split
