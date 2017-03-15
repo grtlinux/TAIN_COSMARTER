@@ -21,6 +21,9 @@ package tain.kr.com.proj.cosmarter.v03.main.client;
 
 import org.apache.log4j.Logger;
 
+import tain.kr.com.proj.cosmarter.v03.bean.SimpleBean;
+import tain.kr.com.proj.cosmarter.v03.util.Param;
+
 /**
  * Code Templates > Comments > Types
  *
@@ -35,24 +38,48 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class CoBeanClient {
+public final class CoBeanClient {
 
 	private static boolean flag = true;
 
 	private static final Logger log = Logger.getLogger(CoBeanClient.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_CLIENT_HOST = "tain.cosmarter.v03.client.host";
+	private static final String KEY_CLIENT_PORT = "tain.cosmarter.v03.client.port";
+	
+	private final String host;
+	private final String port;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v03.client.charset";
+	private final String charSet;
+	
+	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
-	public CoBeanClient() {
+	private CoBeanClient() throws Exception {
+		
+		this.host = Param.getInstance().getString(KEY_CLIENT_HOST, "NO_HOST");
+		this.port = Param.getInstance().getString(KEY_CLIENT_PORT, "NO_PORT");
+		
+		this.charSet = Param.getInstance().getString(KEY_CLIENT_CHARSET, "NO_CHARSET");
+		
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	public void process() throws Exception {
+		
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,6 +89,18 @@ public class CoBeanClient {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static CoBeanClient instance = null;
+	
+	public static CoBeanClient getInstance() throws Exception {
+		
+		if (CoBeanClient.instance == null) {
+			CoBeanClient.instance = new CoBeanClient();
+		}
+		
+		return CoBeanClient.instance;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -70,11 +109,11 @@ public class CoBeanClient {
 	 */
 	private static void test01(String[] args) throws Exception {
 
-		if (flag)
-			new CoBeanClient();
-
 		if (flag) {
-
+			/*
+			 * begin
+			 */
+			SimpleBean bean = new SimpleBean();
 		}
 	}
 
