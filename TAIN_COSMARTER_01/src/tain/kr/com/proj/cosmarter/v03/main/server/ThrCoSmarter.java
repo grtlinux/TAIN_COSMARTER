@@ -61,6 +61,8 @@ public final class ThrCoSmarter extends Thread {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private static final String KEY_SERVER_CHARSET = "tain.cosmarter.v03.server.charset";
+	private static final String DEF_SERVER_CHARSET = "euc-kr";
+	
 	private final String charSet;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,7 +80,7 @@ public final class ThrCoSmarter extends Thread {
 		if (flag) log.debug(String.format(">>>>> in class %s (idxThr=%d) [%s]"
 				, this.getClass().getSimpleName(), this.idxThr, this.socket.toString()));
 		
-		this.charSet = Param.getInstance().getString(KEY_SERVER_CHARSET, "NO_CHARSET");
+		this.charSet = Param.getInstance().getString(KEY_SERVER_CHARSET, DEF_SERVER_CHARSET);
 		if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_SERVER_CHARSET, this.charSet));
 	}
 
