@@ -56,6 +56,8 @@ public final class MainCoSmarterClient {
 	
 	private static final String KEY_CLIENT_HOST = "tain.cosmarter.v03.client.host";
 	private static final String KEY_CLIENT_PORT = "tain.cosmarter.v03.client.port";
+	private static final String DEF_CLIENT_HOST = "127.0.0.1";
+	private static final String DEF_CLIENT_PORT = "7412";
 	
 	private final String host;
 	private final String port;
@@ -65,6 +67,8 @@ public final class MainCoSmarterClient {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v03.client.charset";
+	private static final String DEF_CLIENT_CHARSET = "euc-kr";
+
 	private final String charSet;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -78,8 +82,8 @@ public final class MainCoSmarterClient {
 		/*
 		 * connection using the host and the port
 		 */
-		this.host = Param.getInstance().getString(KEY_CLIENT_HOST, "NO_HOST");
-		this.port = Param.getInstance().getString(KEY_CLIENT_PORT, "NO_PORT");
+		this.host = Param.getInstance().getString(KEY_CLIENT_HOST, DEF_CLIENT_HOST);
+		this.port = Param.getInstance().getString(KEY_CLIENT_PORT, DEF_CLIENT_PORT);
 		
 		this.socket = new Socket(this.host, Integer.parseInt(this.port));
 		if (flag) log.debug(String.format(">>>>> [%s:%s] -> connection [%s].", this.host, this.port, this.socket.toString()));
@@ -87,7 +91,7 @@ public final class MainCoSmarterClient {
 		/*
 		 * get the charset of client
 		 */
-		this.charSet = Param.getInstance().getString(KEY_CLIENT_CHARSET, "NO_CHARSET");
+		this.charSet = Param.getInstance().getString(KEY_CLIENT_CHARSET, DEF_CLIENT_CHARSET);
 		if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_CLIENT_CHARSET, this.charSet));
 		
 		if (flag)
