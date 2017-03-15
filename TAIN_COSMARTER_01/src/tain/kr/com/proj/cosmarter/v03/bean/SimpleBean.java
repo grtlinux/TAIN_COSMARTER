@@ -247,14 +247,25 @@ public class SimpleBean {
 		
 		if (flag) {
 
+			log.debug(" =========================== SimpleBean ============================");
+			
+			/*
+			 * CoBean Info
+			 */
 			log.debug(" ipAddr  = " + this.getIpAddr());
 			log.debug(" port    = " + this.getPort());
 			log.debug(" name    = " + this.getName());
 			log.debug(" cmd     = " + this.getCmd());
 			log.debug(" retInfo = " + this.getRetInfo());
 			log.debug(" skip    = " + this.getSkip());
+			log.debug(" infoCnt = " + this.getInfoCnt());
 			
+			/*
+			 * CoBean result
+			 */
 			log.debug(" result  = " + this.getResult());
+			
+			log.debug(" =======================================================");
 		}
 	}
 	
