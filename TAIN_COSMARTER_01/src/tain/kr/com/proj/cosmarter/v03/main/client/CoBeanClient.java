@@ -56,6 +56,8 @@ public final class CoBeanClient {
 	
 	private static final String KEY_CLIENT_HOST = "tain.cosmarter.v03.client.host";
 	private static final String KEY_CLIENT_PORT = "tain.cosmarter.v03.client.port";
+	private static final String DEF_CLIENT_HOST = "127.0.0.1";
+	private static final String DEF_CLIENT_PORT = "7412";
 	
 	@SuppressWarnings("unused")
 	private final String host;
@@ -66,6 +68,8 @@ public final class CoBeanClient {
 	
 	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v03.client.charset";
 	private static final String KEY_CLIENT_LOGFLAG = "tain.cosmarter.v03.client.log.flag";
+	private static final String DEF_CLIENT_CHARSET = "euc-kr";
+	private static final String DEF_CLIENT_LOGFLAG = "false";
 
 	private final String charSet;
 	private final boolean flgLog;
@@ -78,10 +82,10 @@ public final class CoBeanClient {
 	 */
 	private CoBeanClient() throws Exception {
 		
-		this.host = Param.getInstance().getString(KEY_CLIENT_HOST, "NO_HOST");
-		this.port = Param.getInstance().getString(KEY_CLIENT_PORT, "NO_PORT");
+		this.host = Param.getInstance().getString(KEY_CLIENT_HOST, DEF_CLIENT_HOST);
+		this.port = Param.getInstance().getString(KEY_CLIENT_PORT, DEF_CLIENT_PORT);
 		
-		this.charSet = Param.getInstance().getString(KEY_CLIENT_CHARSET, "NO_CHARSET");
+		this.charSet = Param.getInstance().getString(KEY_CLIENT_CHARSET, DEF_CLIENT_CHARSET);
 		
 		/*
 		 * TODO 2017.03.15 : information of methods of Boolean
@@ -94,11 +98,11 @@ public final class CoBeanClient {
 		 * Boolean.valueOf("true").booleanValue() -> true
 		 * 
 		 */
-		String strFlgLog = Param.getInstance().getString(KEY_CLIENT_LOGFLAG, "false");
+		String strFlgLog = Param.getInstance().getString(KEY_CLIENT_LOGFLAG, DEF_CLIENT_LOGFLAG);
 		this.flgLog = Boolean.valueOf(strFlgLog).booleanValue();
 		
 		if (flag)
-			log.debug(">>>>> in class " + this.getClass().getSimpleName() + " " + this.flgLog);
+			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -259,8 +263,14 @@ public final class CoBeanClient {
 			bean.setIpAddr("127.0.0.1");
 			//bean.setIpAddr("192.168.0.19");
 			bean.setPort("7412");
-			bean.setName("dirName");
+			bean.setName("json");
+
+			bean.setCmd("dir");
+			bean.setCmd("netstat -n");
 			bean.setCmd("netstat -n | findstr EST");
+			bean.setCmd("type N:\\TEMP\\TEXT_ECU-KR.txt");
+			//bean.setCmd("type N:\\TEMP\\TEXT_UTF-8.txt");
+			
 			bean.setRetInfo("content:1");
 			bean.setSkip("0");
 			if (!flag) bean.print();
