@@ -19,9 +19,17 @@
  */
 package tain.kr.com.proj.cosmarter.v03.main.client;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.nio.charset.Charset;
+
 import org.apache.log4j.Logger;
 
 import tain.kr.com.proj.cosmarter.v03.bean.SimpleBean;
+import tain.kr.com.proj.cosmarter.v03.util.CheckSystem;
 import tain.kr.com.proj.cosmarter.v03.util.Param;
 
 /**
@@ -49,7 +57,9 @@ public final class CoBeanClient {
 	private static final String KEY_CLIENT_HOST = "tain.cosmarter.v03.client.host";
 	private static final String KEY_CLIENT_PORT = "tain.cosmarter.v03.client.port";
 	
+	@SuppressWarnings("unused")
 	private final String host;
+	@SuppressWarnings("unused")
 	private final String port;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -76,8 +86,120 @@ public final class CoBeanClient {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
-	public void process() throws Exception {
+	public void process(SimpleBean bean) throws Exception {
+
+		if (flag) {
+			/*
+			 * print CoBean info
+			 */
+			if (flag) bean.print();
+			
+			if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_CLIENT_CHARSET, this.charSet));
+		}
 		
+		if (flag) {
+			/*
+			 * do the job of process in this class
+			 */
+			Socket socket = new Socket(bean.getIpAddr(), Integer.parseInt(bean.getPort()));
+			
+			PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), Charset.forName(this.charSet)));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName(this.charSet)));
+			
+			if (flag) {
+				/*
+				 * send the command to the CoSmarter server
+				 */
+				writer.println(bean.getCmd());
+				writer.flush();
+			}
+			
+			if (flag) {
+				/*
+				 * recv the result from the CoSmarter server
+				 */
+				int skip = Integer.parseInt(bean.getSkip());
+				int lineNum = 0;
+				int numColumn = bean.getInfoCnt();
+				
+				StringBuffer sbJson = new StringBuffer();
+				
+				if (flag) {
+					/*
+					 * Json header
+					 */
+
+					sbJson.append("{").append("\"").append(bean.getName()).append("\"").append(":").append("[");
+					if (flag) sbJson.append(CheckSystem.getInstance().getLineSeparator());
+				}
+				
+				if (flag) {
+					/*
+					 * Json body
+					 */
+					String line;
+					while ((line = reader.readLine()) != null) {
+						++lineNum;
+						if (lineNum <= skip)
+							continue;
+						
+						if (flag) System.out.printf("%04d) [%s]\n", lineNum, line);
+						
+						/*
+						 * split
+						 */
+						String[] columns = line.split("\\s+", numColumn);
+						
+						/*
+						 * line Json
+						 */
+						StringBuffer sb = new StringBuffer();
+						String strKey, strVal;
+						
+						if (flag) sb.append("\t");
+						sb.append("{");
+
+						for (int i=0; i < numColumn; i++) {
+							strKey = bean.getInfoName(i);
+							if (strKey == null)
+								continue;
+							
+							if (i < columns.length) {
+								strVal = columns[i].replace('"', '`').trim();
+							} else {
+								strVal = "";
+							}
+							
+							sb.append("\"").append(strKey).append("\"").append(":").append("\"").append(strVal).append("\"").append(",");
+						}
+						
+						sb.append("},");
+						if (flag) sb.append(CheckSystem.getInstance().getLineSeparator());
+						
+						if (flag) sbJson.append(sb.toString());
+					}
+				}
+				
+				if (flag) {
+					/*
+					 * Json tail
+					 */
+					sbJson.append("]}");
+					if (flag) sbJson.append(CheckSystem.getInstance().getLineSeparator());
+				}
+				
+				if (flag) {
+					/*
+					 * transfer Json to the result
+					 */
+					bean.setResult(sbJson.toString());
+				}
+			}
+			
+			reader.close();
+			writer.close();
+			socket.close();
+		}
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -114,6 +236,20 @@ public final class CoBeanClient {
 			 * begin
 			 */
 			SimpleBean bean = new SimpleBean();
+			if (!flag) bean.print();
+			
+			bean.setIpAddr("127.0.0.1");
+			//bean.setIpAddr("192.168.0.19");
+			bean.setPort("7412");
+			bean.setName("dirName");
+			bean.setCmd("dir");
+			bean.setRetInfo("content:1");
+			bean.setSkip("0");
+			if (!flag) bean.print();
+			
+			CoBeanClient.getInstance().process(bean);
+			
+			if (flag) log.debug(String.format(">>>>> result <<<<<\n%s", bean.getResult()));
 		}
 	}
 
