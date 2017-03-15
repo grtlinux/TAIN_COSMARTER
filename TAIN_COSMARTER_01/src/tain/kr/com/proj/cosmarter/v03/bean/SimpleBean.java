@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
+import tain.kr.com.proj.cosmarter.v03.util.DateTime;
+
 /**
  * Code Templates > Comments > Types
  *
@@ -247,7 +249,7 @@ public class SimpleBean {
 		
 		if (flag) {
 
-			log.debug(" =========================== SimpleBean ============================");
+			log.debug(" =========================== SimpleBean ============================" + DateTime.getInstance().get());
 			
 			/*
 			 * CoBean Info
@@ -265,7 +267,7 @@ public class SimpleBean {
 			 */
 			log.debug(" result  = " + this.getResult());
 			
-			log.debug(" =======================================================");
+			log.debug(" ------------------------------------------------------------------------------");
 		}
 	}
 	
