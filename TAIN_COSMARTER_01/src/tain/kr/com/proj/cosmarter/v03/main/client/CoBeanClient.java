@@ -260,7 +260,7 @@ public final class CoBeanClient {
 			//bean.setIpAddr("192.168.0.19");
 			bean.setPort("7412");
 			bean.setName("dirName");
-			bean.setCmd("dir");
+			bean.setCmd("netstat -n | findstr EST");
 			bean.setRetInfo("content:1");
 			bean.setSkip("0");
 			if (!flag) bean.print();
