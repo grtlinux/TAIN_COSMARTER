@@ -120,6 +120,9 @@ public final class RunJarLoader {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_RSRC_MAIN_CLASS = "rsrcMainClass";
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
@@ -132,6 +135,13 @@ public final class RunJarLoader {
 			 * begin
 			 */
 			ManifestInfo manifestInfo = getManifestInfo();
+			
+			if (flag) {
+				/*
+				 * change the rsrcMainClass value
+				 */
+				manifestInfo.rsrcMainClass = System.getProperty(KEY_RSRC_MAIN_CLASS, manifestInfo.rsrcMainClass);
+			}
 			
 			ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 			URL.setURLStreamHandlerFactory(new RsrcURLStreamHandlerFactory(classLoader));
