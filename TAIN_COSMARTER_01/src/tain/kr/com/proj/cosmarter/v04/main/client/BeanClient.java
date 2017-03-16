@@ -57,10 +57,11 @@ public final class BeanClient {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v03.client.charset";
-	private static final String KEY_CLIENT_LOGFLAG = "tain.cosmarter.v03.client.log.flag";
+	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v04.client.charset";
+	private static final String KEY_CLIENT_LOGFLAG = "tain.cosmarter.v04.client.log.flag";
 	private static final String DEF_CLIENT_CHARSET = "euc-kr";
-	private static final String DEF_CLIENT_LOGFLAG = "false";
+	//private static final String DEF_CLIENT_LOGFLAG = "false";
+	private static final String DEF_CLIENT_LOGFLAG = "true";
 
 	private final String charSet;
 	private final boolean flgLog;
@@ -105,7 +106,7 @@ public final class BeanClient {
 			/*
 			 * print CoBean info
 			 */
-			if (flag) bean.print();
+			if (!flag) bean.print();
 		}
 		
 		if (flag) {
@@ -177,6 +178,8 @@ public final class BeanClient {
 				while ((line = reader.readLine()) != null) {
 					++lineNum;
 					
+					if (flag && this.flgLog) System.out.printf("B%04d) [%s]\n", lineNum, line);
+					
 					/*
 					 * trim the line
 					 */
@@ -185,10 +188,10 @@ public final class BeanClient {
 					/*
 					 * check the line about the conditions
 					 */
-					if (AbsCondition.scanConditions(lineNum, line))
+					if (!AbsCondition.scanConditions(lineNum, line))
 						continue;
 					
-					if (flag && this.flgLog) System.out.printf("%04d) [%s]\n", lineNum, line);
+					if (!flag && this.flgLog) System.out.printf("A%04d) [%s]\n", lineNum, line);
 					
 					/*
 					 * split
@@ -202,6 +205,7 @@ public final class BeanClient {
 					String strFldValue;
 					
 					if (flag) sb.append("\t");
+					if (!flag) sb.append(String.format("%03d", lineNum));
 					sb.append("{");
 
 					for (int i=0; i < sizeColumns; i++) {
@@ -287,8 +291,8 @@ public final class BeanClient {
 			bean.setDir("./");
 			bean.setArgs(null);
 			
-			bean.setSkipCmd(new String[] { "W" });
-			bean.setFldName(new String[] { "내용" });
+			bean.setSkipCmd(new String[] { "W", "L2", "L10", "R3-7", "N오후", "Y오후" });
+			bean.setFldName(new String[] { "일자", "구분", "시간", "정보" });
 			if (flag) bean.print();
 			
 			/*
