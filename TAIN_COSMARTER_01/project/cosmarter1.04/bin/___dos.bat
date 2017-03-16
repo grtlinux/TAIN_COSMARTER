@@ -1,27 +1,32 @@
-@echo on
+@echo off
 @setlocal
 
 ::----------------------------------------------
-:: ENV
+:label_env1
+set CURRENT_DIR=%CD%
+set ENV_CMD=%CURRENT_DIR%\_env.cmd
 
-set TAIN_HOME=N:\PROG
-if not exist %TAIN_HOME% set TAIN_HOME=..\..
+call %ENV_CMD% _env.cmd
+if errorlevel 1 goto label_end
 
-set JAVA_HOME=%TAIN_HOME%\jdk1.7.0_79
+::----------------------------------------------
+:label_env2
 
 
-set PATH=%JAVA_HOME%\bin;%PATH%
+
+
+goto label_start
 
 ::----------------------------------------------
 :: administrator
 ::net user administrator /active:yes
 
 ::----------------------------------------------
-:: START
-
+:label_start
 start
 
-
+::----------------------------------------------
+:label_end
+echo The end of the command
 
 @endlocal
-
