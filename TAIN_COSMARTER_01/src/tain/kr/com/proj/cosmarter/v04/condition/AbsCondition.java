@@ -125,16 +125,28 @@ public abstract class AbsCondition {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	public static boolean scanConditions(int lineNo, String line) throws Exception {
-		
-		for (AbsCondition condition : lstConditions) {
+
+		if (!flagY) {
 			/*
 			 * if return value of condition is false, then skip
 			 */
-			if (!condition.check(lineNo, line))
-				return false;
+			for (AbsCondition condition : lstConditions) {
+				if (!condition.check(lineNo, line))
+					return false;
+			}
+			
+			return true;
+		} else {
+			/*
+			 * if return value of condition is true, then not skip
+			 */
+			for (AbsCondition condition : lstConditions) {
+				if (condition.check(lineNo, line))
+					return true;
+			}
+			
+			return false;
 		}
-		
-		return true;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
