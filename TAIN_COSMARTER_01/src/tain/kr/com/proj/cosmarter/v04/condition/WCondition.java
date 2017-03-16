@@ -65,9 +65,9 @@ public final class WCondition extends AbsCondition {
 	public boolean check(int lineNo, String line) throws Exception {
 		
 		if ("".equals(line.trim()))
-			return true;
+			return false;
 
-		return false;
+		return true;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
