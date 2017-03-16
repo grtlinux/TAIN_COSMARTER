@@ -184,8 +184,7 @@ public final class BeanCommand {
 		System.out.printf("\t[args]    = %s\n"  , this.args == null ? "<NULL>" : new ArrayList<String>(Arrays.asList(this.args)));
 		System.out.printf("\t[skipCmd] = %s\n"  , this.skipCmd == null ? "<NULL>" : new ArrayList<String>(Arrays.asList(this.skipCmd)));
 		System.out.printf("\t[fldName] = %s\n"  , this.fldName == null ? "<NULL>" : new ArrayList<String>(Arrays.asList(this.fldName)));
-		System.out.println();
-		System.out.printf("\t[result]  = [%s]\n", this.result);
+		System.out.printf("\t=> [result] = [%s]\n", this.result);
 
 		System.out.println("\t-------------------------------------------------------------------------");
 	}
