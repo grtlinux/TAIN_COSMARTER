@@ -101,6 +101,18 @@ public abstract class AbsCondition {
 				 * skip in range between from and to.
 				 */
 				conditions[i] = new RCondition(skipCmd[i]);
+			} else if (skipCmd[i].startsWith("N")) {
+				/*
+				 * skip with the word in the line
+				 */
+				conditions[i] = new NCondition(skipCmd[i]);
+			} else if (skipCmd[i].startsWith("Y")) {
+				/*
+				 * choose the line with the word only.
+				 */
+				conditions = new AbsCondition[1];
+				conditions[0] = new YCondition(skipCmd[i]);
+				return;
 			} else {
 				throw new Exception(String.format("couldn't be parsing '%s'.", skipCmd[i]));
 			}
