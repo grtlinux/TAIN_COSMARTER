@@ -42,19 +42,39 @@ public final class LCondition extends AbsCondition {
 	private static final Logger log = Logger.getLogger(LCondition.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private final int lineNo;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
-	public LCondition(String skipCmd) {
+	public LCondition(String skipCmd) throws Exception {
 		
-		if (flag)
+		super(skipCmd);
+		
+		this.lineNo = Integer.parseInt(skipCmd.substring(1));
+		
+		if (!flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	/* (non-Javadoc)
+	 * @see tain.kr.com.proj.cosmarter.v04.condition.AbsCondition#check(int, java.lang.String)
+	 */
+	@Override
+	public boolean check(int lineNo, String line) throws Exception {
+		
+		if (lineNo == this.lineNo)
+			return true;
+		
+		return false;
+	}
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,9 +90,6 @@ public final class LCondition extends AbsCondition {
 	 * static test method
 	 */
 	private static void test01(String[] args) throws Exception {
-
-		if (flag)
-			new LCondition();
 
 		if (flag) {
 
