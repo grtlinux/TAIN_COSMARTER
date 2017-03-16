@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class WCondition {
+public final class WCondition extends AbsCondition {
 
 	private static boolean flag = true;
 
@@ -47,13 +47,29 @@ public class WCondition {
 	/*
 	 * constructor
 	 */
-	public WCondition() {
-		if (flag)
+	public WCondition(String skipCmd) throws Exception {
+		
+		super(skipCmd);
+		
+		if (!flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	/* (non-Javadoc)
+	 * @see tain.kr.com.proj.cosmarter.v04.condition.AbsCondition#check(int, java.lang.String)
+	 */
+	@Override
+	public boolean check(int lineNo, String line) throws Exception {
+		
+		if ("".equals(line.trim()))
+			return true;
+
+		return false;
+	}
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,9 +85,6 @@ public class WCondition {
 	 * static test method
 	 */
 	private static void test01(String[] args) throws Exception {
-
-		if (flag)
-			new WCondition();
 
 		if (flag) {
 
