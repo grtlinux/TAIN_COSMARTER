@@ -291,12 +291,12 @@ public final class BeanClient {
 			bean.setDir("./");
 			bean.setArgs(null);
 			
-			bean.setSkipCmd(new String[] { "W", "L2", "L10", "R3-7", "N오후", "Y오후" });
+			bean.setSkipCmd(new String[] { "W", "L2", "L10", "R3-7", "N오전", "Y오전", "Y오후" });
 			bean.setFldName(new String[] { "일자", "구분", "시간", "정보" });
 			if (flag) bean.print();
 			
 			/*
-			 * 
+			 * do business
 			 */
 			BeanClient.getInstance().process(bean);
 			
