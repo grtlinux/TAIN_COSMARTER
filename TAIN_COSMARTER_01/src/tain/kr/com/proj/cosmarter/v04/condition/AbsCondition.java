@@ -124,11 +124,14 @@ public abstract class AbsCondition {
 	public static boolean scanConditions(int lineNo, String line) throws Exception {
 		
 		for (int i=0; i < conditions.length; i++) {
-			if (conditions[i].check(lineNo, line))
-				return true;
+			/*
+			 * if return value of condition is false, 
+			 */
+			if (!conditions[i].check(lineNo, line))
+				return false;
 		}
 		
-		return false;
+		return true;
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
