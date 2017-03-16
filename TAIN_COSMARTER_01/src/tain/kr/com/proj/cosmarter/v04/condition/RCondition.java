@@ -35,25 +35,53 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class RCondition {
+public final class RCondition extends AbsCondition {
 
 	private static boolean flag = true;
 
 	private static final Logger log = Logger.getLogger(RCondition.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private final int fromNo;
+	private final int toNo;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
-	public RCondition() {
-		if (flag)
+	public RCondition(String skipCmd) throws Exception {
+		
+		super(skipCmd);
+		
+		String[] nums = skipCmd.substring(1).split("-");
+		if (nums.length != 2) {
+			throw new Exception(String.format("Wrong skip command '%s'.", skipCmd));
+		}
+		
+		this.fromNo = Integer.parseInt(nums[0]);
+		this.toNo = Integer.parseInt(nums[1]);
+		
+		if (!flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	/* (non-Javadoc)
+	 * @see tain.kr.com.proj.cosmarter.v04.condition.AbsCondition#check(int, java.lang.String)
+	 */
+	@Override
+	public boolean check(int lineNo, String line) throws Exception {
+		
+		if (this.fromNo <= lineNo && lineNo <= this.toNo)
+			return true;
+
+		return false;
+	}
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,9 +97,6 @@ public class RCondition {
 	 * static test method
 	 */
 	private static void test01(String[] args) throws Exception {
-
-		if (flag)
-			new RCondition();
 
 		if (flag) {
 
