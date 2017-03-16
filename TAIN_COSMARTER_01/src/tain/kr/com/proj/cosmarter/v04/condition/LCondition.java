@@ -70,9 +70,9 @@ public final class LCondition extends AbsCondition {
 	public boolean check(int lineNo, String line) throws Exception {
 		
 		if (lineNo == this.lineNo)
-			return true;
+			return false;
 		
-		return false;
+		return true;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
