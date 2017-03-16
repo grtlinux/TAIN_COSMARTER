@@ -19,17 +19,9 @@
  */
 package tain.kr.com.proj.cosmarter.v04.main.client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.nio.charset.Charset;
-
 import org.apache.log4j.Logger;
 
-import tain.kr.com.proj.cosmarter.v04.util.Param;
+import tain.kr.com.proj.cosmarter.v04.bean.BeanCommand;
 
 /**
  * Code Templates > Comments > Types
@@ -53,95 +45,17 @@ public final class MainCoSmarterClient {
 			.getLogger(MainCoSmarterClient.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	
-	private static final String KEY_CLIENT_HOST = "tain.cosmarter.v04.client.host";
-	private static final String KEY_CLIENT_PORT = "tain.cosmarter.v04.client.port";
-	private static final String DEF_CLIENT_HOST = "127.0.0.1";
-	private static final String DEF_CLIENT_PORT = "7412";
-	
-	private final String host;
-	private final String port;
-	
-	private final Socket socket;
-	
-	///////////////////////////////////////////////////////////////////////////////////////////////
-	
-	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v04.client.charset";
-	private static final String DEF_CLIENT_CHARSET = "euc-kr";
-
-	private final String charSet;
-	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
 	public MainCoSmarterClient() throws Exception {
-		
-		/*
-		 * connection using the host and the port
-		 */
-		this.host = Param.getInstance().getString(KEY_CLIENT_HOST, DEF_CLIENT_HOST);
-		this.port = Param.getInstance().getString(KEY_CLIENT_PORT, DEF_CLIENT_PORT);
-		
-		this.socket = new Socket(this.host, Integer.parseInt(this.port));
-		if (flag) log.debug(String.format(">>>>> [%s:%s] -> connection [%s].", this.host, this.port, this.socket.toString()));
-		
-		/*
-		 * get the charset of client
-		 */
-		this.charSet = Param.getInstance().getString(KEY_CLIENT_CHARSET, DEF_CLIENT_CHARSET);
-		if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_CLIENT_CHARSET, this.charSet));
-		
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	
-	public void execute01(String cmd) throws Exception {
-		
-		if (flag) {
-			/*
-			 * begin - 1
-			 */
-			PrintWriter writer = null;
-			BufferedReader reader = null;
-			String line = null;
-			
-			try {
-				if (flag) {
-					/*
-					 * create IO objects
-					 */
-					writer = new PrintWriter(new OutputStreamWriter(this.socket.getOutputStream(), Charset.forName(this.charSet)));
-					reader = new BufferedReader(new InputStreamReader(this.socket.getInputStream(), Charset.forName(this.charSet)));
-				}
-				
-				if (flag) {
-					/*
-					 * send command
-					 */
-					writer.println(cmd);
-					writer.flush();
-				}
-				
-				if (flag) {
-					/*
-					 * recv result
-					 */
-					while ((line = reader.readLine()) != null) {
-						if (flag) System.out.printf("SERVER: %s\n", line);
-					}
-				}
-			} finally {
-				if (writer != null) writer.close();
-				if (reader != null) try { reader.close(); } catch (IOException e) {}
-				if (this.socket != null) try { this.socket.close(); } catch (IOException e) {}
-			}
-		}
-	}
-	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -160,11 +74,35 @@ public final class MainCoSmarterClient {
 	 */
 	private static void test01(String[] args) throws Exception {
 
-		if (flag)
-			new MainCoSmarterClient();
-
 		if (flag) {
-
+			if (flag) {
+				/*
+				 * set BeanCommand object
+				 */
+				BeanCommand bean = new BeanCommand();
+				
+				bean.setName("testCommand");
+				bean.setDesc("test command");
+				
+				bean.setHost("127.0.0.1");
+				bean.setPort("7412");
+				
+				bean.setCmd(new String[] { "cmd", "/c", "dir" });
+				bean.setEnv(new String[] { "PARAM1=hello", "PARAM2=world" });
+				bean.setDir("./");
+				bean.setArgs(null);
+				
+				bean.setSkipCmd(new String[] { "W", "L2", "L10", "R3-7", "Y오전", "Y오후" });
+				bean.setFldName(new String[] { "일자", "구분", "시간", "정보" });
+				if (flag) bean.print();
+				
+				/*
+				 * do business
+				 */
+				BeanClient.getInstance().process(bean);
+				
+				if (flag) log.debug(String.format(">>>>> result <<<<<\n%s\n", bean.getResult()));
+			}
 		}
 	}
 
