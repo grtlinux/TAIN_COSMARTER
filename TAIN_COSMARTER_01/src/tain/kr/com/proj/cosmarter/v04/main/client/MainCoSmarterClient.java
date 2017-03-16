@@ -88,11 +88,14 @@ public final class MainCoSmarterClient {
 				bean.setPort("7412");
 				
 				bean.setCmd(new String[] { "cmd", "/c", "dir" });
+				//bean.setCmd(new String[] { "netstat -n" });
 				bean.setEnv(new String[] { "PARAM1=hello", "PARAM2=world" });
 				bean.setDir("./");
+				//bean.setDir(null);
 				bean.setArgs(null);
 				
 				bean.setSkipCmd(new String[] { "W", "L2", "L10", "R3-7", "Y오전", "Y오후" });
+				//bean.setSkipCmd(new String[] { "W" });
 				bean.setFldName(new String[] { "일자", "구분", "시간", "정보" });
 				if (flag) bean.print();
 				
