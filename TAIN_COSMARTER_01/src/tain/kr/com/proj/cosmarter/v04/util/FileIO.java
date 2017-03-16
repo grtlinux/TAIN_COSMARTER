@@ -19,6 +19,10 @@
  */
 package tain.kr.com.proj.cosmarter.v04.util;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -35,7 +39,7 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class FileIO {
+public final class FileIO {
 
 	private static boolean flag = true;
 
@@ -48,14 +52,38 @@ public class FileIO {
 	 * constructor
 	 */
 	public FileIO() {
+		/*
+		 * nothing to do
+		 */
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static int SIZ_BLOCK = 16384;   // 4 * 4096
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static void copyFile(InputStream is, OutputStream os, boolean flgOsClose) throws IOException {
+		
+		byte[] bytRead = new byte[FileIO.SIZ_BLOCK];
+		int nRead;
+		
+		while ((nRead = is.read(bytRead)) != -1) {
+			os.write(bytRead, 0, nRead);
+		}
+		
+		is.close();
+		
+		os.flush();
+		
+		if (flgOsClose)
+			os.close();
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
