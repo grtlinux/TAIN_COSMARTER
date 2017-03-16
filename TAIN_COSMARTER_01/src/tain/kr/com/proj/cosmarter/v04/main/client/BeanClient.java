@@ -19,7 +19,21 @@
  */
 package tain.kr.com.proj.cosmarter.v04.main.client;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.nio.charset.Charset;
+
 import org.apache.log4j.Logger;
+
+import tain.kr.com.proj.cosmarter.v04.bean.BeanCommand;
+import tain.kr.com.proj.cosmarter.v04.condition.AbsCondition;
+import tain.kr.com.proj.cosmarter.v04.util.CheckSystem;
+import tain.kr.com.proj.cosmarter.v04.util.Param;
+
+import com.google.gson.Gson;
 
 /**
  * Code Templates > Comments > Types
@@ -35,24 +49,190 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class BeanClient {
+public final class BeanClient {
 
 	private static boolean flag = true;
 
 	private static final Logger log = Logger.getLogger(BeanClient.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v03.client.charset";
+	private static final String KEY_CLIENT_LOGFLAG = "tain.cosmarter.v03.client.log.flag";
+	private static final String DEF_CLIENT_CHARSET = "euc-kr";
+	private static final String DEF_CLIENT_LOGFLAG = "false";
+
+	private final String charSet;
+	private final boolean flgLog;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
-	public BeanClient() {
+	private BeanClient() throws Exception {
+		
+		this.charSet = Param.getInstance().getString(KEY_CLIENT_CHARSET, DEF_CLIENT_CHARSET);
+		
+		/*
+		 * TODO 2017.03.15 : information of methods of Boolean
+		 * 
+		 * Boolean.getBoolean("true") -> false
+		 * 
+		 * tain.flag = true
+		 * Boolean.getBoolean("tain.flag") -> true
+		 * 
+		 * Boolean.valueOf("true").booleanValue() -> true
+		 * 
+		 */
+		String strFlgLog = Param.getInstance().getString(KEY_CLIENT_LOGFLAG, DEF_CLIENT_LOGFLAG);
+		this.flgLog = Boolean.valueOf(strFlgLog).booleanValue();
+		
+		if (flag) {
+			if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_CLIENT_CHARSET, this.charSet));
+			if (flag) log.debug(String.format(">>>>> [%s] = [%s]", KEY_CLIENT_LOGFLAG, this.flgLog));
+		}
+
 		if (flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	public void process(BeanCommand bean) throws Exception {
+
+		if (flag) {
+			/*
+			 * print CoBean info
+			 */
+			if (flag) bean.print();
+		}
+		
+		if (flag) {
+			/*
+			 * do the job of process in this class
+			 */
+			Socket socket = new Socket(bean.getHost(), Integer.parseInt(bean.getPort()));
+			
+			PrintWriter writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), Charset.forName(this.charSet)));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), Charset.forName(this.charSet)));
+			
+			if (flag) {
+				/*
+				 * send the command to the CoSmarter server
+				 */
+				Gson gson = new Gson();
+				String strGson = gson.toJson(bean);
+				
+				writer.println(strGson);
+				writer.flush();
+			}
+			
+			if (flag) {
+				/*
+				 * recv the result from the CoSmarter server
+				 */
+				getResult(reader, bean);
+			}
+			
+			reader.close();
+			writer.close();
+			socket.close();
+		}
+	}
+	
+	private void getResult(final BufferedReader reader, final BeanCommand bean) throws Exception {
+		
+		if (flag) {
+			/*
+			 * make conditions from skipCmd
+			 */
+			AbsCondition.setConditions(bean.getSkipCmd());
+		}
+		
+		if (flag) {
+			/*
+			 * reader
+			 */
+			StringBuffer sbJson = new StringBuffer();
+			
+			if (flag) {
+				/*
+				 * Json header
+				 */
+
+				sbJson.append("{").append("\"").append(bean.getName()).append("\"").append(":").append("[");
+				if (flag) sbJson.append(CheckSystem.getInstance().getLineSeparator());
+			}
+			
+			if (flag) {
+				/*
+				 * Json body
+				 */
+				String line;
+				int lineNum = 0;
+				String[] strFldName = bean.getFldName();
+				int sizeColumns = strFldName.length;
+
+				while ((line = reader.readLine()) != null) {
+					++lineNum;
+					
+					line = line.trim();
+					
+					if (AbsCondition.scanConditions(lineNum, line))
+						continue;
+					
+					if (flag && this.flgLog) System.out.printf("%04d) [%s]\n", lineNum, line);
+					
+					/*
+					 * split
+					 */
+					String[] columns = line.split("\\s+", sizeColumns);
+					
+					/*
+					 * line Json
+					 */
+					StringBuffer sb = new StringBuffer();
+					String strFldValue;
+					
+					if (flag) sb.append("\t");
+					sb.append("{");
+
+					for (int i=0; i < sizeColumns; i++) {
+						
+						if (i < columns.length) {
+							strFldValue = columns[i].replace('"', '`').trim();
+						} else {
+							strFldValue = "";
+						}
+						
+						sb.append("\"").append(strFldName[i]).append("\"").append(":").append("\"").append(strFldValue).append("\"").append(",");
+					}
+					
+					sb.append("},");
+					if (flag) sb.append(CheckSystem.getInstance().getLineSeparator());
+					
+					if (flag) sbJson.append(sb.toString());
+				}
+			}
+			
+			if (flag) {
+				/*
+				 * Json tail
+				 */
+				sbJson.append("]}");
+				if (flag) sbJson.append(CheckSystem.getInstance().getLineSeparator());
+			}
+			
+			if (flag) {
+				/*
+				 * transfer Json to the result
+				 */
+				bean.setResult(sbJson.toString());
+			}
+		}
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -61,6 +241,20 @@ public class BeanClient {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static BeanClient instance = null;
+	
+	public static synchronized BeanClient getInstance() throws Exception {
+		
+		if (BeanClient.instance == null) {
+			BeanClient.instance = new BeanClient();
+		}
+		
+		return BeanClient.instance;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -70,11 +264,33 @@ public class BeanClient {
 	 */
 	private static void test01(String[] args) throws Exception {
 
-		if (flag)
-			new BeanClient();
-
 		if (flag) {
-
+			/*
+			 * set BeanCommand object
+			 */
+			BeanCommand bean = new BeanCommand();
+			
+			bean.setName("testCommand");
+			bean.setDesc("test command");
+			
+			bean.setHost("127.0.0.1");
+			bean.setPort("7412");
+			
+			bean.setCmd(new String[] { "cmd", "/c", "dir" });
+			bean.setEnv(new String[] { "PARAM1=hello", "PARAM2=world" });
+			bean.setDir("./");
+			bean.setArgs(null);
+			
+			bean.setSkipCmd(new String[] { "W" });
+			bean.setFldName(new String[] { "³»¿ë" });
+			if (flag) bean.print();
+			
+			/*
+			 * 
+			 */
+			BeanClient.getInstance().process(bean);
+			
+			if (flag) log.debug(String.format(">>>>> result <<<<<\n%s\n", bean.getResult()));
 		}
 	}
 
