@@ -1,27 +1,31 @@
-@echo on
+@echo off
 @setlocal
 
 ::----------------------------------------------
-:: ENV
+:label_env1
+set CURRENT_DIR=%CD%
+set ENV_CMD=%CURRENT_DIR%\_env.cmd
 
-set TAIN_HOME=N:\PROG
-if not exist %TAIN_HOME% set TAIN_HOME=..\..
-
-set JAVA_HOME=%TAIN_HOME%\jdk1.7.0_79
-
-
-set PATH=%JAVA_HOME%\bin;%PATH%
+call %ENV_CMD% _env.cmd
+if errorlevel 1 goto label_end
 
 ::----------------------------------------------
-:: administrator
-::net user administrator /active:yes
+:label_start
+
+set JVM_OPTIONS=
+set JVM_OPTIONS=%JVM_OPTIONS% -Dtain.co.kr=TAIN
+set JVM_OPTIONS=%JVM_OPTIONS% -Dfile.encoding=euc-kr
+
+set JAR_FILE=%CURRENT_DIR%\tain-cosmarter-1.04.jar
+
+java %JVM_OPTIONS% -jar %JAR_FILE%
 
 ::----------------------------------------------
-:: START
-
-start
-
-
+:label_end
+echo The end of the command
 
 @endlocal
+
+
+
 
