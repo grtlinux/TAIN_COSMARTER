@@ -64,7 +64,7 @@ public final class ThrCoSmarterServer extends Thread {
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static final String KEY_SERVER_CHARSET = "tain.cosmarter.v03.server.charset";
+	private static final String KEY_SERVER_CHARSET = "tain.cosmarter.v04.server.charset";
 	private static final String DEF_SERVER_CHARSET = "euc-kr";
 	
 	private final String charSet;
