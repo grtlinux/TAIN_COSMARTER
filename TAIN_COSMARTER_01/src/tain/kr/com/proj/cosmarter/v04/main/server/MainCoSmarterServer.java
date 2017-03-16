@@ -49,7 +49,7 @@ public final class MainCoSmarterServer {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static final String KEY_SERVER_PORT = "tain.cosmarter.v03.server.port";
+	private static final String KEY_SERVER_PORT = "tain.cosmarter.v04.server.port";
 	private static final String DEF_SERVER_PORT = "7412";
 	
 	private final String port;
