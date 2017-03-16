@@ -69,8 +69,56 @@ public abstract class AbsCondition {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static AbsCondition[] conditions;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public static void setConditions(String[] skipCmd) throws Exception {
+		
+		conditions = new AbsCondition[skipCmd.length];
+		
+		for (int i=0; i < skipCmd.length; i++) {
+			if (flag) {
+				/*
+				 * arrange skipCmd
+				 */
+				skipCmd[i] = skipCmd[i].replaceAll("\\s+", "").toUpperCase();
+			}
+			
+			if (skipCmd[i].startsWith("W")) {
+				/*
+				 * skip in white space line
+				 */
+				conditions[i] = new WCondition(skipCmd[i]);
+			} else if (skipCmd[i].startsWith("L")) {
+				/*
+				 * skip in line number
+				 */
+				conditions[i] = new LCondition(skipCmd[i]);
+			} else if (skipCmd[i].startsWith("R")) {
+				/*
+				 * skip in range between from and to.
+				 */
+				conditions[i] = new RCondition(skipCmd[i]);
+			} else {
+				throw new Exception(String.format("couldn't be parsing '%s'.", skipCmd[i]));
+			}
+		}
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	public static boolean scanConditions(int lineNo, String line) throws Exception {
+		
+		for (int i=0; i < conditions.length; i++) {
+			if (conditions[i].check(lineNo, line))
+				return true;
+		}
+		
+		return false;
+	}
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
