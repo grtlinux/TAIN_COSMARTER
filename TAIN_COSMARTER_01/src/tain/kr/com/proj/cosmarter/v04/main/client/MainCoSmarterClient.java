@@ -54,8 +54,8 @@ public final class MainCoSmarterClient {
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static final String KEY_CLIENT_HOST = "tain.cosmarter.v03.client.host";
-	private static final String KEY_CLIENT_PORT = "tain.cosmarter.v03.client.port";
+	private static final String KEY_CLIENT_HOST = "tain.cosmarter.v04.client.host";
+	private static final String KEY_CLIENT_PORT = "tain.cosmarter.v04.client.port";
 	private static final String DEF_CLIENT_HOST = "127.0.0.1";
 	private static final String DEF_CLIENT_PORT = "7412";
 	
