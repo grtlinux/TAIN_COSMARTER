@@ -77,9 +77,9 @@ public final class RCondition extends AbsCondition {
 	public boolean check(int lineNo, String line) throws Exception {
 		
 		if (this.fromNo <= lineNo && lineNo <= this.toNo)
-			return true;
+			return false;
 
-		return false;
+		return true;
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
