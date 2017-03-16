@@ -177,8 +177,14 @@ public final class BeanClient {
 				while ((line = reader.readLine()) != null) {
 					++lineNum;
 					
+					/*
+					 * trim the line
+					 */
 					line = line.trim();
 					
+					/*
+					 * check the line about the conditions
+					 */
 					if (AbsCondition.scanConditions(lineNum, line))
 						continue;
 					
