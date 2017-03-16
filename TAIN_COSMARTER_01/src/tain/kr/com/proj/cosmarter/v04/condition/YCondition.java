@@ -35,25 +35,46 @@ import org.apache.log4j.Logger;
  * @author taincokr
  *
  */
-public class YCondition {
+public final class YCondition extends AbsCondition {
 
 	private static boolean flag = true;
 
 	private static final Logger log = Logger.getLogger(YCondition.class);
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private final String onlyWord;
+	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
 	/*
 	 * constructor
 	 */
-	public YCondition() {
-		if (flag)
+	public YCondition(String skipCmd) throws Exception {
+		
+		super(skipCmd);
+		
+		this.onlyWord = skipCmd.substring(1);
+		
+		if (!flag)
 			log.debug(">>>>> in class " + this.getClass().getSimpleName());
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
+
+	/* (non-Javadoc)
+	 * @see tain.kr.com.proj.cosmarter.v04.condition.AbsCondition#check(int, java.lang.String)
+	 */
+	@Override
+	public boolean check(int lineNo, String line) throws Exception {
+		
+		if (!line.contains(this.onlyWord))
+			return false;
+		
+		return true;
+	}
+
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -69,9 +90,6 @@ public class YCondition {
 	 * static test method
 	 */
 	private static void test01(String[] args) throws Exception {
-
-		if (flag)
-			new YCondition();
 
 		if (flag) {
 
