@@ -66,7 +66,7 @@ public final class MainCoSmarterClient {
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v03.client.charset";
+	private static final String KEY_CLIENT_CHARSET = "tain.cosmarter.v04.client.charset";
 	private static final String DEF_CLIENT_CHARSET = "euc-kr";
 
 	private final String charSet;
