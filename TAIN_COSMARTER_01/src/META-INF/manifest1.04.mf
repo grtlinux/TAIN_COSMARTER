@@ -1,26 +1,24 @@
 Manifest-Version: 1.0
  
-Title: CoSmarter 1.02 in TAIN, Inc.
- 
-Version: CoSmarter ver1.02
- 
+Title: CoSmarter 1.04 in TAIN, Inc.
+Version: CoSmarter ver1.04
 Package: tain.kr.com.proj.cosmarter
- 
 Created-By: TAIN, Inc.
- 
 Company: TAIN, Inc.
+Provider: Kiea Seok Kang    kiea@tain.co.kr  at 17.03.03
  
 Etc-Content: 
   libs/commons-net-3.3.jar
   libs/log4j-1.2.17.jar
   libs/gson-2.6.2.jar
  
-Provider: Kiea Seok Kang    kiea@tain.co.kr  at 17.03.03
- 
-Class-Path: .
  
  
  
+ 
+ 
+ 
+Class-Path: ./
  
 Main-Class: tain.kr.runjar.v04.RunJarLoader
  
@@ -31,7 +29,7 @@ Rsrc-Class-Path: ./
   libs/log4j-1.2.17.jar
   libs/gson-2.6.2.jar
  
-Rsrc-Main-Class: tain.kr.com.proj.cosmarter.v03.main.server.MainCoSmarterServer
+Rsrc-Main-Class: tain.kr.com.proj.cosmarter.v04.main.server.MainCoSmarterServer
  
 
 
