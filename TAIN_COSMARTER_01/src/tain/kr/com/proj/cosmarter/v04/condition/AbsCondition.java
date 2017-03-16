@@ -19,6 +19,9 @@
  */
 package tain.kr.com.proj.cosmarter.v04.condition;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -70,51 +73,51 @@ public abstract class AbsCondition {
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static AbsCondition[] conditions;
+	private static boolean flagY = false;
+	private static List<AbsCondition> lstConditions;
 	
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public static void setConditions(String[] skipCmd) throws Exception {
 		
-		conditions = new AbsCondition[skipCmd.length];
+		lstConditions = new ArrayList<AbsCondition>();
 		
 		for (int i=0; i < skipCmd.length; i++) {
 			if (flag) {
 				/*
 				 * arrange skipCmd
 				 */
-				skipCmd[i] = skipCmd[i].replaceAll("\\s+", "").toUpperCase();
+				skipCmd[i] = skipCmd[i].replaceAll("\\s+", "");
 			}
 			
-			if (skipCmd[i].startsWith("W")) {
+			if (!flagY && skipCmd[i].startsWith("W")) {
 				/*
 				 * skip in white space line
 				 */
-				conditions[i] = new WCondition(skipCmd[i]);
-			} else if (skipCmd[i].startsWith("L")) {
+				lstConditions.add(new WCondition(skipCmd[i]));
+			} else if (!flagY && skipCmd[i].startsWith("L")) {
 				/*
 				 * skip in line number
 				 */
-				conditions[i] = new LCondition(skipCmd[i]);
-			} else if (skipCmd[i].startsWith("R")) {
+				lstConditions.add(new LCondition(skipCmd[i]));
+			} else if (!flagY && skipCmd[i].startsWith("R")) {
 				/*
 				 * skip in range between from and to.
 				 */
-				conditions[i] = new RCondition(skipCmd[i]);
-			} else if (skipCmd[i].startsWith("N")) {
+				lstConditions.add(new RCondition(skipCmd[i]));
+			} else if (!flagY && skipCmd[i].startsWith("N")) {
 				/*
 				 * skip with the word in the line
 				 */
-				conditions[i] = new NCondition(skipCmd[i]);
+				lstConditions.add(new NCondition(skipCmd[i]));
 			} else if (skipCmd[i].startsWith("Y")) {
 				/*
 				 * choose the line with the word only.
 				 */
-				conditions = new AbsCondition[1];
-				conditions[0] = new YCondition(skipCmd[i]);
-				return;
-			} else {
-				throw new Exception(String.format("couldn't be parsing '%s'.", skipCmd[i]));
+				if (!flagY) lstConditions.clear();
+				flagY = true;
+				
+				lstConditions.add(new YCondition(skipCmd[i]));
 			}
 		}
 	}
@@ -123,11 +126,11 @@ public abstract class AbsCondition {
 
 	public static boolean scanConditions(int lineNo, String line) throws Exception {
 		
-		for (int i=0; i < conditions.length; i++) {
+		for (AbsCondition condition : lstConditions) {
 			/*
-			 * if return value of condition is false, 
+			 * if return value of condition is false, then skip
 			 */
-			if (!conditions[i].check(lineNo, line))
+			if (!condition.check(lineNo, line))
 				return false;
 		}
 		
