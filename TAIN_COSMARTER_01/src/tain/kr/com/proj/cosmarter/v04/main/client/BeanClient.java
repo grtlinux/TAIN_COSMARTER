@@ -194,7 +194,7 @@ public final class BeanClient {
 					if (!flag && this.flgLog) System.out.printf("A%04d) [%s]\n", lineNum, line);
 					
 					/*
-					 * split
+					 * split with white spaces..
 					 */
 					String[] columns = line.split("\\s+", sizeColumns);
 					
