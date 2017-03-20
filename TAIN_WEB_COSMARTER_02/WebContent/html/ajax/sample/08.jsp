@@ -7,7 +7,7 @@
 	request.setCharacterEncoding("euc-kr");
 	String name = request.getParameter("name");
 	
-	System.out.println("KANG : Hello");
+	if (!flag) System.out.println("KANG : Hello");
 	
 	BeanCommand bean = new BeanCommand();
 	
