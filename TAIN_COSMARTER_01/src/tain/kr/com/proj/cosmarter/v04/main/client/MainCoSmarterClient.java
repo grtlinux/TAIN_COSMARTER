@@ -90,7 +90,7 @@ public final class MainCoSmarterClient {
 				bean.setCmd(new String[] { "cmd", "/c", "dir" });
 				//bean.setCmd(new String[] { "netstat -n" });
 				bean.setEnv(new String[] { "PARAM1=hello", "PARAM2=world" });
-				bean.setDir("./");
+				bean.setDir("N:/_TEMP");
 				//bean.setDir(null);
 				bean.setArgs(null);
 				
