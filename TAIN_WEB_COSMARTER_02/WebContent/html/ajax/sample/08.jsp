@@ -11,8 +11,8 @@
 	
 	BeanCommand bean = new BeanCommand();
 	
-	bean.setName("testCommand");
-	bean.setDesc("test command");
+	bean.setName("lstResult");
+	bean.setDesc("list Result");
 	
 	bean.setHost("127.0.0.1");
 	bean.setPort("7412");
@@ -22,8 +22,8 @@
 	bean.setDir("./");
 	bean.setArgs(null);
 	
-	bean.setSkipCmd(new String[] { "W" });
-	bean.setFldName(new String[] { "fld1" });
+	bean.setSkipCmd(new String[] { "W", "Y¿À" });
+	bean.setFldName(new String[] { "fld1", "fld2", "fld3", "fld4", "fld5" });
 	if (flag) bean.print();
 
 	BeanClient.getInstance().process(bean);
