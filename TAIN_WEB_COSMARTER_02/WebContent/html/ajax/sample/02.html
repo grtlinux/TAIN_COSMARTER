@@ -1,0 +1,81 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="euc-kr">
+	<title>01-01 moniter</title>
+	<style>
+		table, th, td {
+			border: 1px solid grey;
+			border-collapse: collapse;
+			padding: 5px;
+			font-size: 13px;
+			font-family: "굴림체";
+			font-style: normal;
+		}
+		
+		table tr:nth-child(odd) {
+			background-color: #f1f1f1;
+		}
+		
+		table tr:nth-child(even) {
+			background-color: #ffffff;
+		}
+	</style>
+	<script>
+		function moniter01_01(url) {
+			
+			var xhr;
+			
+			if (window.ActiveXObject) {
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			} else if (window.XMLHttpRequest) {
+				xhr = new XMLHttpRequest();
+			}
+			
+			xhr.onreadystatechange = function() {
+			
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					var text = xhr.responseText.replace(/^\s*/,"").replace(/\s*$/,"");  // remove space charater in front and end
+					console.log(text);
+					
+					makeTable(text);
+				}
+			};
+			
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=euc-kr");
+			xhr.send();
+		}
+		
+		function makeTable(response) {
+			//var ret = JSON.parse(response);       // fixed format
+			var ret = eval("(" + response + ")");   // permit format
+			
+			var out = "<table>";
+			
+			for (var i=0; i < ret.lstps.length; i++) {
+				out += "<tr>";
+				out += "<td>" + ret.lstps[i].fld1   + "</td>";
+				out += "<td>" + ret.lstps[i].fld4   + "</td>";
+				out += "<td>" + ret.lstps[i].fld5   + "</td>";
+				out += "<td>" + ret.lstps[i].fld6   + "</td>";
+				out += "<td>" + ret.lstps[i].prog   + "</td>";
+				out += "</tr>";
+			}
+			
+			out += "</table>";
+			
+			document.getElementById("tbl01").innerHTML = out;
+		}
+	</script>
+</head>
+<body>
+	<p>
+		<button type="button" onclick="moniter01_01('./02.jsp');" >01_02 주원장</button>
+	</p>
+
+	<div id="tbl01">
+	</div>
+
+</body>
+</html>
