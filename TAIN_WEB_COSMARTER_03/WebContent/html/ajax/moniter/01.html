@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="euc-kr">
+	<title>01-01 moniter</title>
+	<style>
+		table, th, td {
+			border: 1px solid grey;
+			border-collapse: collapse;
+			padding: 5px;
+			font-size: 13px;
+			font-family: "굴림체";
+			font-style: normal;
+		}
+		
+		table tr:nth-child(odd) {
+			background-color: #f1f1f1;
+		}
+		
+		table tr:nth-child(even) {
+			background-color: #ffffff;
+		}
+	</style>
+	<script>
+		function ajax(url) {
+			
+			var xhr;
+			
+			if (window.ActiveXObject) {
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			} else if (window.XMLHttpRequest) {
+				xhr = new XMLHttpRequest();
+			}
+			
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					var result = xhr.responseText.replace(/^\s*/,"").replace(/\s*$/,"");  // remove space charater in front and end
+					if (true) console.log(result);
+					
+					response(result);
+				}
+			};
+			
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=euc-kr");
+			xhr.send();
+		}
+		
+		function response(result) {
+			//var ret = JSON.parse(response);       // fixed format
+			var ret = eval("(" + result + ")");   // permit format
+			
+			var out = "<table>";
+			
+			out += "<tr>";
+			out += "<td>" + ret.lstResult[0].일자   + "</td>";
+			out += "<td>" + ret.lstResult[0].구분   + "</td>";
+			out += "<td>" + ret.lstResult[0].시간 + "</td>";
+			out += "<td>" + ret.lstResult[0].정보   + "</td>";
+			out += "</tr>";
+
+			for (var i=1; i < ret.lstResult.length; i++) {
+				out += "<tr>";
+				out += "<td>" + ret.lstResult[i].일자   + "</td>";
+				out += "<td>" + ret.lstResult[i].구분   + "</td>";
+				out += "<td>" + ret.lstResult[i].시간 + "</td>";
+				out += "<td>" + ret.lstResult[i].정보   + "</td>";
+				out += "</tr>";
+			}
+			
+			out += "</table>";
+			
+			document.getElementById("tbl01").innerHTML = out;
+		}
+	</script>
+</head>
+<body>
+	<p>
+		<button type="button" onclick="ajax('./01.jsp');" >01_01 moniter</button>
+	</p>
+
+	<div id="tbl01">
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+01. 위치
+	
+	/hw01/ibridge/KANG/pos51/web/index.html : 첫화면 메뉴 처리 할 수 있는 프로그램
+	
+02. index.html을 수정한다.
+
+					<li><a href="#">메뉴3</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">쌤플<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li role="presentation" class="dropdown-header">== 모니터01 ==</li>
+							<li role="presentation"><a target="iframeA" href="/html/00.txt">00-00. 참조</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/sample/01.html">01-01. 버튼 사용</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/sample/02.html">01-02. 주원장</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/sample/03.html">01-03. 주원장</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/sample/04.html">01-04. 주원장 모니터링</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/sample/05.html">01-05. 주기적 갱신</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/sample/06.html">01-06. SIGNAL LOG 리푸레쉬</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/sample/07.html">01-07. UMS SIGNAL</a></li>
+							<li role="separator" class="divider"></li>
+							<li role="presentation" class="dropdown-header">== 실행10 ==</li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/sample/R1.html">Run-01. PostNet 실행</a></li>
+							<li role="presentation" class="dropdown-header">== 실행11 ==</li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/sample/R2.html">Run-02. fepstat.sh 실행</a></li>
+			[추가] ->	<li role="presentation" class="dropdown-header">== 실행12 ==</li>
+			[추가/수정] ->	<li role="presentation"><a target="iframeA" href="/html/ajax/sample/R3.html">Run-03. test.sh 실행</a></li>
+                        [추가] ->       <li role="presentation" class="dropdown-header">== 실행13 ==</li>
+                        [추가/수정] ->  <li role="presentation"><a target="iframeA" href="/html/ajax/sample/R4.html">Run-04. test1.sh 실행</a></li>
+					--------------------------------------------------------------------##-------####################-----------
+							<!-- li role="presentation"><a href="#">메뉴 4-1</a></li -->
+						</ul>
+					</li>
+
+03. 복사작업
+	위치 : /hw01/ibridge/KANG/pos51/web/html/ajax/sample
+	복사 : 
+		R2.html -> R3.html     ex) cp R2.html R3.html
+		R2.jsp -> R3.jsp       ex) cp R2.jsp R3.jsp
+
+04. R3.jsp 파일을 파일을 수정한다.
+
+	<%
+		boolean flag = true;
+	
+		request.setCharacterEncoding("euc-kr");
+		String code = request.getParameter("code");
+		
+		// System.out.println("KANG : Hello");
+		
+		SimpleBean bean = new SimpleBean();
+		bean.setIpAddr("172.30.225.53");
+		bean.setPort("7412");
+		
+		bean.setName("lstps");
+	
+		if ("01".equals(code)) {
+			bean.setCmd("/hw01/ibridge/shl/test.sh");
+			------------##########################-----------
+		} 
+			
+		bean.setRetInfo("fld1:1");
+		bean.setSkip("0");
+		
+		CoBeanClient.getInstance().process(bean);
+		
+		String message = bean.getResult();
+		
+		if (flag)
+			message = message.replaceAll("<","&lt;").replaceAll(">","&gt;");
+	%>
+	<%= message %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
