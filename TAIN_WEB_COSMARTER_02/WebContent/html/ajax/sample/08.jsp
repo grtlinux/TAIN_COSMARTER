@@ -23,7 +23,7 @@
 	bean.setArgs(null);
 	
 	bean.setSkipCmd(new String[] { "W", "Y오" });
-	bean.setFldName(new String[] { "fld1", "fld2", "fld3", "fld4", "fld5" });
+	bean.setFldName(new String[] { "일자", "오전후", "시간", "구분", "파일폴더" });
 	if (flag) bean.print();
 
 	BeanClient.getInstance().process(bean);
