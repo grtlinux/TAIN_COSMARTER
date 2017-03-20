@@ -22,7 +22,7 @@ package tain.kr.com.proj.cosmarter.v04.bean;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import tain.kr.com.proj.cosmarter.v02.util.CheckSystem;
+import tain.kr.com.proj.cosmarter.v04.util.CheckSystem;
 
 import com.google.gson.Gson;
 
