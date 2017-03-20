@@ -168,6 +168,27 @@ public final class BeanClient {
 			
 			if (flag) {
 				/*
+				 * title columns
+				 */
+				StringBuffer sb = new StringBuffer();
+				String[] strFldName = bean.getFldName();
+				int sizeColumns = strFldName.length;
+				
+				if (flag) sb.append("\t");
+				sb.append("{");
+
+				for (int i=0; i < sizeColumns; i++) {
+					sb.append("\"").append(strFldName[i]).append("\"").append(":").append("\"").append(strFldName[i]).append("\"").append(",");
+				}
+				
+				sb.append("},");
+				if (flag) sb.append(CheckSystem.getInstance().getLineSeparator());
+				
+				if (flag) sbJson.append(sb.toString());
+			}
+			
+			if (flag) {
+				/*
 				 * Json body
 				 */
 				String line;
