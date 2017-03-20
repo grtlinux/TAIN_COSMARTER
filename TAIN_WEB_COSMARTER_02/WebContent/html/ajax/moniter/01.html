@@ -22,7 +22,7 @@
 		}
 	</style>
 	<script>
-		function moniter01_01(url) {
+		function ajax(url) {
 			
 			var xhr;
 			
@@ -33,35 +33,35 @@
 			}
 			
 			xhr.onreadystatechange = function() {
-			
 				if (xhr.readyState == 4 && xhr.status == 200) {
-					var text = xhr.responseText.replace(/^\s*/,"").replace(/\s*$/,"");  // remove space charater in front and end
-					console.log(text);
+					var result = xhr.responseText.replace(/^\s*/,"").replace(/\s*$/,"");  // remove space charater in front and end
+					if (true) console.log(result);
 					
-					makeTable(text);
+					response(result);
 				}
 			};
 			
 			xhr.open("POST", url, true);
+			//xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=euc-kr");
 			xhr.send();
 		}
 		
-		function makeTable(response) {
+		function response(result) {
 			//var ret = JSON.parse(response);       // fixed format
-			var ret = eval("(" + response + ")");   // permit format
+			var ret = eval("(" + result + ")");   // permit format
 			
 			var out = "<table>";
 			
-			for (var i=0; i < ret.lstps.length; i++) {
+			for (var i=0; i < ret.lstResult.length; i++) {
 				out += "<tr>";
-				out += "<td>" + ret.lstps[i].uid   + "</td>";
-				out += "<td>" + ret.lstps[i].pid   + "</td>";
-				//out += "<td>" + ret.lstps[i].ppid  + "</td>";
-				out += "<td>" + ret.lstps[i].stime + "</td>";
-				//out += "<td>" + ret.lstps[i].tty   + "</td>";
-				//out += "<td>" + ret.lstps[i].time  + "</td>";
-				out += "<td>" + ret.lstps[i].cmd   + "</td>";
+				out += "<td>" + ret.lstResult[i].uid   + "</td>";
+				out += "<td>" + ret.lstResult[i].pid   + "</td>";
+				//out += "<td>" + ret.lstResult[i].ppid  + "</td>";
+				out += "<td>" + ret.lstResult[i].stime + "</td>";
+				//out += "<td>" + ret.lstResult[i].tty   + "</td>";
+				//out += "<td>" + ret.lstResult[i].time  + "</td>";
+				out += "<td>" + ret.lstResult[i].cmd   + "</td>";
 				out += "</tr>";
 			}
 			
@@ -73,7 +73,7 @@
 </head>
 <body>
 	<p>
-		<button type="button" onclick="moniter01_01('./01.jsp');" >01_01 moniter</button>
+		<button type="button" onclick="ajax('./01.jsp');" >01_01 moniter</button>
 	</p>
 
 	<div id="tbl01">
