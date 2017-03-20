@@ -11,9 +11,11 @@
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="lib" path="/TAIN_COSMARTER_01/bin"/>
-	<classpathentry kind="lib" path="/TAIN_COSMARTER_01/libs"/>
+	<classpathentry kind="lib" path="webapps/examples/WEB-INF/lib/taglibs-standard-impl-1.2.5.jar"/>
+	<classpathentry kind="lib" path="webapps/examples/WEB-INF/lib/taglibs-standard-spec-1.2.5.jar"/>
+	<classpathentry kind="lib" path="webapps/examples/WEB-INF/classes"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
