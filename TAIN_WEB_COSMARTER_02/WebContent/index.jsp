@@ -21,7 +21,7 @@ limitations under the License.
 	<meta charset="euc-kr">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<base href="http://localhost:8080/cosmarter/">
+	<base href="http://localhost:8080/">
 	<title> CoSmarter </title>
 	
 	<!-- Bootstrap -->
