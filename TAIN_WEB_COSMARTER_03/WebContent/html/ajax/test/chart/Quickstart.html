@@ -8,7 +8,7 @@
 	<script type="text/javascript">
 		
 		// Load the visualization API and the corechart package
-		google.charts.load('current', {'packages':['corechart']});
+		google.charts.load('current', {packages:['corechart']});
 		
 		// set a callback to run when the google visualization API is loaded
 		google.charts.setOnLoadCallback(drawChart);
@@ -32,17 +32,26 @@
 					]);
 			
 			// set chart options
-			var options = { 'title':'강석How much pizza I ate last night', 'width':400, 'height':300 };
-			
+			var pie_options = { title:'강석How much pizza I ate last night', width:400, height:300 };
+			var bar_options = { title:'강석How much pizza I ate last night', width:400, height:300, legend:'none'};
+
 			// Instantiate and draw out chart, passing in some options.
-			var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
-			chart.draw(data, options);
+			var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+			var barchart = new google.visualization.BarChart(document.getElementById('barchart_div'));
+
+			piechart.draw(data, pie_options);
+			barchart.draw(data, bar_options);
 		}
 	</script>
 	<!-- END of the load the AJAX API -->
 </head>
 <body>
 	<!-- Div that will hold the pie chart -->
-	<div id="chart_div"></div>
+	<table class="columns">
+	<tr>
+		<td><div id="piechart_div" style="border:1px solid #ccc"></div></td>
+		<td><div id="barchart_div" style="border:1px solid #ccc"></div></td>
+	</tr>
+	</table>
 </body>
 </html>
