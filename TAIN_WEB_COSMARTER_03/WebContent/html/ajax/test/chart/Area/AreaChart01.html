@@ -23,16 +23,18 @@
 		
 		function drawChart01() {
 			var data = google.visualization.arrayToDataTable([
-				['Task', 'Hours per Day'],
-				['Work', 11],
-				['Eat', 2],
-				['Commute', 2],
-				['Watch TV', 2],
-				['Sleep', 7],
+				['Year', 'Sales', 'Expenses'],
+				['2013', 1000,  400],
+				['2014', 1170,  460],
+				['2015',  660, 1120],
+				['2016', 1030,  540],
 			]);
 			
-			var options = { title:'char01. My Daily Activities', };
-			var chart = new google.visualization.PieChart(document.getElementById('chart01_div'));
+			var options = { title:'char01. My Daily Activities',
+					hAxis: { title: 'Year', titleTextStyle: { color: '#333' }},
+					vAxis: { minValue: 0 },
+					};
+			var chart = new google.visualization.AreaChart(document.getElementById('chart01_div'));
 
 			chart.draw(data, options);
 		}
