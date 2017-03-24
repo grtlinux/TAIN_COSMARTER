@@ -1,32 +1,262 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+	<!-- START of the load the AJAX API -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+		
+		google.charts.load('current', {packages:['corechart']});
+		google.charts.setOnLoadCallback(function() {
+			drawChart01(); // base pie chart
+			drawChart02(); // 3D pie chart
+			drawChart03(); // donut chart
+			drawChart04(); // rotation pie chart
+			drawChart05(); // slice pie chart
+			drawChart06(); // pac man
+			drawChart07(); // visibility threshold
+			drawChart08();
+			drawChart09();
+			drawChart10();
+		});
+		
+		function drawChart01() {
+			var data = google.visualization.arrayToDataTable([
+				['Task', 'Hours per Day'],
+				['Work', 11],
+				['Eat', 2],
+				['Commute', 2],
+				['Watch TV', 2],
+				['Sleep', 7],
+			]);
+			
+			var options = { title:'char01. My Daily Activities', };
+			var chart = new google.visualization.PieChart(document.getElementById('chart01_div'));
 
-      function drawChart() {
+			chart.draw(data, options);
+		}
+		
+		function drawChart02() {
+			var data = google.visualization.arrayToDataTable([
+				['Task', 'Hours per Day'],
+				['Work', 11],
+				['Eat', 2],
+				['Commute', 2],
+				['Watch TV', 2],
+				['Sleep', 7],
+			]);
+			
+			var options = { title:'char02. My Daily Activities', is3D:true, };
+			var chart = new google.visualization.PieChart(document.getElementById('chart02_div'));
 
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
+			chart.draw(data, options);
+		}
+		
+		function drawChart03() {
+			var data = google.visualization.arrayToDataTable([
+				['Task', 'Hours per Day'],
+				['Work', 11],
+				['Eat', 2],
+				['Commute', 2],
+				['Watch TV', 2],
+				['Sleep', 7],
+			]);
+			
+			var options = { title:'char03. My Daily Activities', pieHole:0.2, };
+			var chart = new google.visualization.PieChart(document.getElementById('chart03_div'));
 
-        var options = {
-          title: 'My Daily Activities'
-        };
+			chart.draw(data, options);
+		}
+		
+		function drawChart04() {
+			var data = google.visualization.arrayToDataTable([
+				['Language', 'Speakers (in millions)'],
+				['German',  5.85],
+				['French',  1.66],
+				['Italian', 0.316],
+				['Romansh', 0.0791]
+			]);
+			
+			var options = { title:'char04. Swiss Language Use (100 degree rotation)',
+					legend: 'none',
+					pieSliceText: 'label',
+					pieStartAngle: 60,
+					};
+			var chart = new google.visualization.PieChart(document.getElementById('chart04_div'));
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+			chart.draw(data, options);
+		}
+		
+		function drawChart05() {
+			var data = google.visualization.arrayToDataTable([
+				['Language', 'Speakers (in millions)'],
+				['Assamese', 13], ['Bengali', 83], ['Bodo', 1.4],
+				['Dogri', 2.3], ['Gujarati', 46], ['Hindi', 300],
+				['Kannada', 38], ['Kashmiri', 5.5], ['Konkani', 5],
+				['Maithili', 20], ['Malayalam', 33], ['Manipuri', 1.5],
+				['Marathi', 72], ['Nepali', 2.9], ['Oriya', 33],
+				['Punjabi', 29], ['Sanskrit', 0.01], ['Santhali', 6.5],
+				['Sindhi', 2.5], ['Tamil', 61], ['Telugu', 74], ['Urdu', 52]
+			]);
+			
+			var options = { title: 'char05. Indian Language Use',
+					legend: 'none',
+					pieSliceText: 'label',
+					slices: {
+						 4: {offset: 0.2},
+						12: {offset: 0.3},
+						14: {offset: 0.4},
+						15: {offset: 0.5},
+					},
+			};
+			var chart = new google.visualization.PieChart(document.getElementById('chart05_div'));
+			
+			chart.draw(data, options);
+		}
+		
+		function drawChart06() {
+			var data = google.visualization.arrayToDataTable([
+				['Pac Man', 'Percentage'],
+				['', 75],
+				['', 25],
+			]);
+			
+			var options = {
+					legend: 'none',
+					pieSliceText: 'none',
+					pieStartAngle: 135,
+					tooltip: { trigger: 'none' },
+					slices: {
+						0: { color: 'red' },
+						1: { color: 'transparent' },
+					}
+			};
+			var chart = new google.visualization.PieChart(document.getElementById('chart06_div'));
+			
+			chart.draw(data, options);
+		}
+		
+		function drawChart07() {
+			var data = new google.visualization.DataTable();
+			data.addColumn('string', 'Pizza');
+			data.addColumn('number', 'Popularity');
+			data.addRows([
+				['Pepperoni', 33],
+				['Hawaiian', 26],
+				['Mushroom', 22],
+				['Sausage', 10], // Below limit.
+				['Anchovies', 9], // Below limit.
+			]);
+			
+			var options = { title: 'chart07. Popularity of Types of Pizza',
+					sliceVisibilityThreshold: .2,   // 20% 2/5
+			};
+			var chart = new google.visualization.PieChart(document.getElementById('chart07_div'));
+			
+			chart.draw(data, options);
+		}
+		
+		function drawChart08() {
+			
+		}
 
-        chart.draw(data, options);
-      }
-    </script>
-  </head>
-  <body>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>
-  </body>
+		function drawChart09() {
+			
+		}
+		
+		function drawChart10() {
+			
+		}
+		/*
+		
+		< Configuration Options >
+			backgroundColor
+			backgroundColor.stroke
+			backgroundColor.strokeWidth
+			backgroundColor.fill
+			chartArea
+			chartArea.backgroundColor
+			chartArea.left
+			chartArea.top
+			chartArea.width
+			chartArea.height
+			colors
+			enableInteractivity
+			fontSize
+			fontName
+			forceIFrame
+			height
+			is3D
+			legend
+			legend.alignment
+			legend.position
+			legend.maxLines
+			legend.textStyle
+			pieHole
+			pieSliceBorderColor
+			pieSliceText
+			pieSliceTextStyle
+			pieStartAngle
+			reverseCategories
+			pieResidueSliceColor
+			pieResidueSliceLabel
+			slices
+			sliceVisibilityThreshold
+			title
+			titleTextStyle
+			tooltip
+			tooltip.ignoreBounds
+			tooltip.isHtml
+			tooltip.showColorCode
+			tooltip.text
+			tooltip.showColorCode
+			tooltip.text
+			tooltip.textStyle
+			tooltip.trigger
+			width
+		
+		< Methods >
+			draw(data, options)
+			getAction(actionID)
+			getBoundingBox(id)
+			getChartAreaBoundingBox()
+			getChartLayoutInterface()
+			getHAxisValue(position, optional_axis_index)
+			getImageURI()
+			getSelection()
+			getVAxisValue(opsition, optional_axis_index)
+			getXLocation(position, optional_axis_index)
+			getYLocation(position, optional_axis_index)
+			removeAction(actionID)
+			setAction(action)
+			setSelection()
+			clearChart()
+			
+		< Events >
+			click
+			error
+			onmouseover
+			onmouseout
+			ready
+			select
+		*/
+	</script>
+	<!-- END of the load the AJAX API -->
+</head>
+<body>
+	<!-- Div that will hold the pie chart -->
+	<table class="columns">
+		<tr><td><div id="chart01_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart02_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart03_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart04_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart05_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart06_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart07_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart08_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart09_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart10_div" style="width:400; height:300; border:1px solid #ccc"></div></td></tr>
+	</table>
+</body>
 </html>
