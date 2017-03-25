@@ -54,10 +54,19 @@
 		}
 		
 		function drawChart02() {
-			var data = google.visualization.arrayToDataTable([]);
+			var data = new google.visualization.DataTable();
+			data.addColumn('number');
+			data.addColumn('number');
 			
-			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart02_div'));
+			for (var i=0; i < 100; i++) {
+				data.addRow([Math.floor(Math.random()*100), Math.floor(Math.random()*100)]);
+			}
+			
+			var options = {
+					legend: 'none',
+					crosshair: {trigger: 'both'}, // display crosshairs on focus and selection
+			};
+			var chart = new google.visualization.ScatterChart(document.getElementById('chart02_div'));
 
 			chart.draw(data, options);
 		}
