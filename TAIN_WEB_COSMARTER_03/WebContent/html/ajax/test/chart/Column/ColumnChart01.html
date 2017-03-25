@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript">
 		
-		google.charts.load('current', {packages:['corechart']});
+		google.charts.load('current', {packages:['corechart', 'bar']});
 		google.charts.setOnLoadCallback(function() {
 			drawChart01(); //
 			drawChart02(); //
@@ -204,28 +204,119 @@
 		}
 
 		function drawChart06() {
-			var data = google.visualization.arrayToDataTable([]);
+			var data = new google.visualization.DataTable();
+			data.addColumn('timeofday', 'Time of Day');
+			data.addColumn('number', 'Motivation Level');
+			data.addColumn('number', 'Energy Level');
+			data.addRows([
+				[{v: [ 8,0,0], f:  '8 am'},  1,  0.25],
+				[{v: [ 9,0,0], f:  '9 am'},  2,  0.50],
+				[{v: [10,0,0], f: '10 am'},  3,  1.00],
+				[{v: [11,0,0], f: '11 am'},  4,  2.25],
+				[{v: [12,0,0], f: '12 pm'},  5,  2.25],
+				[{v: [13,0,0], f:  '1 pm'},  6,  3.00],
+				[{v: [14,0,0], f:  '2 pm'},  7,  4.00],
+				[{v: [15,0,0], f:  '3 pm'},  8,  5.25],
+				[{v: [16,0,0], f:  '4 pm'},  9,  7.50],
+				[{v: [17,0,0], f:  '5 pm'}, 10, 10.00],
+			]);
 			
-			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart06_div'));
+			var options = {
+				chart: {
+					title: 'Movivation and Energy Level Throughout the day',
+					subtitle: 'Based on a scale of 1 to 10'
+				},
+				series: {
+					0: {axis: 'MotivationLevel'},
+					1: {axis: 'EnergyLevel'}
+				},
+				axes: {
+					y: {
+						MotivationLevel: {label: 'Motivation Level (1-10)'},
+						EnergyLevel: {label: 'Energy Level (1-100)'}
+					}
+				},
+				hAxis: {
+					title: 'Time of day',
+					format: 'h:mm a',
+					viewWindow: {
+						min: [7, 30, 0],
+						max: [17, 30, 0],
+					}
+				},
+				vAxis: {
+					title: 'Rating (scale of 1-10)'
+				}
+			};
+			//var chart = new google.visualization.ColumnChart(document.getElementById('chart06_div'));
+			var chart = new google.charts.Bar(document.getElementById('chart06_div'));
 
 			chart.draw(data, options);
 		}
 
 		function drawChart07() {
-			var data = google.visualization.arrayToDataTable([]);
+			var data = new google.visualization.DataTable();
+			data.addColumn('timeofday', 'Time of Day');
+			data.addColumn('number', 'Motivation Level');
+			data.addColumn({type: 'string', role: 'annotation'});
+			data.addColumn('number', 'Energy Level');
+			data.addColumn({type: 'string', role: 'annotation'});
+			data.addRows([
+				[{v: [ 8,0,0], f:  '8 am'},  1,  '1',  0.25,  '0.2'],
+				[{v: [ 9,0,0], f:  '9 am'},  2,  '2',  0.50,  '0.5'],
+				[{v: [10,0,0], f: '10 am'},  3,  '3',  1.00,  '1.0'],
+				[{v: [11,0,0], f: '11 am'},  4,  '4',  2.25,  '2.2'],
+				[{v: [12,0,0], f: '12 am'},  5,  '5',  2.25,  '2.2'],
+				[{v: [13,0,0], f: '13 am'},  6,  '6',  3.00,  '3.0'],
+				[{v: [14,0,0], f: '14 am'},  7,  '7',  4.00,  '4.0'],
+				[{v: [15,0,0], f: '15 am'},  8,  '8',  5.25,  '5.2'],
+				[{v: [16,0,0], f: '16 am'},  9,  '9',  7.50,  '7.5'],
+				[{v: [17,0,0], f: '17 am'}, 10, '10', 10.00, '10.0'],
+			]);
 			
-			var options = {};
+			var options = {
+				title: 'Motivation Level Throughout the day',
+				annotations: {
+					alwaysOutside: true,
+					textStype: {
+						fontSize: 14,
+						color: '#000',
+						auraColor: 'none',
+					}
+				},
+				hAxis: {
+					title: 'Time of day',
+					format: 'h:mm a',
+					viewWindow: {
+						min: [7, 30, 0],
+						max: [17, 30, 0],
+					}
+				},
+				vAxis: {
+					title: 'Rating (scale of 1-10)'
+				}
+			};
 			var chart = new google.visualization.ColumnChart(document.getElementById('chart07_div'));
 
 			chart.draw(data, options);
 		}
 
 		function drawChart08() {
-			var data = google.visualization.arrayToDataTable([]);
+			var data = google.visualization.arrayToDataTable([
+				['Year', 'Scales', 'Expenses', 'Profit'],
+				['2014', 1000,  400,  200],
+				['2015', 1170,  460,  250],
+				['2016',  660, 1120,  300],
+				['2017', 1030,  540,  350],
+			]);
 			
-			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart08_div'));
+			var options = {
+					chart: {
+						title: 'Company Performance',
+						subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+					}
+			};
+			var chart = new google.charts.Bar(document.getElementById('chart08_div'));
 
 			chart.draw(data, options);
 		}
