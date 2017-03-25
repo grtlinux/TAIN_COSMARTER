@@ -16,34 +16,109 @@
 			drawChart05(); //
 			drawChart06(); //
 			drawChart07(); //
-			drawChart08();
-			drawChart09();
-			drawChart10();
+			drawChart08(); //
+			drawChart09(); //
+			drawChart10(); //
+			drawChart11(); //
+			drawChart12(); //
+			drawChart13(); //
+			drawChart14(); //
+			drawChart15(); //
+			drawChart16(); //
+			drawChart17(); //
+			drawChart18(); //
+			drawChart19(); //
+			drawChart20(); //
 		});
 		
 		function drawChart01() {
-			var data = google.visualization.arrayToDataTable([]);
+			var data = google.visualization.arrayToDataTable([
+				['Element', 'Density', { role: 'style' }, { role: 'annotation'}],
+				['Coppr', 8.94, '#b87333', 'Cu'],   // RGB value
+				['Silver', 10.49, 'silver', 'Ag'],  // English color name
+				['Gold', 19.30, 'gold', 'Au'],
+				['Platinum', 21.45, 'color: #e5e4e2', 'Pt'],  // CSS-style declaration
+			]);
 			
-			var options = {};
+			var options = {
+					title: 'Density of Precious Metals, in g/cm^3',
+					bar: {groupWidth: '95%'},
+					legend: {position: 'none'},
+			};
 			var chart = new google.visualization.ColumnChart(document.getElementById('chart01_div'));
 
 			chart.draw(data, options);
 		}
 		
 		function drawChart02() {
-			var data = google.visualization.arrayToDataTable([]);
+			var data = new google.visualization.DataTable();
+			data.addColumn('timeofday', 'Time of Day');
+			data.addColumn('number', 'Motivation Level');
+			data.addRows([
+				[{v: [ 8,0,0], f:  '8 am'},  1],
+				[{v: [ 9,0,0], f:  '9 am'},  2],
+				[{v: [10,0,0], f: '10 am'},  3],
+				[{v: [11,0,0], f: '11 am'},  4],
+				[{v: [12,0,0], f: '12 am'},  5],
+				[{v: [13,0,0], f: '13 am'},  6],
+				[{v: [14,0,0], f: '14 am'},  7],
+				[{v: [15,0,0], f: '15 am'},  8],
+				[{v: [16,0,0], f: '16 am'},  9],
+				[{v: [17,0,0], f: '17 am'}, 10],
+			]);
 			
-			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart01_div'));
+			var options = {
+				title: 'Motivation Level Throughout the day',
+				hAxis: {
+					title: 'Time of day',
+					format: 'h:mm a',
+					viewWindow: {
+						min: [7, 30, 0],
+						max: [17, 30, 0],
+					}
+				},
+				vAxis: {
+					title: 'Rating (scale of 1-10)'
+				}
+			};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart02_div'));
 
 			chart.draw(data, options);
 		}
 
 		function drawChart03() {
-			var data = google.visualization.arrayToDataTable([]);
+			var data = new google.visualization.DataTable();
+			data.addColumn('timeofday', 'Time of Day');
+			data.addColumn('number', 'Motivation Level');
+			data.addColumn('number', 'Energy Level');
+			data.addRows([
+				[{v: [ 8,0,0], f:  '8 am'},  1,  0.25],
+				[{v: [ 9,0,0], f:  '9 am'},  2,  0.50],
+				[{v: [10,0,0], f: '10 am'},  3,  1.00],
+				[{v: [11,0,0], f: '11 am'},  4,  2.25],
+				[{v: [12,0,0], f: '12 am'},  5,  2.25],
+				[{v: [13,0,0], f: '13 am'},  6,  3.00],
+				[{v: [14,0,0], f: '14 am'},  7,  4.00],
+				[{v: [15,0,0], f: '15 am'},  8,  5.25],
+				[{v: [16,0,0], f: '16 am'},  9,  7.50],
+				[{v: [17,0,0], f: '17 am'}, 10, 10.00],
+			]);
 			
-			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart01_div'));
+			var options = {
+				title: 'Motivation Level Throughout the day',
+				hAxis: {
+					title: 'Time of day',
+					format: 'h:mm a',
+					viewWindow: {
+						min: [7, 30, 0],
+						max: [17, 30, 0],
+					}
+				},
+				vAxis: {
+					title: 'Rating (scale of 1-10)'
+				}
+			};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart03_div'));
 
 			chart.draw(data, options);
 		}
@@ -52,7 +127,7 @@
 			var data = google.visualization.arrayToDataTable([]);
 			
 			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart01_div'));
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart04_div'));
 
 			chart.draw(data, options);
 		}
@@ -61,7 +136,7 @@
 			var data = google.visualization.arrayToDataTable([]);
 			
 			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart01_div'));
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart05_div'));
 
 			chart.draw(data, options);
 		}
@@ -70,7 +145,7 @@
 			var data = google.visualization.arrayToDataTable([]);
 			
 			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart01_div'));
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart06_div'));
 
 			chart.draw(data, options);
 		}
@@ -79,7 +154,7 @@
 			var data = google.visualization.arrayToDataTable([]);
 			
 			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart01_div'));
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart07_div'));
 
 			chart.draw(data, options);
 		}
@@ -88,17 +163,117 @@
 			var data = google.visualization.arrayToDataTable([]);
 			
 			var options = {};
-			var chart = new google.visualization.ColumnChart(document.getElementById('chart01_div'));
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart08_div'));
 
 			chart.draw(data, options);
 		}
 
 		function drawChart09() {
+			var data = google.visualization.arrayToDataTable([]);
 			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart09_div'));
+
+			chart.draw(data, options);
 		}
 		
 		function drawChart10() {
+			var data = google.visualization.arrayToDataTable([]);
 			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart10_div'));
+
+			chart.draw(data, options);
+		}
+		
+		function drawChart11() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart11_div'));
+
+			chart.draw(data, options);
+		}
+		
+		function drawChart12() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart12_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart13() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart13_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart14() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart14_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart15() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart15_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart16() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart16_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart17() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart17_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart18() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart18_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart19() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart19_div'));
+
+			chart.draw(data, options);
+		}
+		
+		function drawChart20() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart20_div'));
+
+			chart.draw(data, options);
 		}
 	</script>
 	<!-- END of the load the AJAX API -->
@@ -117,6 +292,16 @@
 		<tr><td><div id="chart08_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
 		<tr><td><div id="chart09_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
 		<tr><td><div id="chart10_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart11_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart12_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart13_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart14_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart15_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart16_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart17_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart18_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart19_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart20_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
 	</table>
 </body>
 </html>
