@@ -124,18 +124,80 @@
 		}
 
 		function drawChart04() {
-			var data = google.visualization.arrayToDataTable([]);
+			var data = new google.visualization.DataTable();
+			data.addColumn('timeofday', 'Time of Day');
+			data.addColumn('number', 'Motivation Level');
+			data.addColumn('number', 'Energy Level');
+			data.addRows([
+				[{v: [ 8,0,0], f:  '8 am'},  1,  0.25],
+				[{v: [ 9,0,0], f:  '9 am'},  2,  0.50],
+				[{v: [10,0,0], f: '10 am'},  3,  1.00],
+				[{v: [11,0,0], f: '11 am'},  4,  2.25],
+				[{v: [12,0,0], f: '12 am'},  5,  2.25],
+				[{v: [13,0,0], f: '13 am'},  6,  3.00],
+				[{v: [14,0,0], f: '14 am'},  7,  4.00],
+				[{v: [15,0,0], f: '15 am'},  8,  5.25],
+				[{v: [16,0,0], f: '16 am'},  9,  7.50],
+				[{v: [17,0,0], f: '17 am'}, 10, 10.00],
+			]);
 			
-			var options = {};
+			var options = {
+				title: 'Motivation Level Throughout the day',
+				isStacked: true,
+				hAxis: {
+					title: 'Time of day',
+					format: 'h:mm a',
+					viewWindow: {
+						min: [7, 30, 0],
+						max: [17, 30, 0],
+					}
+				},
+				vAxis: {
+					title: 'Rating (scale of 1-10)'
+				}
+			};
 			var chart = new google.visualization.ColumnChart(document.getElementById('chart04_div'));
 
 			chart.draw(data, options);
 		}
 
 		function drawChart05() {
-			var data = google.visualization.arrayToDataTable([]);
+			var data = new google.visualization.DataTable();
+			data.addColumn('timeofday', 'Time of Day');
+			data.addColumn('number', 'Motivation Level');
+			data.addColumn('number', 'Energy Level');
+			data.addRows([
+				[{v: [ 8,0,0], f:  '8 am'},  1,  0.25],
+				[{v: [ 9,0,0], f:  '9 am'},  2,  0.50],
+				[{v: [10,0,0], f: '10 am'},  3,  1.00],
+				[{v: [11,0,0], f: '11 am'},  4,  2.25],
+				[{v: [12,0,0], f: '12 am'},  5,  2.25],
+				[{v: [13,0,0], f: '13 am'},  6,  3.00],
+				[{v: [14,0,0], f: '14 am'},  7,  4.00],
+				[{v: [15,0,0], f: '15 am'},  8,  5.25],
+				[{v: [16,0,0], f: '16 am'},  9,  7.50],
+				[{v: [17,0,0], f: '17 am'}, 10, 10.00],
+			]);
 			
-			var options = {};
+			var options = {
+				title: 'Motivation Level Throughout the day',
+				// isStacked: true,
+				trendlines: {
+					0: {type: 'linear', lineWidth: 5, opacity: 0.3},
+					1: {type: 'exponential', lineWidth:5, opacity: 0.3},
+				},
+				hAxis: {
+					title: 'Time of day',
+					format: 'h:mm a',
+					viewWindow: {
+						min: [7, 30, 0],
+						max: [17, 30, 0],
+					}
+				},
+				vAxis: {
+					title: 'Rating (scale of 1-10)'
+				}
+			};
 			var chart = new google.visualization.ColumnChart(document.getElementById('chart05_div'));
 
 			chart.draw(data, options);
