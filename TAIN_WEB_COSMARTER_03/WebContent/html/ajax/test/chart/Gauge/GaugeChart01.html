@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+	<!-- START of the load the AJAX API -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript">
+		
+		google.charts.load('current', {packages:['gauge']});
+		google.charts.setOnLoadCallback(function() {
+			drawChart01(); //
+			drawChart02(); //
+			drawChart03(); //
+			drawChart04(); //
+			drawChart05(); //
+			drawChart06(); //
+			drawChart07(); //
+			drawChart08(); //
+			drawChart09(); //
+			drawChart10(); //
+			drawChart11(); //
+			drawChart12(); //
+			drawChart13(); //
+			drawChart14(); //
+			drawChart15(); //
+			drawChart16(); //
+			drawChart17(); //
+			drawChart18(); //
+			drawChart19(); //
+			drawChart20(); //
+		});
+		
+		function drawChart01() {
+			var data = google.visualization.arrayToDataTable([
+				['Label', 'Value'],
+				['Memory', 80],
+				['CPU', 55],
+				['Network', 68]
+			]);
+
+			var options = {
+				width: 400,
+				height: 120,
+				redFrom: 90,
+				redTo: 100,
+				yellowFrom:75,
+				yellowTo: 90,
+				minorTicks: 5
+			};
+
+			var chart = new google.visualization.Gauge(document.getElementById('chart01_div'));
+
+			chart.draw(data, options);
+
+			setInterval(function() {
+				data.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+				chart.draw(data, options);
+			}, 13000);
+
+			setInterval(function() {
+				data.setValue(1, 1, 40 + Math.round(60 * Math.random()));
+				chart.draw(data, options);
+			}, 5000);
+
+			setInterval(function() {
+				data.setValue(2, 1, 60 + Math.round(20 * Math.random()));
+				chart.draw(data, options);
+			}, 26000);
+		}
+		
+		function drawChart02() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart02_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart03() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart03_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart04() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart04_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart05() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart05_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart06() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart06_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart07() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart07_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart08() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart08_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart09() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart09_div'));
+
+			chart.draw(data, options);
+		}
+		
+		function drawChart10() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart10_div'));
+
+			chart.draw(data, options);
+		}
+		
+		function drawChart11() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart11_div'));
+
+			chart.draw(data, options);
+		}
+		
+		function drawChart12() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart12_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart13() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart13_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart14() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart14_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart15() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart15_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart16() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart16_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart17() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart17_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart18() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart18_div'));
+
+			chart.draw(data, options);
+		}
+
+		function drawChart19() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart19_div'));
+
+			chart.draw(data, options);
+		}
+		
+		function drawChart20() {
+			var data = google.visualization.arrayToDataTable([]);
+			
+			var options = {};
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart20_div'));
+
+			chart.draw(data, options);
+		}
+	</script>
+	<!-- END of the load the AJAX API -->
+</head>
+<body>
+	<!-- Div that will hold the pie chart -->
+	<table class="columns">
+		<tr><td width=800></td></tr>
+		<tr><td><div id="chart01_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart02_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart03_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart04_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart05_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart06_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart07_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart08_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart09_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart10_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart11_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart12_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart13_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart14_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart15_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart16_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart17_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart18_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart19_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+		<tr><td><div id="chart20_div" style="width:600; height:300; border:1px solid #ccc"></div></td></tr>
+	</table>
+</body>
+</html>
