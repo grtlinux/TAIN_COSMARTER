@@ -1,0 +1,18 @@
+div {
+	line-height: 1.5em;
+	-moz-column-count: 2;
+	-moz-column-gap: 2em;
+	-moz-column-rule-style: solid;
+	-moz-column-rule-color: #ff6699;
+	-webkit-column-count: 2;
+	-webkit-column-gap: 2em;
+	-webkit-column-rule-style: solid;
+	-webkit-column-rule-color: #ff6699;
+	column-count: 2;
+	column-gap: 2em;
+	column-rule-style: solid;
+	column-rule-color: #ff6699;
+}
+p{
+	margin: 0;
+}

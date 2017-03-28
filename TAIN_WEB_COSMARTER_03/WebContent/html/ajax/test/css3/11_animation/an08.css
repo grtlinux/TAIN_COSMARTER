@@ -1,0 +1,45 @@
+@-webkit-keyframes mymove {
+	0% {
+		background-color: #ff3366;
+	}
+	40% {
+		background-color: #ffcc33;
+	}
+	70% {
+		background-color: #99ff66;
+	}
+	100% {
+		background-color: #33ccff;
+	}
+}
+@keyframes mymove {
+	0% {
+		background-color: #ff3366;
+	}
+	40% {
+		background-color: #ffcc33;
+	}
+	70% {
+		background-color: #99ff66;
+	}
+	100% {
+		background-color: #33ccff;
+	}
+}
+div {
+	padding: 2em;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	text-align: center;
+	background-color: #ff3366;
+}
+div:hover {
+	-webkit-animation-name: mymove;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-timing-function: linear;
+	-webkit-animation-delay: 2s;
+	animation-name: mymove;
+	animation-duration: 5s;
+	animation-timing-function: linear;
+	animation-delay: 2s;
+}

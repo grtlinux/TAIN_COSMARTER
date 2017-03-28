@@ -1,0 +1,17 @@
+#sample1 {
+	width: 300px;
+	background-color: #ff6699;
+	text-align: center;
+}
+#sample2 {
+	color: #dc143c;
+	font-family: "Times New Roman", serif;
+	font-weight: bold;
+	font-size: 80px;
+	opacity: 0.0;
+	-webkit-transition: opacity 3s 2s steps(3, start);
+	transition: opacity 3s 2s steps(3, start);
+}
+#sample2:hover {
+	opacity: 1.0;
+}

@@ -1,0 +1,48 @@
+﻿div {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: x-large;
+}
+#container {
+	width: 480px;
+	height: 150px;
+	border: 2px solid #808080;
+	display: -moz-box;		/* Fx용 */
+	display: -webkit-box; 	/* Safari, 스마트폰용 */
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+#item1 {		
+	background-color: #ff9999;
+	width: 100px;
+	-moz-box-ordinal-group: 2;		/* Fx용 */
+	-webkit-box-ordinal-group: 2;  	/* Safari, 스마트폰용 */
+	-ms-flex-order: 1;
+	-webkit-order: 1;
+	order: 1;
+}
+#item2 {	
+	background-color: #ffff66;
+	width: 200px;
+	-moz-box-ordinal-group: 1;		/* Fx용 */
+	-webkit-box-ordinal-group: 1;  	/* Safari, 스마트폰용 */
+	-ms-flex-order: 0;
+	-webkit-order: 0;
+	order: 0;
+}
+#item3 {
+	background-color: #99ffcc;
+	width: 100px;
+	-moz-box-ordinal-group: 1;		/* Fx용 */
+	-webkit-box-ordinal-group: 1;   /* Safari, 스마트폰용 */
+}
+#item4 {
+	background-color: #ccccff;
+	width: 80px;
+	-moz-box-ordinal-group: 3;		/* Fx용 */
+	-webkit-box-ordinal-group: 3;   /* Safari, 스마트폰용 */
+	-ms-flex-order: 1;
+	-webkit-order: 1;
+	order: 1;
+}

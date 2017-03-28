@@ -1,0 +1,16 @@
+div {
+	width: 100px;
+	height: 100px;
+	background-color: #ff0033;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	-webkit-transition-property: width, height, background-color;
+	-webkit-transition-duration: 2s;
+	transition-property: width, height, background-color;
+	transition-duration: 2s;
+}
+div:hover {
+	width: 300px;
+	height: 200px;
+	background-color: #ffff33;
+}

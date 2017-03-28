@@ -1,0 +1,42 @@
+﻿div {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: x-large;
+}
+#container {
+	width: 480px;
+	height: 300px;
+	border: 2px solid #808080;
+	display: -moz-box;		/* Fx용 */
+	display: -webkit-box; 	/* Safari, 스마트폰용 */
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-moz-box-align: end;	/* Fx용 */
+	-webkit-box-align: end;	/* Safari, 스마트폰용 */
+	-ms-flex-align: end;
+	-webkit-align-items: flex-end;
+	align-items: flex-end;
+}
+#item1 {		
+	background-color: #ff9999;
+	width: 100px;
+	height: 200px;
+}
+#item2 {	
+	background-color: #ffff66;
+	width: 200px;
+	height: 150px;
+	-webkit-align-self: flex-start;
+	align-self: flex-start;	
+}
+#item3 {
+	background-color: #99ffcc;
+	width: 100px;
+	height: 250px;
+}
+#item4 {
+	background-color: #ccccff;
+	width: 80px;
+	height: 100px;
+}

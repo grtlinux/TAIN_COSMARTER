@@ -1,0 +1,41 @@
+@-webkit-keyframes mymove {
+	0% {
+		width: 100px;
+		height: 100px;
+	}
+	50% {
+		width: 300px;
+		height: 100px;
+	}
+	100% {
+		width: 300px;
+		height: 300px;
+	}
+}
+@keyframes mymove {
+	0% {
+		width: 100px;
+		height: 100px;
+	}
+	50% {
+		width: 300px;
+		height: 100px;
+	}
+	100% {
+		width: 300px;
+		height: 300px;
+	}
+}
+div {
+	width: 100px;
+	height: 100px;
+	background-color: #ffa500;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+div:hover {
+	-webkit-animation-name: mymove;
+	-webkit-animation-duration: 3s;
+	animation-name: mymove;
+	animation-duration: 3s;
+}

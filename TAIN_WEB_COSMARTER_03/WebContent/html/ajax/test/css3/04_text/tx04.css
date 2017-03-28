@@ -1,0 +1,27 @@
+p { 
+	line-height: 1.5em;	
+	font-family: Helvetica, sans-serif;
+}
+code {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+
+#sample1 { 
+	-ms-hyphens: none;
+	-moz-hyphens: none;
+	-webkit-hyphens: none;
+	hyphens: none;
+}
+#sample2 {	
+	-ms-hyphens: manual;
+	-moz-hyphens: manual;
+	-webkit-hyphens: manual;
+	hyphens: manual;
+}
+#sample3 {	
+	-ms-hyphens: auto;
+	-moz-hyphens: auto;
+	-webkit-hyphens: auto;
+	hyphens: auto;
+}

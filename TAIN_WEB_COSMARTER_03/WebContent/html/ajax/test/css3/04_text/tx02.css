@@ -1,0 +1,18 @@
+p { 
+	width: 30%;
+	background-image: url("bg_line3.gif");
+	line-height: 1.5em;	
+	font-family: Helvetica, sans-serif;
+}
+code {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+#sample1 { 
+	-ms-word-wrap: normal;
+	word-wrap: normal;
+}
+#sample2 {	
+	-ms-word-wrap: break-word;
+	word-wrap: break-word;
+}

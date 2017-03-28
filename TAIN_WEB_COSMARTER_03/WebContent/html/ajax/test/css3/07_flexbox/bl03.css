@@ -1,0 +1,35 @@
+div {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: x-large;
+}
+#container {
+	width: 440px;
+	border: 2px solid #808080;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-ms-flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+#item1 {		
+	background-color: #ff9999;
+	width: 100px;
+	height: 120px;
+}
+#item2 {	
+	background-color: #ffff66;
+	width: 200px;
+	height: 120px;
+}
+#item3 {
+	background-color: #99ffcc;
+	width: 100px;
+	height: 120px;
+}
+#item4 {
+	background-color: #ccccff;
+	width: 80px;
+	height: 120px;
+}

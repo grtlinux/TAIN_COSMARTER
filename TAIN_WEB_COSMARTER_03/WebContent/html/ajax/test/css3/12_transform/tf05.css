@@ -1,0 +1,37 @@
+body {
+	margin-top: 40px;
+}
+div {
+	position: absolute;
+	width: 180px;
+	height: 180px;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: larger;
+}
+#container1 { 
+	background-color: rgba(169, 169, 169, 0.7);
+	-webkit-transform: perspective(500px) rotateY(-45deg);
+	-webkit-transform-style: flat;
+	transform: perspective(500px) rotateY(-45deg);
+	transform-style: flat;
+}
+#sample1 {
+	background-color: rgb(000, 139, 139);
+	-webkit-transform: perspective(500px) translateZ(-500px);
+	transform: perspective(500px) translateZ(-500px);
+}
+#container2 { 
+	left: 200px;
+	background-color: rgba(169, 169, 169, 0.7);
+	-webkit-transform: perspective(500px) rotateY(-45deg);
+	-webkit-transform-style: preserve-3d;
+	transform: perspective(500px) rotateY(-45deg);
+	transform-style: preserve-3d;
+}
+#sample2 {
+	background-color: rgb(000, 139, 139);
+	-webkit-transform: perspective(500px) translateZ(-500px);
+	transform: perspective(500px) translateZ(-500px);
+}
+

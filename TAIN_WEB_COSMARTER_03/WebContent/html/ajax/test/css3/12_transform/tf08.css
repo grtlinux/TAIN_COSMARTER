@@ -1,0 +1,36 @@
+body {
+	margin-top: 30px;
+	margin-left: 20px;
+}
+div {
+	position: absolute;
+	width: 200px;
+	height: 100px;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+#container1 {
+	border: 2px solid rgb(169, 169, 169);
+	-webkit-perspective: none;
+	perspective: none;
+}
+#sample1 {
+	background-color: rgb(000, 139, 139);
+	-webkit-transform: rotateY(180deg);
+	-webkit-backface-visibility: visible;
+	transform: rotateY(180deg);
+	backface-visibility: visible;
+}
+#container2 { 
+	left: 250px;
+	border: 2px solid rgb(169, 169, 169);
+	-webkit-perspective: 500px;
+	perspective: 500px;
+}
+#sample2 {
+	background-color: rgb(000, 139, 139);
+	-webkit-transform: rotateY(180deg);
+	-webkit-backface-visibility: hidden;
+	transform: rotateY(180deg);
+	backface-visibility: hidden;
+}

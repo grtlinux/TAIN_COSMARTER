@@ -1,0 +1,24 @@
+div {
+	margin: 10px;
+	width: 250px;
+	height: 120px;
+	color: #ffffff;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+#sample1 {
+	background: -webkit-linear-gradient(teal, navy);
+	background: linear-gradient(teal, navy);
+}
+#sample2 {
+	background: -webkit-linear-gradient(top left, teal, navy);
+	background: linear-gradient(to bottom right, teal, navy);
+}
+#sample3 {
+	background: -webkit-linear-gradient(135deg, teal, navy);
+	background: linear-gradient(315deg, teal, navy);
+}
+#sample4 {
+	background: -webkit-linear-gradient(left, white, teal 20%, navy 70%, black);
+	background: linear-gradient(to right, white, teal 20%, navy 70%, black);
+}

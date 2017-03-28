@@ -1,0 +1,16 @@
+div {
+	margin: 10px;
+	width: 250px;
+	height: 120px;
+	color: #ffffff;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+#sample1 {
+	background: -webkit-repeating-linear-gradient(left, teal 0%, navy 15%, black 30%);
+	background: repeating-linear-gradient(to right, teal 0%, navy 15%, black 30%);
+}
+#sample2 {
+	background: -webkit-repeating-radial-gradient(60px 50px, 40px 40px, white, red, black);
+	background: repeating-radial-gradient(circle 40px at 60px 50px, white, red, black);
+}

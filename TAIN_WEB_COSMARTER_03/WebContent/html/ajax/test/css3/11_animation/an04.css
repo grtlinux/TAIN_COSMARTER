@@ -1,0 +1,53 @@
+@-webkit-keyframes mymove {
+	0% {
+		left: 0px;
+		width: 100px;
+	}
+	100% {
+		left:0px;
+		width: 400px;
+	}
+}
+@keyframes mymove {
+	0% {
+		left: 0px;
+		width: 100px;
+	}
+	100% {
+		left:0px;
+		width: 400px;
+	}
+}
+div {
+	margin: 1px;
+	width: 100px;
+	height: 50px;
+	position: relative;
+	background-color: #3cb371;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	-webkit-animation-name: mymove;
+	-webkit-animation-duration: 5s;
+	animation-name: mymove;
+	animation-duration: 5s;
+}
+#sample1 {
+	-webkit-animation-timing-function: ease;
+	animation-timing-function: ease;
+}
+#sample2 {
+	-webkit-animation-timing-function: linear;
+	animation-timing-function: linear;
+}
+#sample3 {
+	-webkit-animation-timing-function: ease-in; 
+	animation-timing-function: ease-in;
+}
+#sample4 {
+	-webkit-animation-timing-function: ease-out;
+	animation-timing-function: ease-out;
+}
+#sample5 {
+	-webkit-animation-timing-function: ease-in-out;
+	animation-timing-function: ease-in-out;
+}

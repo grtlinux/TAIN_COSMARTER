@@ -1,0 +1,16 @@
+body {
+	margin-left: 100px;
+}
+div {
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	background-color: rgb(211, 211, 211);	
+	font-family: Helvetica, sans-serif;
+	font-size: larger;
+}
+#sample1 {
+	background-color: rgba(000, 139, 139, 0.8);
+	-webkit-transform: translateZ(-50px) rotateX(50deg);
+	transform: translateZ(-50px) rotateX(50deg);
+}

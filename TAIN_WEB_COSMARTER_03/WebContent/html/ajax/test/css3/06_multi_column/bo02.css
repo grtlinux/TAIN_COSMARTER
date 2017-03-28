@@ -1,0 +1,9 @@
+div {
+	line-height: 1.5em;
+	-moz-column-width: 20em;
+	-webkit-column-width: 20em;
+	column-width: 20em;
+}
+p{
+	margin: 0;
+}

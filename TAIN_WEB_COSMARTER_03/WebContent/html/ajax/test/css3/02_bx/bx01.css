@@ -1,0 +1,15 @@
+div {
+	margin: 30px;
+	padding: 20px;
+	width: 250px;
+	height: 100px;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+#sample1 {
+	box-shadow: navy 4px 4px, gray 10px 5px 10px 10px;
+}
+#sample2 {
+	box-shadow: teal 10px 5px 10px 10px inset;
+}
+

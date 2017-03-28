@@ -1,0 +1,24 @@
+﻿body {
+	margin-top: 30px;
+	margin-left: 20px;
+}
+div {
+	position: absolute;
+	width: 200px;
+	height: 100px;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: large;	
+}
+#container { 
+	border: 2px solid rgb(169, 169, 169);
+	-webkit-perspective: 500px;
+	-webkit-perspective-origin: center 0;
+	perspective: 500px;
+	perspective-origin: center 0;
+}
+#sample {
+	background-color: rgb(000, 139, 139);
+	-webkit-transform: rotateY(-55deg);
+	transform: rotateY(-55deg);
+}

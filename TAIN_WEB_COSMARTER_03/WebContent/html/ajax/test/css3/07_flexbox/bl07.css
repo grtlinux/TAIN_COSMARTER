@@ -1,0 +1,66 @@
+﻿div {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: x-large;
+}
+#container1 {
+	margin-bottom: 1em;
+	width: 600px;
+	height: 100px;
+	border: 2px solid #808080;
+	display: -moz-box;		/* Fx용 */
+	display: -webkit-box; 	/* Safari, 스마트폰용 */
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+#container2 {
+	width: 600px;
+	height: 100px;
+	border: 2px solid #808080;
+	display: -moz-box;		/* Fx용 */
+	display: -webkit-box; 	/* Safari, 스마트폰용 */
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+}
+#item1-1 {		
+	background-color: #ff9999;
+	width:100px;
+}
+#item1-2 {	
+	background-color: #ffff66;
+	width:100px;
+}
+#item1-3 {
+	background-color: #99ffcc;
+	width:100px;
+}
+#item2-1 {		
+	background-color: #ff9999;
+	width: 100px;			/* Fx용, Safari, 스마트폰용 */
+	-moz-box-flex: 0.0;		/* Fx용 */
+	-webkit-box-flex: 0.0;	/* Safari, 스마트폰용 */
+	-ms-flex: 0 0 100px;
+	-webkit-flex: 0 0 100px;
+	flex: 0 0 100px;
+}
+#item2-2 {	
+	background-color: #ffff66;
+	width: 100px;			/* Fx용, Safari, 스마트폰용 */
+	-moz-box-flex: 1.0;		/* Fx용 */
+	-webkit-box-flex: 1.0;	/* Safari, 스마트폰용 */
+	-ms-flex: 1 1 100px;
+	-webkit-flex: 1 1 100px;
+	flex: 1 1 100px;
+}
+#item2-3 {
+	background-color: #99ffcc;
+	width: 100px;			/* Fx용, Safari, 스마트폰용 */
+	-moz-box-flex: 2.0;		/* Fx용 */
+	-webkit-box-flex: 2.0;	/* Safari, 스마트폰용 */
+	-ms-flex: 2 2 100px;
+	-webkit-flex: 2 2 100px;
+	flex: 2 2 100px;
+}
+

@@ -1,0 +1,15 @@
+div {
+	padding: 5px;
+	position: absolute;
+	width: 200px;
+	height: 30px;
+	background-color: #ffa500;	
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+#sample1 {
+	-ms-transform: translate(200px, 200px) rotate(45deg) scale(2, 1.5);
+	-webkit-transform: translate(200px, 200px) rotate(45deg) scale(2, 1.5);
+	transform: translate(200px, 200px) rotate(45deg) scale(2, 1.5);
+}
+

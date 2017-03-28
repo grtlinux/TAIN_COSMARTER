@@ -1,0 +1,14 @@
+div {
+	padding: 2em;
+	background-color: #3333ff;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	text-align: center;
+	-webkit-transition-property: background-color;
+	-webkit-transition-duration: 2s;
+	transition-property: background-color;
+	transition-duration: 2s;
+}
+div:hover {
+	background-color: #00ff99;
+}

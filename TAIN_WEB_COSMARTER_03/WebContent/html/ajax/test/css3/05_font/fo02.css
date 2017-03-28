@@ -1,0 +1,11 @@
+@font-face {
+	font-family: mplus-1c-black-webfont;
+	src: url("fonts/mplus-1c-black-webfont.woff") format("woff");
+	src: url("fonts/mplus-1c-black-webfont.ttf") format("truetype");
+}
+blockquote {
+	margin: 20px 10px;
+}
+#sample {
+	font-family: mplus-1c-black-webfont;
+}

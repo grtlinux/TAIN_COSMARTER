@@ -1,0 +1,33 @@
+div {
+	margin-right:10px;
+	width: 300px;
+	color: #ffffff;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+div.container {
+	margin: 30px 10px;
+	width: 100%;
+	height: 140px;
+	display: -ms-flexbox;
+	display: -moz-box;
+	display: -webkit-flex;
+	display: -webkit-box;
+	display: flex;
+}
+#circle1 {
+	background: -webkit-radial-gradient(60px 50px, 40px 40px, white, black);
+	background: radial-gradient(circle 40px at 60px 50px, white, black);
+}
+#circle2 {
+	background: -webkit-radial-gradient(center, circle closest-side, white, red 55%, black);
+	background: radial-gradient(circle closest-side at center, white, red 55%, black);
+}
+#ellipse1 {
+	background: -webkit-radial-gradient(20% 90%, 150px 80px, white, black);
+	background: radial-gradient(ellipse 150px 80px at 20% 90%, white, black);
+}
+#ellipse2 {
+	background: -webkit-radial-gradient(center, ellipse farthest-side, white, red 55%, black);
+	background: radial-gradient(ellipse farthest-side at center, white, red 55%, black);
+}

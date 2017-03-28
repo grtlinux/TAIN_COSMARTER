@@ -1,0 +1,17 @@
+p { 
+	width: 50%;
+	border: 1px solid darkcyan;
+	line-height: 1.5em;	
+	overflow: hidden;
+	white-space: nowrap;
+}
+code {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+#sample1 { 
+	text-overflow: clip;
+}
+#sample2 {	
+	text-overflow: ellipsis;
+}

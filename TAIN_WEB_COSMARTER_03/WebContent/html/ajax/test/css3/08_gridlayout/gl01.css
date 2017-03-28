@@ -1,0 +1,30 @@
+div {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: large;
+}
+#container {
+	width: 600px;
+	height: 300px;
+	background-color: #fffff0;
+	border: 2px dotted #808080;
+	display: -ms-grid;
+	-ms-grid-columns: 100px 300px 200px;
+	-ms-grid-rows: 100px 200px;
+}
+#item1 {		
+	background-color: #ff6600;
+	-ms-grid-column: 1;
+	-ms-grid-row: 1;
+}
+#item2 {	
+	background-color: #ffcc33;
+	-ms-grid-column: 2;
+	-ms-grid-row: 1;
+}
+#item3 {
+	background-color: #33ff99;
+	-ms-grid-column: 2;
+	-ms-grid-row: 2;
+	-ms-grid-column-span: 2;
+}

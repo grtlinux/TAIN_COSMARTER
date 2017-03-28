@@ -1,0 +1,46 @@
+body{
+	margin: 20px;
+	background: url(sky.jpg);
+}
+code {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+div {
+	padding: 15px;
+	border: 10px solid #ffffff;
+	background-color: #00cc99;
+}
+#sample00 {
+	opacity: 0.0;
+}
+#sample01 {
+	opacity: 0.1;
+}
+#sample02 {
+	opacity: 0.2;
+}
+#sample03 {
+	opacity: 0.3;
+}
+#sample04 {
+	opacity: 0.4;
+}
+#sample05 {
+	opacity: 0.5;
+}
+#sample06 {
+	opacity: 0.6;
+}
+#sample07 {
+	opacity: 0.7;
+}
+#sample08 {
+	opacity: 0.8;
+}
+#sample09 {
+	opacity: 0.9;
+}
+#sample10 {
+	opacity: 1.0;
+}

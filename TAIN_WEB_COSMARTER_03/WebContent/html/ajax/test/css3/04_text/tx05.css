@@ -1,0 +1,13 @@
+p {
+	background-color: #dcdcdc;
+	white-space: pre;
+}
+span {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+#sample { 
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+}
