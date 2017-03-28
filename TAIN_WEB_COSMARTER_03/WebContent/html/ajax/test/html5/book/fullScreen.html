@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+	<script>
+	function startFullScreen(element) {
+		if (!true) alert('start FullScreen');
+		
+		if (element.requestFullScreen) {
+			element.requestFullScreen();
+		} else if (element.webkitRequestFullScreen) {
+			element.webkitRequestFullScreen();  // chrome
+		} else if (element.mozRequestFullScreen) {
+			element.mozRequestFullScreen();   // mozaic
+		} else if (element.msRequestFullScreen) {
+			element.msRequestFullScreen();  // IE
+		}
+	}
+	
+	function exitFullScreen(element) {
+		if (!true) alert('exit FullScreen');
+		
+		if (element.exitFullScreen) {
+			element.exitFullScreen();
+		} else if (element.cancelFullScreen) {
+			element.cancelFullScreen();  // chrome
+		} else if (element.webkitCancelFullScreen) {
+			element.webkitCancelFullScreen();  // chrome
+		} else if (element.mozCancelFullScreen) {
+			element.mozCancelFullScreen();   // mozaic
+		} else if (element.msExitFullScreen) {
+			element.msExitFullScreen();  // IE
+		}
+	}
+	</script>
+</head>
+<body>
+	<button onclick="startFullScreen(document.documentElement)">start FullScreen</button>
+	<button onclick="exitFullScreen(document)">exit FullScreen</button>
+</body>
+</html>
