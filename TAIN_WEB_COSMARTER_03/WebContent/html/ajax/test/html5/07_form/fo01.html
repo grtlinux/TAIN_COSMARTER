@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>폼을 만들고 싶다</title>
+</head>
+<body>
+<form action="cgi-bin/formsample.cgi" method="post">
+  <p>
+    <label>이름 : <input type="text" name="username" required></label>
+    <label>연령 : <input type="number" name="age" min="0"></label>
+  </p>
+    <p><label for="job">직업 : </label>
+      <select name="job" id="job">
+        <option value="office">회사원</option>
+        <option value="public">공무원</option>
+        <option value="self">자영업/자유업</option>
+        <option value="student">학생</option>
+        <option value="house">주부</option>
+        <option value="other">기타</option>
+      </select>
+    </p>
+    <p><label>전화번호 : <input type="tel" name="tel"></label></p>
+    <p><label>E-mail : <input type="email" name="email"></label></p>
+    <p><label><input type="checkbox" name="dm" checked>DM 수신 희망</label></p>
+    <p><input type="reset"><input type="submit"></p>
+</form>
+</body>
+</html>

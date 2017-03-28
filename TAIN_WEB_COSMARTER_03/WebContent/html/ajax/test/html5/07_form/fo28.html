@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>입력 후보 목록을 만들고 싶다</title>
+</head>
+<body>
+<form action="cgi-bin/formsample.cgi" method="post">
+	<p>
+		<input type="search" name="search" list="item" placeholder="사이트내 검색">
+		<input type="submit" value="검색">
+	</p>
+	<datalist id="item">
+		<option value="Copypelna V3"></option>
+		<option value="Copypelna V2"></option>
+		<option value="Copypelna "></option>
+		<option value="Copypelna Server"></option>
+	</datalist>
+</form>
+</body>
+</html>

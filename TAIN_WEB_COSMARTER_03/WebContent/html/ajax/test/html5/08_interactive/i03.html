@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>명령의 메뉴를 나타내고 싶다</title>
+</head>
+<body>
+<menu type="toolbar">
+ <li>
+  <menu label="파일">
+   <button type="button" onclick="fnew()">새 파일</button>
+   <button type="button" onclick="fopen()">열기</button>
+   <button type="button" onclick="fsave()">저장</button>
+   <button type="button" onclick="fsaveas()">새 이름으로 저장</button>
+  </menu>
+ </li>
+ <li>
+  <menu label="편집">
+   <button type="button" onclick="ecopy()">복사</button>
+   <button type="button" onclick="ecut()">잘라내기</button>
+   <button type="button" onclick="epaste()">붙여넣기</button>
+  </menu>
+ </li>
+ <li>
+  <menu label="도움말">
+   <li><a href="help.html">도움팔</a></li>
+   <li><a href="about.html">도서출판 성안당에 대해</a></li>
+  </menu>
+ </li>
+</menu>
+</body>
+</html>

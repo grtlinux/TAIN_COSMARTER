@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>스크립트를 사용하여 그림을 그리고 싶다</title>
+<script type="text/javascript">
+var ctx;
+var canvasW;
+var canvasH;
+var x = 3;		// 원의 진행 방향 및 거리(x)
+var y = 3;		// 원의 진행 방향 및 거리(y)
+var radius = 30;		// 원의 반경
+var arcX = radius;	// 원의 중심의 x좌표
+var arcY = radius;	// 원의 중심의 y좌표
+var colors = new Array("rgb(255, 0, 0)", "rgb(0, 255, 0)", "rgb(0, 0, 255)", "rgb(255, 255, 0)", "rgb(0, 255, 255)");		// 원을 칠할 색
+var currentColor = 0;
+onload = function() {
+    ctx = document.getElementById("canvas1").getContext("2d");
+    canvasW = document.getElementById("canvas1").width;
+    canvasH = document.getElementById("canvas1").height;
+    exec();
+}
+function exec() {
+    arcX += x;
+    arcY += y;
+    ctx.clearRect(0, 0, canvasW, canvasH);		// canvas를 지운다
+        ctx.beginPath();				// 원을 그린다
+    ctx.fillStyle = colors[currentColor];
+    ctx.arc(arcX, arcY, radius, 0, Math.PI * 2, false);
+    ctx.fill();
+    if (arcX <= radius || arcX > canvasW - radius) {
+        x = -x;					// 원의 진행 방향(x)를 변경한다
+        currentColor++;				// 원의 색을 변경한다
+        if (currentColor >= colors.length) { currentColor = 0; }
+    }
+    if (arcY <= radius || arcY > canvasH - radius) {
+        y = -y;					// 원의 진행 방향(y)를 변경한다
+        currentColor++;				// 원의 색을 변경한다
+        if (currentColor >= colors.length) { currentColor = 0; }
+    }
+    setTimeout(exec, 10);
+}
+</script>
+</head>
+<body>
+<canvas id="canvas1" width="800" height="300"></canvas>
+</body>
+</html>

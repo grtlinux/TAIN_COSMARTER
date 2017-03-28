@@ -1,0 +1,14 @@
+table, th, td {
+	border: 1px solid #a9a9a9;
+	border-collapse: collapse;
+}
+th, td {
+	padding:0.5em
+}
+thead {
+	background-color: #ff9999;
+}
+tfoot {
+	font-size: smaller;
+	text-align: right;
+}

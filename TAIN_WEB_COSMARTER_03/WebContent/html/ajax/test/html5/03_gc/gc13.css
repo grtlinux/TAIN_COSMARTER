@@ -1,0 +1,9 @@
+div {
+	padding: 0 0.5em;
+	border: 1px solid #0033ff;
+	width: 300px;
+	font-family: Helvetica, Arial,sans-serif;
+}
+code {
+	color: #ff0000;
+}

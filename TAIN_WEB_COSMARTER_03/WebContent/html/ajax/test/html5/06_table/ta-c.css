@@ -1,0 +1,13 @@
+th, td {
+	padding:0.5em
+}
+.shop {
+	background-color: #cc99ff;
+}
+.address {
+	width:10em;
+	background-color: #99ccff;
+}
+.time {
+	background-color: #ccffcc;
+}

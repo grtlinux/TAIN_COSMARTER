@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>메뉴의 선택 항목을 그룹화하고 싶다</title>
+</head>
+<body>
+<form action="cgi-bin/formsample.cgi" method="post">
+	<p>자주 사용하는 샴푸는?</p>
+	<select name="shampoo">
+		<optgroup label="모이스처 시리즈">
+			<option label="리치" value="rm">리치 모이스처</option>
+			<option label="수퍼 리치" value="srm">수퍼 리치 모이스처</option>
+			<option label="실키" value="sm">실키 모이스처</option>
+		</optgroup>
+		<optgroup label="손상 케어 시리즈">
+			<option label="리페어" value="dr">손상 리페어</option>
+			<option label="울트라 리페어" value="udr">손상 울트라 리페어</option>
+		</optgroup>
+	</select>
+</form>
+</body>
+</html>
