@@ -1,0 +1,23 @@
+div {
+	margin: 20px;
+	padding: 20px;
+	border: 15px solid rgba(255,069,000,0.5);
+	width: 350px;
+	height: 50px;
+	background: url(dia1.gif) no-repeat;
+}
+code {
+	color: #ffffff;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+}
+#sample1 {
+	background-origin: padding-box;
+}
+#sample2 {
+	background-origin: border-box;
+}
+#sample3 {
+	background-origin: content-box;
+}

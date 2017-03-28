@@ -1,0 +1,20 @@
+div {
+	margin: 30px;
+	padding: 20px;
+	width: 250px;
+	height: 100px;
+	border: 40px solid transparent;
+	border-image-source: url(frame.gif);
+	border-image-slice: 50;
+	border-image-width: 40px;
+}
+code {
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+}
+#sample1 {
+	border-image-repeat: repeat;
+}
+#sample2 {
+	border-image-repeat: round stretch;
+}

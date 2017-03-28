@@ -1,0 +1,19 @@
+div {
+	margin: 30px;
+	padding: 20px;
+	width: 200px;
+	height: 100px;
+	color: #ffffff;
+	background-color: #66ccff;
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	-moz-border-radius: 20px 50px;
+	border-radius: 20px 50px;
+}
+#sample1 {
+	border: 3px solid #3399ff;
+	background-color: #66ccff;	
+}
+#sample2 {
+	background-image: url("candy.jpg");
+}

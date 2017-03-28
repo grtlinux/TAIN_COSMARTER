@@ -1,0 +1,6 @@
+body {
+	background-image: url(rabbit_flute.png), url(balloon.png), url(sky_photo.jpg);
+	background-repeat: no-repeat;
+	background-position: 600px 500px, 120px 100px, 30px 20px;
+	background-color: #f0ffff;
+}

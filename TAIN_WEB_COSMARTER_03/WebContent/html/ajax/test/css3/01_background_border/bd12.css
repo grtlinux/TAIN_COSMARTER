@@ -1,0 +1,11 @@
+div {
+	padding: 1em;
+	width: 250px;
+	height: 30px;
+	color: #808080;
+	border-width: 55px 25px;
+	border-style: solid;
+	border-color: red;
+	-o-border-image: url(woodframe.jpg) 55 / 55px 25px stretch;
+	border-image: url(woodframe.jpg) 55 fill / 55px 25px stretch;
+}

@@ -1,0 +1,22 @@
+body {
+	margin: 30px;
+}
+div{
+	padding: 1em;
+	width: 200px;
+	height: 20px;
+	color: #808080;
+	font-family: Helvetica, sans-serif;
+	border: 55px solid #cd853f;
+	border-image-source: url(woodframe.jpg);
+	border-image-slice: 55 fill;
+	border-image-width: 55px;
+
+}
+div#sample1 {
+	margin-bottom: 30px;
+}
+div#sample2 {
+	border-image-outset: 20px;
+}
+

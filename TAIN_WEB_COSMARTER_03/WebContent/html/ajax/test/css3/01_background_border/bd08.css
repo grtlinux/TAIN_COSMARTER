@@ -1,0 +1,10 @@
+div {
+	padding: 1em;
+	width: 250px;
+	height: 30px;
+	color: #808080;
+	border: 55px solid #cd853f;
+	border-image-source: url(woodframe.jpg);
+	border-image-slice: 55 fill;
+	border-image-width: auto;
+}

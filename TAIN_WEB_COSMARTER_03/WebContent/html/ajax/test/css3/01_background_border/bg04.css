@@ -1,0 +1,26 @@
+div {
+	margin: 20px;
+	padding: 20px;
+	border: 1px solid rgb(210,105,030);
+	width: 350px;
+	height: 100px;
+	background-image: url(carrot.gif);
+	background-repeat: no-repeat;
+}
+code{
+	font-family: Helvetica, sans-serif;
+	font-weight: bold;
+	font-size: 18px;
+}
+#sample1 {
+	background-size: contain;
+}
+#sample2 {
+	background-size: cover;
+}
+#sample3 {
+	background-size: auto 90px;
+}
+#sample4 {
+	background-size: 100% 100%;
+}
