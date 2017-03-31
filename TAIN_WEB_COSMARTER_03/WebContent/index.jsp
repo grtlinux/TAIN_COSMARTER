@@ -97,6 +97,7 @@ limitations under the License.
 							<li role="presentation"><a target="iframeA" href="/html/ajax/moniter/01.html">01. 나중에..</a></li>
 							<li role="presentation"><a target="iframeA" href="/html/ajax/moniter/02.html">02. 차트-2</a></li>
 							<li role="presentation"><a target="iframeA" href="/html/ajax/moniter/03.html">03. 차트-3</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/moniter/04.html">04. 차트-4</a></li>
 						</ul>
 					</li>
 				</ul>
