@@ -49,7 +49,7 @@
 				+ "    F_CPUNM = 'TOTAL' "
 				+ "order by "
 				+ "    F_DTTM desc "
-				+ "offset 0 rows fetch next 200 rows only"
+				+ "offset 0 rows fetch next 300 rows only"
 				);
 		
 		for (int i=0; rs.next(); i++) {
