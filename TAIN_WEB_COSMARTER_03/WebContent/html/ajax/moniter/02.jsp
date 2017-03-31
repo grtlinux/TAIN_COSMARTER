@@ -53,4 +53,4 @@
 ['Los Angeles, CA', 3792000, 3694000],
 ['Chicago, IL', 2695000, 2896000],
 ['Houston, TX', 2099000, 1953000],
-['Philadelphia, PA', 1526000, 1517000]
+['Philadelphia, PA', 1526000, 1517000],
