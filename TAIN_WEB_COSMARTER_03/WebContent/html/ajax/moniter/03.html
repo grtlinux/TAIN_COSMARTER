@@ -62,13 +62,15 @@
 			var data = google.visualization.arrayToDataTable(arrData);
 			var options = {
 				title: 'Population of Largest U.S. Cities',
-				chartArea: {width: '50%'},
+				//chartArea: {width: '50%'},
+				width: 600,
+				height:800,
 				hAxis: {
-					title: 'Total Population',
+					title: '사용(%)',
 					minValue: 0
 				},
 				vAxis: {
-					title: 'City'
+					title: '구분'
 				}
 			};
 			
@@ -80,7 +82,7 @@
 </head>
 <body>
 	<p>
-		<button type="button" onclick="ajax('./02.jsp');" >차트-2</button>
+		<button type="button" onclick="ajax('./03.jsp');" >차트-2</button>
 	</p>
 
 	<div id="chart01_div" style="border:1px solid #ccc"></div>
