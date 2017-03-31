@@ -1,11 +1,13 @@
 <%@ page contentType="text/plain; charset=euc-kr" %>
-<%@ page import = "tain.kr.com.proj.cosmarter.v04.base.Version" %>
+<%@ page import = "java.text.SimpleDateFormat" %>
+<%@ page import = "java.util.Date" %>
 <%
 	boolean flag = true;
 
-	System.out.println("KANG");
+	String strDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(new Date());
 	
-	String message = "Hello world!!!!";
-	message += Version.getInstance().getVersion();
+	if (flag) System.out.printf("KANG [%s]\n", strDate);
+	
+	String message = String.format("Hello world!!!![%s]", strDate);
 %>
 <%= message %>
