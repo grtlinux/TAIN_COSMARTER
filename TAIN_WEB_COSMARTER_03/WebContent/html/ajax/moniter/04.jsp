@@ -18,7 +18,7 @@
 	Connection conn = null;
 	Statement stmt = null;
 	
-	StringBuffer sbResult = new StringBuffer("['F_DTTM', 'F_USR', 'F_SYS', 'F_IDL', ],\n");
+	StringBuffer sbResult = new StringBuffer();
 	
 	try {
 		Class.forName(driver).newInstance();
@@ -49,12 +49,13 @@
 				+ "    F_CPUNM = 'TOTAL' "
 				+ "order by "
 				+ "    F_DTTM desc "
-				+ "offset 0 rows fetch next 10 rows only"
+				+ "offset 0 rows fetch next 200 rows only"
 				);
 		
 		for (int i=0; rs.next(); i++) {
 			sbResult.append("[");
-			sbResult.append("'").append(rs.getTime("TIME_DTTM")).append("',");
+			sbResult.append("").append(i).append(",");
+			//sbResult.append("'").append(rs.getTime("TIME_DTTM")).append("',");
 			sbResult.append("").append(rs.getDouble("F_USR")).append(",");
 			sbResult.append("").append(rs.getDouble("F_SYS")).append(",");
 			sbResult.append("").append(rs.getDouble("F_IDL")).append(",");
