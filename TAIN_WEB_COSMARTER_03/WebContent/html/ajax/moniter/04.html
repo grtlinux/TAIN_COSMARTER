@@ -51,7 +51,7 @@
 		function response(result) {
 			var arrData = eval("[" + result + "]"); 
 			
-			google.charts.load('current', {packages:['corechart']});
+			google.charts.load('current', {packages:['line']});
 			google.charts.setOnLoadCallback(function() {
 				drawChart01(arrData);
 			});
@@ -59,22 +59,23 @@
 		}
 		
 		function drawChart01(arrData) {
-			var data = google.visualization.arrayToDataTable(arrData);
+			var data = new google.visualization.DataTable();
+			data.addColumn('number', 'Sequence');
+			data.addColumn('number', 'User(%)');
+			data.addColumn('number', 'Sys(%)');
+			data.addColumn('number', 'Idle(%)');
+			data.addRows(arrData);
+			
 			var options = {
-				title: 'Population of Largest U.S. Cities',
-				//chartArea: {width: '50%'},
-				width: 600,
-				height:800,
-				hAxis: {
-					title: '사용(%)',
-					minValue: 0
+				chart: {
+					title: 'Box Office Earnings in First Two Week of Opening',
+					subtitle: 'in millions of dollars (USB)'
 				},
-				vAxis: {
-					title: '구분'
-				}
+				width: 600,
+				height: 300,
 			};
 			
-			var chart = new google.visualization.BarChart(document.getElementById('chart01_div'));
+			var chart = new google.charts.Line(document.getElementById('chart01_div'));
 			
 			chart.draw(data, options);
 		}
@@ -82,7 +83,7 @@
 </head>
 <body>
 	<p>
-		<button type="button" onclick="ajax('./03.jsp');" >차트-2</button>
+		<button type="button" onclick="ajax('./04.jsp');" >차트-2</button>
 	</p>
 
 	<div id="chart01_div" style="border:1px solid #ccc"></div>
