@@ -1,56 +1,71 @@
 <%@ page contentType="text/plain; charset=euc-kr" %>
-<%@ page import = "tain.kr.com.proj.cosmarter.v04.bean.BeanCommand" %>
-<%@ page import = "tain.kr.com.proj.cosmarter.v04.main.client.BeanClient" %>
+<%@ page import = "java.sql.Connection" %>
+<%@ page import = "java.sql.DriverManager" %>
+<%@ page import = "java.sql.ResultSet" %>
+<%@ page import = "java.sql.SQLException" %>
+<%@ page import = "java.sql.Statement" %>
+<%@ page import = "java.util.Properties" %>
 <%
 	boolean flag = true;
 
-	String result = null;
+	String driver = "org.apache.derby.jdbc.ClientDriver";
+	String protocol = "jdbc:derby://localhost:1527/";
+	String database = "taindb01";
+	String create = "false";
+	String user = "kang";
+	String password = "kang123!";
 	
-	if (!flag) {
-		/*
-		 * before
-		 */
-		request.setCharacterEncoding("euc-kr");
-		String name = request.getParameter("name");
-		
-		if (!flag) System.out.println("KANG : Hello");
-		
-		BeanCommand bean = new BeanCommand();
-		
-		bean.setName("lstResult");
-		bean.setDesc("list Result");
-		
-		bean.setHost("127.0.0.1");
-		bean.setPort("7412");
-		
-		bean.setCmd(new String[] { "cmd", "/c", "dir" });
-		bean.setEnv(new String[] { "PARAM1=hello", "PARAM2=world" });
-		bean.setDir("./");
-		bean.setArgs(null);
-		
-		bean.setSkipCmd(new String[] { "W", "L2", "L10", "R3-7", "Y오전", "Y오후" });
-		bean.setFldName(new String[] { "일자", "구분", "시간", "정보" });
-		if (flag) bean.print();
-
-		BeanClient.getInstance().process(bean);
-		
-		result = bean.getResult();
-		if (flag) System.out.println(result);
-		
-		if (flag) result = result.replaceAll("<","&lt;").replaceAll(">","&gt;");
-	}
+	Connection conn = null;
+	Statement stmt = null;
 	
-	if (flag) {
-		/*
-		 * chart data
-		 */
-		result = "";
+	StringBuffer sbResult = new StringBuffer("['F_DTTM', 'F_USR', 'F_SYS', 'F_IDL', ],\n");
+	
+	try {
+		Class.forName(driver).newInstance();
+		
+		Properties prop = new Properties();
+		prop.put("create", create);
+		prop.put("user", user);
+		prop.put("password", password);
+		
+		conn = DriverManager.getConnection(protocol + database, prop);
+		stmt = conn.createStatement();
+		
+		ResultSet rs = stmt.executeQuery(""
+				+ "select "
+				+ "    TIME(F_DTTM) AS TIME_DTTM , "
+				+ "    F_CPUNM       , "
+				+ "    F_USR         , "
+				+ "    F_SYS         , "
+				+ "    F_IDL         , "
+				+ "    F_WAIT        , "
+				+ "    F_NCE         , "
+				+ "    F_CMB         , "
+				+ "    F_IRQ         , "
+				+ "    DTTM_REG        "
+				+ "from "
+				+ "    KANG.TB_CPUREC "
+				+ "where "
+				+ "    F_CPUNM = 'TOTAL' "
+				+ "order by "
+				+ "    F_DTTM desc "
+				+ "offset 0 rows fetch next 10 rows only"
+				);
+		
+		for (int i=0; rs.next(); i++) {
+			sbResult.append("[");
+			sbResult.append("'").append(rs.getTime("TIME_DTTM")).append("',");
+			sbResult.append("").append(rs.getDouble("F_USR")).append(",");
+			sbResult.append("").append(rs.getDouble("F_SYS")).append(",");
+			sbResult.append("").append(rs.getDouble("F_IDL")).append(",");
+			sbResult.append("]").append(",\n");
+		}
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		if (stmt != null) try { stmt.close(); } catch (Exception e) {}
+		if (conn != null) try { conn.close(); } catch (Exception e) {}
 	}
 %>
-<%= result %>
-['City', '2010 Population', '2000 Population'],
-['New York City, NY', 8175000, 8008000],
-['Los Angeles, CA', 3792000, 3694000],
-['Chicago, IL', 2695000, 2896000],
-['Houston, TX', 2099000, 1953000],
-['Philadelphia, PA', 1526000, 1517000]
+<%= sbResult.toString() %>
