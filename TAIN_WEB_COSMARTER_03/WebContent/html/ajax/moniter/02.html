@@ -21,6 +21,8 @@
 			background-color: #ffffff;
 		}
 	</style>
+	<!-- START of the load the AJAX API -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script>
 		function ajax(url) {
 			
@@ -47,30 +49,32 @@
 		}
 		
 		function response(result) {
-			//var ret = JSON.parse(response);       // fixed format
-			var ret = eval("(" + result + ")");   // permit format
+			var arrData = eval("[" + result + "]"); 
 			
-			var out = "<table>";
+			google.charts.load('current', {packages:['corechart']});
+			google.charts.setOnLoadCallback(function() {
+				drawChart01(arrData);
+			});
 			
-			out += "<tr>";
-			out += "<td>" + ret.lstResult[0].일자   + "</td>";
-			out += "<td>" + ret.lstResult[0].구분   + "</td>";
-			out += "<td>" + ret.lstResult[0].시간 + "</td>";
-			out += "<td>" + ret.lstResult[0].정보   + "</td>";
-			out += "</tr>";
-
-			for (var i=1; i < ret.lstResult.length; i++) {
-				out += "<tr>";
-				out += "<td>" + ret.lstResult[i].일자   + "</td>";
-				out += "<td>" + ret.lstResult[i].구분   + "</td>";
-				out += "<td>" + ret.lstResult[i].시간 + "</td>";
-				out += "<td>" + ret.lstResult[i].정보   + "</td>";
-				out += "</tr>";
-			}
+		}
+		
+		function drawChart01(arrData) {
+			var data = google.visualization.arrayToDataTable(arrData);
+			var options = {
+				title: 'Population of Largest U.S. Cities',
+				chartArea: {width: '50%'},
+				hAxis: {
+					title: 'Total Population',
+					minValue: 0
+				},
+				vAxis: {
+					title: 'City'
+				}
+			};
 			
-			out += "</table>";
+			var chart = new google.visualization.BarChart(document.getElementById('chart01_div'));
 			
-			document.getElementById("tbl01").innerHTML = out;
+			chart.draw(data, options);
 		}
 	</script>
 </head>
@@ -79,8 +83,7 @@
 		<button type="button" onclick="ajax('./02.jsp');" >차트-2</button>
 	</p>
 
-	<div id="tbl01">
-	</div>
-
+	<div id="chart01_div" style="border:1px solid #ccc"></div>
+	
 </body>
 </html>
