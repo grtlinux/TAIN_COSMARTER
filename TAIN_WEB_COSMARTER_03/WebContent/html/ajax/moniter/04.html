@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="euc-kr">
+	<title>monitor</title>
+	<style>
+		table, th, td {
+			border: 1px solid grey;
+			border-collapse: collapse;
+			padding: 5px;
+			font-size: 13px;
+			font-family: "굴림체";
+			font-style: normal;
+		}
+		
+		table tr:nth-child(odd) {
+			background-color: #f1f1f1;
+		}
+		
+		table tr:nth-child(even) {
+			background-color: #ffffff;
+		}
+	</style>
+	<!-- START of the load the AJAX API -->
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
+		function ajax(url) {
+			
+			var xhr;
+			
+			if (window.ActiveXObject) {
+				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+			} else if (window.XMLHttpRequest) {
+				xhr = new XMLHttpRequest();
+			}
+			
+			xhr.onreadystatechange = function() {
+				if (xhr.readyState == 4 && xhr.status == 200) {
+					var result = xhr.responseText.replace(/^\s*/,"").replace(/\s*$/,"");  // remove space charater in front and end
+					if (true) console.log(result);
+					
+					response(result);
+				}
+			};
+			
+			xhr.open("POST", url, true);
+			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=euc-kr");
+			xhr.send();
+		}
+		
+		function response(result) {
+			var arrData = eval("[" + result + "]"); 
+			
+			google.charts.load('current', {packages:['corechart']});
+			google.charts.setOnLoadCallback(function() {
+				drawChart01(arrData);
+			});
+			
+		}
+		
+		function drawChart01(arrData) {
+			var data = google.visualization.arrayToDataTable(arrData);
+			var options = {
+				title: 'Population of Largest U.S. Cities',
+				//chartArea: {width: '50%'},
+				width: 600,
+				height:800,
+				hAxis: {
+					title: '사용(%)',
+					minValue: 0
+				},
+				vAxis: {
+					title: '구분'
+				}
+			};
+			
+			var chart = new google.visualization.BarChart(document.getElementById('chart01_div'));
+			
+			chart.draw(data, options);
+		}
+	</script>
+</head>
+<body>
+	<p>
+		<button type="button" onclick="ajax('./03.jsp');" >차트-2</button>
+	</p>
+
+	<div id="chart01_div" style="border:1px solid #ccc"></div>
+	
+</body>
+</html>
