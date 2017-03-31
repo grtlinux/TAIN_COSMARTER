@@ -90,6 +90,14 @@ limitations under the License.
 							<!-- li role="presentation"><a href="#">메뉴 4-1</a></li -->
 						</ul>
 					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">차트<b class="caret"></b></a>
+						<ul class="dropdown-menu">
+							<li role="presentation"><a target="iframeA" href="/html/ajax/moniter/00.html">00. Hello world!!</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/moniter/01.html">01. 나중에..</a></li>
+							<li role="presentation"><a target="iframeA" href="/html/ajax/moniter/02.html">02. 차트-2</a></li>
+						</ul>
+					</li>
 				</ul>
 				
 				<form class="navbar-form navbar-right" role="search">
