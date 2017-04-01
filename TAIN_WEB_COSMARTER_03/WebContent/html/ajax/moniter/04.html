@@ -46,6 +46,8 @@
 			xhr.open("POST", url, true);
 			xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=euc-kr");
 			xhr.send();
+			
+			setTimeout("ajax('./04.jsp')", 60 * 1000);
 		}
 		
 		function response(result) {
@@ -78,15 +80,25 @@
 			var chart = new google.charts.Line(document.getElementById('chart01_div'));
 			
 			chart.draw(data, options);
+			
+			displayTime();
+		}
+		
+		function displayTime() {
+			
+			var now = new Date();
+			var str = "[" + now.getHours() + ":" + now.getMinutes() + "]";
+			
+			document.getElementById("time_div").innerHTML = str;
 		}
 	</script>
 </head>
 <body>
 	<p>
-		<button type="button" onclick="ajax('./04.jsp');" >차트-2</button>
+		<button type="button" onclick="ajax('./04.jsp');" >차트-4<div id="time_div" style="color:red;"></div></button>
 	</p>
 
-	<div id="chart01_div" style="border:1px solid #ccc"></div>
+	<div id="chart01_div" style="border:1px solid #ccc;"></div>
 	
 </body>
 </html>
