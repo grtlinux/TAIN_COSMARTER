@@ -61,9 +61,9 @@
 		function drawChart01(arrData) {
 			var data = new google.visualization.DataTable();
 			data.addColumn('number', 'Sequence');
-			data.addColumn('number', 'User(%)');
-			data.addColumn('number', 'Sys(%)');
 			data.addColumn('number', 'Idle(%)');
+			data.addColumn('number', 'User(%)');
+			data.addColumn('number', 'Combined(%)');
 			data.addRows(arrData);
 			
 			var options = {
