@@ -49,16 +49,16 @@
 				+ "    F_CPUNM = 'TOTAL' "
 				+ "order by "
 				+ "    F_DTTM desc "
-				+ "offset 0 rows fetch next 300 rows only"
+				+ "offset 0 rows fetch next 200 rows only"
 				);
 		
 		for (int i=0; rs.next(); i++) {
 			sbResult.append("[");
 			sbResult.append("").append(i).append(",");
 			//sbResult.append("'").append(rs.getTime("TIME_DTTM")).append("',");
-			sbResult.append("").append(rs.getDouble("F_USR")).append(",");
-			sbResult.append("").append(rs.getDouble("F_SYS")).append(",");
 			sbResult.append("").append(rs.getDouble("F_IDL")).append(",");
+			sbResult.append("").append(rs.getDouble("F_USR")).append(",");
+			sbResult.append("").append(rs.getDouble("F_CMB")).append(",");
 			sbResult.append("]").append(",\n");
 		}
 		
