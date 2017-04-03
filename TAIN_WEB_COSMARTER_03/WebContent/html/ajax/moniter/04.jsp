@@ -53,7 +53,7 @@
 				);
 		
 		int i = 0;
-		for (boolean flg=rs.last(); flg; flag=rs.previous()) {
+		for (boolean flg=rs.last(); flg; flg=rs.previous()) {
 			sbResult.append("[");
 			sbResult.append("").append(i++).append(",");
 			//sbResult.append("'").append(rs.getTime("TIME_DTTM")).append("',");
