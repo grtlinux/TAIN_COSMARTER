@@ -29,7 +29,7 @@
 		prop.put("password", password);
 		
 		conn = DriverManager.getConnection(protocol + database, prop);
-		stmt = conn.createStatement();
+		stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 		
 		ResultSet rs = stmt.executeQuery(""
 				+ "select "
@@ -52,9 +52,10 @@
 				+ "offset 0 rows fetch next 200 rows only"
 				);
 		
-		for (int i=0; rs.next(); i++) {
+		int i = 0;
+		for (boolean flg=rs.last(); flg; flag=rs.previous()) {
 			sbResult.append("[");
-			sbResult.append("").append(i).append(",");
+			sbResult.append("").append(i++).append(",");
 			//sbResult.append("'").append(rs.getTime("TIME_DTTM")).append("',");
 			sbResult.append("").append(rs.getDouble("F_IDL")).append(",");
 			sbResult.append("").append(rs.getDouble("F_USR")).append(",");
