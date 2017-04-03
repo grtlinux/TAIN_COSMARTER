@@ -87,7 +87,11 @@
 		function displayTime() {
 			
 			var now = new Date();
-			var str = "[" + now.getHours() + ":" + now.getMinutes() + "]";
+			var str = "["
+				+ (now.getHours() < 10 ? "0" : "") + now.getHours()
+				+ ":"
+				+ (now.getMinutes() < 10 ? "0" : "") + now.getMinutes()
+				+ "]";
 			
 			document.getElementById("time_div").innerHTML = str;
 		}
